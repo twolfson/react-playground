@@ -39,8 +39,8 @@
   "keywords": [],
   "foundry": {
     "releaseCommands": [
-      "foundry-release-git",
-      "foundry-release-npm"
+      "foundry-release-git"
     ]
-  }
+  },
+  "private": true
 }
