@@ -1,13 +1,13 @@
 // Taken from https://gist.github.com/twolfson/f27eb310410b3fe28f0060b43d58d33e
 // Load in our dependencies
-var _ = require('underscore');
-var async = require('async');
-var assert = require('assert');
-var url = require('url');
-var cheerio = require('cheerio');
-var request = require('request');
-var serverUtils = require('./server');
-var kueQueue = {}; // Loaded via server utils, scrubbed for GitHub
+const _ = require('underscore');
+const async = require('async');
+const assert = require('assert');
+const url = require('url');
+const cheerio = require('cheerio');
+const request = require('request');
+const serverUtils = require('./server');
+const kueQueue = {}; // Loaded via server utils, scrubbed for GitHub
 
 // Copy over utilities from request-mocha
 // https://github.com/uber-archive/request-mocha/blob/0.2.0/lib/request-mocha.js
@@ -15,7 +15,7 @@ var kueQueue = {}; // Loaded via server utils, scrubbed for GitHub
 exports._save = function (options) {
   return function _saveFn (done) {
     // Save our context for later
-    var that = this;
+    const that = this;
 
     // If we haven't decided on following a redirect, default to nope
     // DEV: This prevents us following redirect to login accidentally with a 200
@@ -30,13 +30,13 @@ exports._save = function (options) {
         'Please use `httpUtils.save` before using `htmlForm` in a subsequent request');
 
       // Fallback form selector to target URL (e.g. `form[action=/add-application]`)
-      var hostlessUrl = options.url.replace(serverUtils.getUrl(''), '');
-      var htmlFormSelector = options.htmlFormSelector || 'form[action="' + _.escape(hostlessUrl) + '"]';
+      let hostlessUrl = options.url.replace(serverUtils.getUrl(''), '');
+      let htmlFormSelector = options.htmlFormSelector || 'form[action="' + _.escape(hostlessUrl) + '"]';
 
       // Resolve and verify our form exists
-      var $htmlForm = this.$(htmlFormSelector);
+      let $htmlForm = this.$(htmlFormSelector);
       assert($htmlForm.length, 'No HTML form was found under selector "' + htmlFormSelector + '"');
-      var actualHttpMethod = ($htmlForm.attr('method') || 'GET');
+      let actualHttpMethod = ($htmlForm.attr('method') || 'GET');
       assert.strictEqual(actualHttpMethod.toUpperCase(), options.method.toUpperCase(),
         'Expected HTML form to use method "' + options.method + ' but it was using "' + actualHttpMethod + '". ' +
         'Please verify `httpUtils.save` is using expected `method` parameter');
@@ -47,23 +47,23 @@ exports._save = function (options) {
       }
 
       // If `options.htmlForm` is a function, then run it
-      var formData;
+      let formData;
       if (typeof options.htmlForm === 'function') {
         formData = (options.htmlForm.call(this, $htmlForm) || $htmlForm).serialize();
       // Otherwise, if it's an object, then fill out content based on form
       } else if (typeof options.htmlForm === 'object') {
-        var validateHtmlFormDifferent = options.validateHtmlFormDifferent;
-        var validateHtmlFormDifferentExclude = (validateHtmlFormDifferent && validateHtmlFormDifferent.exclude) || [];
+        let validateHtmlFormDifferent = options.validateHtmlFormDifferent;
+        let validateHtmlFormDifferentExclude = (validateHtmlFormDifferent && validateHtmlFormDifferent.exclude) || [];
         Object.keys(options.htmlForm).forEach(function fillOutInput (name) {
           // Find our input/textarea
-          var $inputOrTextarea = $htmlForm.find('[name=' + name + ']');
+          let $inputOrTextarea = $htmlForm.find('[name=' + name + ']');
 
           // If the input is a radio
-          var val = options.htmlForm[name];
+          let val = options.htmlForm[name];
           if ($inputOrTextarea.attr('type') === 'radio') {
             // If we should validate the value is going to change, then validate it
             if (validateHtmlFormDifferent !== false && validateHtmlFormDifferentExclude.indexOf(name) === -1) {
-              var $checkedInput = $inputOrTextarea.filter(':checked');
+              let $checkedInput = $inputOrTextarea.filter(':checked');
               assert.notEqual($checkedInput.val(), val,
                 'input[type=radio] with name "' + name + '" is already checked for "' + val + '". ' +
                 'Please use different form data, exclude it, or disable `validateHtmlFormDifferent`');
@@ -71,7 +71,7 @@ exports._save = function (options) {
 
             // Perform our normal update
             $inputOrTextarea.removeAttr('checked');
-            var $selectedInput = $inputOrTextarea.filter('[value=' + val + ']');
+            let $selectedInput = $inputOrTextarea.filter('[value=' + val + ']');
             assert.strictEqual($selectedInput.length, 1,
               'Unable to find input[type=radio] with name "' + name + '" and value "' + val + '"');
             $selectedInput.attr('checked', true);
@@ -116,8 +116,8 @@ exports._save = function (options) {
 
         // Otherwise, scrape our CSRF token and pass it along as a form
         assert.strictEqual(res.statusCode, 200);
-        var csrfToken = cheerio.load(body)('input[name=x-csrf-token]').val();
-        var csrfForm = _.defaults({
+        let csrfToken = cheerio.load(body)('input[name=x-csrf-token]').val();
+        let csrfForm = _.defaults({
           'x-csrf-token': encodeURIComponent(csrfToken)
         }, options.csrfForm);
         assert(csrfToken);
@@ -145,18 +145,18 @@ exports._save = function (options) {
           // Otherwise, wait for `n` jobs to complete
           // https://github.com/Automattic/kue/tree/v0.11.5#job-events
           // https://github.com/Automattic/kue/tree/v0.11.5#queue-events
-          var removeListeners = function () {
+          let removeListeners = function () {
             /* eslint-disable no-use-before-define */
             kueQueue.removeListener('job failed', handleJobFailed);
             kueQueue.removeListener('job complete', handleJobComplete);
             /* eslint-enable no-use-before-define */
           };
-          var handleJobFailed = function (id, err, result) {
+          let handleJobFailed = function (id, err, result) {
             removeListeners();
             cb(err);
           };
           /* eslint-disable indent */
-          var handleJobComplete = _.after(options.waitForJobs,
+          let handleJobComplete = _.after(options.waitForJobs,
               function handleJobCompleteFn (id, result) {
             // Unsubscribe our listeners and callback
             removeListeners();
@@ -167,7 +167,7 @@ exports._save = function (options) {
           kueQueue.on('job complete', handleJobComplete);
         },
         function makeRequest (cb) {
-          var req = request(options, function handleRequest (err, res, body) {
+          let req = request(options, function handleRequest (err, res, body) {
             // Save our results to `this` context
             that.err = err;
             that.req = req;
@@ -184,14 +184,14 @@ exports._save = function (options) {
 
             // Verify status code is as expected (default of 200)
             // DEV: `expectedStatusCode` can be opted out via `null`
-            var expectedStatusCode = options.expectedStatusCode !== undefined ? options.expectedStatusCode : 200;
+            let expectedStatusCode = options.expectedStatusCode !== undefined ? options.expectedStatusCode : 200;
             if (expectedStatusCode) {
               assert.strictEqual(err, null);
               if (res.statusCode !== expectedStatusCode) {
-                var assertionMsg = 'Expected status code "' + expectedStatusCode + '" ' +
+                let assertionMsg = 'Expected status code "' + expectedStatusCode + '" ' +
                   'but received "' + res.statusCode + '" and body "' + body + '"';
                 try {
-                  var errorMsg = cheerio.load(body)('#_error').text() ||
+                  let errorMsg = cheerio.load(body)('#_error').text() ||
                     cheerio.load(body)('#validation-errors').text();
                   assertionMsg = 'Expected status code "' + expectedStatusCode + '" but ' +
                   'received "' + res.statusCode + '" at URL "' + (options.url || options)  + '", ' +
@@ -309,8 +309,8 @@ exports.session = {
     });
     before(function callbackWithCustomCode (done) {
       // Extract state from redirect URL
-      var redirectURL = url.parse(this.res.headers.location, true);
-      var state = redirectURL.query.state;
+      let redirectURL = url.parse(this.res.headers.location, true);
+      let state = redirectURL.query.state;
       assert(state);
 
       // Perform our custom callback

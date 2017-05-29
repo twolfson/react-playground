@@ -1,7 +1,7 @@
 // Load in dependencies
-var expect = require('chai').expect;
-var httpUtils = require('./utils/http');
-var serverUtils = require('./utils/server');
+const expect = require('chai').expect;
+const httpUtils = require('./utils/http');
+const serverUtils = require('./utils/server');
 
 // Start our tests
 describe('A request to our server', function () {

@@ -1,7 +1,7 @@
 // Load in our dependencies
-var assert = require('assert');
-var express = require('express');
-var _config = require('../config').getConfig();
+const assert = require('assert');
+const express = require('express');
+const _config = require('../config').getConfig();
 
 // Define our server
 function Server(config) {
@@ -9,7 +9,7 @@ function Server(config) {
   this.config = config;
 
   // Create a new server
-  var app = this.app = express();
+  const app = this.app = express();
 
   // Define a root route
   app.get('/', function handleRootShow (req, res, next) {

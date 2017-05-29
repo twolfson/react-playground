@@ -1,7 +1,7 @@
 // Load in our dependencies
-var url = require('url');
-var _ = require('underscore');
-var server = require('../../../server/index.js');
+const url = require('url');
+const _ = require('underscore');
+const server = require('../../../server/index.js');
 
 // Start our server immediately
 // TODO: Start server globally before other tests via a `--require`
