@@ -1,6 +1,7 @@
 // Load in our dependencies
 var assert = require('assert');
 var express = require('express');
+var _config = require('../config').getConfig();
 
 // Define our server
 function Server(config) {

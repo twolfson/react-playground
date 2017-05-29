@@ -1,3 +1,6 @@
+// Load in our dependencies
+var _ = require('underscore');
+
 // Define a simple config for now
 var config = {};
 config.listen = {
@@ -9,7 +12,7 @@ config.url = {
     protocol: 'http',
     hostname: 'localhost',
     port: config.listen.port
-  }
+  },
   external: {
     protocol: 'http',
     hostname: 'localhost',
