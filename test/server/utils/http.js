@@ -105,7 +105,7 @@ exports._save = function (options) {
     // If there is a CSRF form to generate, then collect our CSRF token and generate a form
     if (options.csrfForm) {
       assert(options.jar, 'Expected `csrfForm` to be used in a `httpUtils.session` context but it was not');
-      request({
+      return request({
         jar: options.jar,
         url: serverUtils.getUrl('/add-application/save-for-later')
       }, function handleRequest (err, res, body) {
@@ -130,11 +130,11 @@ exports._save = function (options) {
       });
     // Otherwise, make our request
     } else {
-      next();
+      return next();
     }
 
     // Make our request
-    function next() { // jshint ignore:line
+    function next() {
       async.parallel([
         function waitForJobs (cb) {
           // If we have no jobs to wait for, callback now
@@ -146,19 +146,23 @@ exports._save = function (options) {
           // https://github.com/Automattic/kue/tree/v0.11.5#job-events
           // https://github.com/Automattic/kue/tree/v0.11.5#queue-events
           var removeListeners = function () {
+            /* eslint-disable no-use-before-define */
             kueQueue.removeListener('job failed', handleJobFailed);
             kueQueue.removeListener('job complete', handleJobComplete);
+            /* eslint-enable no-use-before-define */
           };
-          var handleJobFailed = function (id, err, result) { // jshint ignore:line
+          var handleJobFailed = function (id, err, result) {
             removeListeners();
             cb(err);
           };
-          var handleJobComplete = _.after(options.waitForJobs, // jshint ignore:line
+          /* eslint-disable indent */
+          var handleJobComplete = _.after(options.waitForJobs,
               function handleJobCompleteFn (id, result) {
             // Unsubscribe our listeners and callback
             removeListeners();
             cb();
           });
+          /* eslint-enable indent */
           kueQueue.on('job failed', handleJobFailed);
           kueQueue.on('job complete', handleJobComplete);
         },
@@ -204,6 +208,7 @@ exports._save = function (options) {
               try {
                 that.$ = cheerio.load(body);
               } catch (err) {
+                // eslint-disable-next-line no-console
                 console.error('Tried to parse response body as HTML but failed. ' +
                   'If response should not be parsed, set `parseHTML` to `false`');
                 throw err;

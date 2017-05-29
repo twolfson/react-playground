@@ -49,13 +49,13 @@ exports.monkeyPatchExpress = function (domainErrorCallback) {
   // https://github.com/expressjs/express/blob/4.14.0/lib/application.js#L467-L511
   // https://github.com/expressjs/express/blob/4.14.0/lib/router/route.js#L164-L210
   var _all = Route.prototype.all;
-  Route.prototype.all = function (/*controller|controllerArr*/) {
+  Route.prototype.all = function (/* controller|controllerArr */) {
     // Flatten all controllers into a single array
     // i.e. `.all(fn)` -> `arguments = handles = [fn]`
     //   `.all([fn1, fn2])` -> `arguments = [[fn1, fn2]]` -> `handles = [fn1, fn2]`
     var handles = flatten(slice.call(arguments));
     // Map our controllers with domain wrappers
-    for (var i = 0; i < handles.length; i++) {
+    for (var i = 0; i < handles.length; i += 1) {
       var handle = handles[i];
       assert.strictEqual(typeof handle, 'function');
       if (handle.length <= 3) {
@@ -67,14 +67,14 @@ exports.monkeyPatchExpress = function (domainErrorCallback) {
   };
   methods.forEach(function wrapRouteMethods (method) {
     var _methodFn = Route.prototype[method];
-    Route.prototype[method] = function (/*controller|controllerArr*/) {
+    Route.prototype[method] = function (/* controller|controllerArr */) {
       // Flatten all controllers into a single array
       // i.e. `.all(fn)` -> `arguments = handles = [fn]`
       //   `.all([fn1, fn2])` -> `arguments = [[fn1, fn2]]` -> `handles = [fn1, fn2]`
       var handles = flatten(slice.call(arguments));
 
       // Map our controllers with domain wrappers
-      for (var i = 0; i < handles.length; i++) {
+      for (var i = 0; i < handles.length; i += 1) {
         var handle = handles[i];
         assert.strictEqual(typeof handle, 'function');
         if (handle.length <= 3) {
@@ -93,7 +93,6 @@ exports.monkeyPatchExpress = function (domainErrorCallback) {
   routerProto.use = function (fn) {
     // Determine offset of controllers via original Express logic
     var offset = 0;
-    var path = '/';
 
     // default path to '/'
     // disambiguate router.use([fn])
@@ -107,14 +106,13 @@ exports.monkeyPatchExpress = function (domainErrorCallback) {
       // first arg is the path
       if (typeof arg !== 'function') {
         offset = 1;
-        path = fn;
       }
     }
 
     // Map our controllers with domain wrappers
     var args = flatten(slice.call(arguments));
     var callbacks = args;
-    for (var i = offset; i < callbacks.length; i++) {
+    for (var i = offset; i < callbacks.length; i += 1) {
       var callback = callbacks[i];
       assert.strictEqual(typeof callback, 'function');
       if (callback.length <= 3) {
