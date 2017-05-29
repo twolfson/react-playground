@@ -2,6 +2,15 @@
 
 Playground environment for GraphQL, React, and more
 
+We've already used React in [plaidchat][] but want to take things further. In this repo, we plan to cover exploring:
+
+- [ ] ES6 exports
+- [ ] GraphQL
+- [ ] React
+- [ ] JSX
+- [ ] Relay
+- [ ] Webpack
+
 ## Getting Started
 Install the module with: `npm install react-playground`
 
