@@ -1,7 +1,10 @@
 // Load in our dependencies
-const assert = require('assert');
-const express = require('express');
-const _config = require('../config').getConfig();
+import assert from 'assert';
+import express from 'express';
+import {getConfig} from '../config';
+
+// Load our config
+const _config = getConfig();
 
 // Define our server
 function Server(config) {
@@ -27,4 +30,5 @@ Server.prototype.close = function (cb) {
 };
 
 // Export an initialized yet not listening server
-module.exports = new Server(_config);
+const server = new Server(_config);
+export default server;

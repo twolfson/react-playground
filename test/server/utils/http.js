@@ -1,18 +1,18 @@
 // Taken from https://gist.github.com/twolfson/f27eb310410b3fe28f0060b43d58d33e
 // Load in our dependencies
-const _ = require('underscore');
-const async = require('async');
-const assert = require('assert');
-const url = require('url');
-const cheerio = require('cheerio');
-const request = require('request');
-const serverUtils = require('./server');
+import _ from 'underscore';
+import async from 'async';
+import assert from 'assert';
+import url from 'url';
+import cheerio from 'cheerio';
+import request from 'request';
+import serverUtils from './server';
 const kueQueue = {}; // Loaded via server utils, scrubbed for GitHub
 
 // Copy over utilities from request-mocha
 // https://github.com/uber-archive/request-mocha/blob/0.2.0/lib/request-mocha.js
 // DEV: We use copy/paste as it's easier to integrate Cheerio parsing
-exports._save = function (options) {
+export const _save = function (options) {
   return function _saveFn (done) {
     // Save our context for later
     const that = this;
@@ -223,7 +223,7 @@ exports._save = function (options) {
     }
   };
 };
-exports._saveCleanup = function () {
+export const _saveCleanup = function () {
   return function _saveCleanupFn () {
     delete this.err;
     delete this.req;
@@ -234,13 +234,13 @@ exports._saveCleanup = function () {
     delete this.$;
   };
 };
-exports.save = function (options) {
-  before(exports._save(options));
-  after(exports._saveCleanup(options));
+export const save = function (options) {
+  before(_save(options));
+  after(_saveCleanup(options));
 };
 
 // Define session-based methods
-exports.session = {
+export const session = {
   _save: function (options) {
     return function saveFn (done) {
       // Verify we have a cookie jar to leverage
@@ -261,12 +261,12 @@ exports.session = {
       }
 
       // Make our request
-      return exports._save(options).call(this, done);
+      return _save(options).call(this, done);
     };
   },
   save: function (options) {
-    before(exports.session._save(options));
-    after(exports._saveCleanup(options));
+    before(session._save(options));
+    after(_saveCleanup(options));
     return this;
   },
   init: function () {
@@ -298,7 +298,7 @@ exports.session = {
     // Scrape state and pass along to callback with custom code
     // DEV: We are using `code` as a key to determine which candidate to log in
     //   so we cannot use `/oauth/google/request` as it uses a mock code
-    exports.session.save({
+    session.save({
       // Redirects to fake Google OAuth
       url: serverUtils.getUrl({
         pathname: '/oauth/google/request',
@@ -314,7 +314,7 @@ exports.session = {
       assert(state);
 
       // Perform our custom callback
-      exports.session._save({
+      session._save({
         url: serverUtils.getUrl({
           pathname: '/oauth/google/callback',
           query: {action: 'login', state: state, code: candidateKey}

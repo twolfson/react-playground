@@ -1,18 +1,18 @@
 // Based on https://gist.github.com/twolfson/c1de950ea28fcbf74be8962257bd75bc
 // Load in our dependencies
-const assert = require('assert');
-const domain = require('domain');
-const flatten = require('underscore').flatten;
-const methods = require('methods');
-const routerProto = require('express/lib/router/index.js');
-const Route = require('express/lib/router/route.js');
+import assert from 'assert';
+import domain from 'domain';
+import {flatten} from 'underscore';
+import methods from 'methods';
+import routerProto from 'express/lib/router/index.js';
+import Route from 'express/lib/router/route.js';
 const slice = Array.prototype.slice;
 
 // Define our singleton constants
 let monkeyPatchedExpress = false;
 
 // Define and export our wrapper function
-exports.monkeyPatchExpress = function (domainErrorCallback) {
+export const monkeyPatchExpress = function (domainErrorCallback) {
   // If Express has already been monkey patched, then error out
   if (monkeyPatchedExpress === true) {
     throw new Error('Express cannot be wrapped with domains twice as we refer to a server singleton. ' +

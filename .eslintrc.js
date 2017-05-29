@@ -22,6 +22,8 @@ module.exports = {
   rules: {
     'no-var': WARN,
     // Ignore `this` related strict mode warnings
-    'no-invalid-this': OFF
+    'no-invalid-this': OFF,
+    // Disallow CommonJS module/exports
+    'no-restricted-globals': [WARN, 'require', 'module', 'exports']
   }
 };

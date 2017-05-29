@@ -1,7 +1,7 @@
 // Load in our dependencies
-const assert = require('assert');
-const Settings = require('shallow-settings');
-const staticConfig = require('./static');
+import assert from 'assert';
+import Settings from 'shallow-settings';
+import staticConfig from './static';
 
 // Resolve our environment
 const env = process.env.ENV;
@@ -15,7 +15,7 @@ assert(['development', 'test', 'production'].indexOf(env) !== -1,
 process.env.NODE_ENV = env;
 
 // Define our settings
-exports.getConfig = function () {
+export const getConfig = function () {
   // Load our settings
   let settings = new Settings(staticConfig);
   let config = settings.getSettings({env: env});
