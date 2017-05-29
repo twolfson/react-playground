@@ -10,6 +10,7 @@ We've already used React in [plaidchat][] but want to take things further. In th
 - [ ] JSX
 - [ ] Relay
 - [ ] Webpack
+- [ ] Server side rendering
 
 [plaidchat]: https://github.com/plaidchat/plaidchat/tree/v2.15.1
 
