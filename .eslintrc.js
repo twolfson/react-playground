@@ -1,4 +1,5 @@
 // Define our constants
+const OFF = 'off';
 const WARN = 'warn';
 
 // Define our config
@@ -8,14 +9,19 @@ module.exports = {
 
   // Configure our environment
   // http://eslint.org/docs/user-guide/configuring#specifying-environments
+  parserOptions: {
+    ecmaVersion: 6,
+    sourceType: 'module',
+  },
   env: {
     node: true,
     mocha: true,
-    es6: true
   },
 
   // Set up ES6 rules
   rules: {
-    'no-var': WARN
+    'no-var': WARN,
+    // Ignore `this` related strict mode warnings
+    'no-invalid-this': OFF
   }
 };

@@ -23,10 +23,10 @@
   "scripts": {
     "precheck": "eslint *.js bin/ config/ server/ test/",
     "lint": "eslint *.js bin/ config/ server/ test/ --max-warnings 0",
-    "start": "bin/react-playground-server",
-    "start-develop": "ENV=development nodemon -x bin/react-playground-server",
+    "start": "babel-node bin/react-playground-server",
+    "start-develop": "ENV=development nodemon -x 'babel-node bin/react-playground-server'",
     "test": "npm run precheck && npm run test-server && npm run lint",
-    "test-server": "ENV=test mocha --reporter dot test/server/"
+    "test-server": "ENV=test mocha --compilers js:babel-register --reporter dot test/server/"
   },
   "dependencies": {
     "express": "~4.15.3",
@@ -36,6 +36,9 @@
   },
   "devDependencies": {
     "async": "~2.4.1",
+    "babel-cli": "~6.24.1",
+    "babel-preset-env": "~1.5.1",
+    "babel-register": "~6.24.1",
     "chai": "~4.0.0",
     "cheerio": "~1.0.0-rc.1",
     "eslint": "~3.19.0",
