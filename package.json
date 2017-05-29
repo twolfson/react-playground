@@ -15,26 +15,26 @@
   "bugs": {
     "url": "https://github.com/twolfson/react-playground/issues"
   },
-  "main": "lib/react-playground",
+  "main": "server/index",
   "engines": {
     "node": ">= 4.0.0"
   },
   "license": "Unlicense",
   "scripts": {
-    "precheck": "twolfson-style precheck lib/ test/",
-    "lint": "twolfson-style lint lib/ test/",
-    "pretest": "twolfson-style install",
+    "precheck": "eslint server/ test/",
+    "lint": "eslint server/ test/ --max-warnings 0",
     "test": "npm run precheck && mocha --reporter dot && npm run lint"
   },
-  "dependencies": {},
+  "dependencies": {
+    "express": "~4.15.3"
+  },
   "devDependencies": {
+    "eslint": "~3.19.0",
+    "eslint-config-twolfson": "git://github.com/twolfson/eslint-config-twolfson#ab5ea8b",
     "foundry": "~4.3.2",
     "foundry-release-git": "~2.0.2",
     "foundry-release-npm": "~2.0.2",
-    "jscs": "~3.0.7",
-    "jshint": "~2.9.4",
-    "mocha": "~3.1.2",
-    "twolfson-style": "~1.6.1"
+    "mocha": "~3.1.2"
   },
   "keywords": [],
   "foundry": {
