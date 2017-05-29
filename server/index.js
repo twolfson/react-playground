@@ -2,9 +2,6 @@
 var assert = require('assert');
 var express = require('express');
 
-// Define our config
-var _config = {};
-
 // Define our server
 function Server(config) {
   // Save our config for later
