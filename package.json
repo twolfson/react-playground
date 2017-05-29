@@ -24,9 +24,9 @@
     "precheck": "eslint server/ test/",
     "lint": "eslint server/ test/ --max-warnings 0",
     "start": "bin/react-playground-server",
-    "start-develop": "nodemon -x bin/react-playground-server",
+    "start-develop": "ENV=development nodemon -x bin/react-playground-server",
     "test": "npm run precheck && npm run test-server && npm run lint",
-    "test-server": "mocha --reporter dot test/server/"
+    "test-server": "ENV=test mocha --reporter dot test/server/"
   },
   "dependencies": {
     "express": "~4.15.3",
