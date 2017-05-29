@@ -22,7 +22,7 @@ To get our repo running locally, run the following steps:
 # Install yarn globally
 # DEV: We use yarn due to linking all dependencies to their "first lookup" locations
 #   Without this, `babel-node` takes a lot longer in its lookups on disk
-#    https://github.com/babel/babel/issues/2706
+#   https://github.com/babel/babel/issues/2706
 npm install --global yarn
 
 # Clone our repository
