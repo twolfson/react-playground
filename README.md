@@ -4,7 +4,8 @@ Playground environment for GraphQL, React, and more
 
 We've already used React in [plaidchat][] but want to take things further. In this repo, we plan to cover exploring:
 
-- [ ] ES6 imports/exports
+- [x] Yarn
+- [x] ES6 imports/exports
 - [ ] GraphQL
 - [ ] React
 - [ ] JSX
@@ -18,12 +19,18 @@ We've already used React in [plaidchat][] but want to take things further. In th
 To get our repo running locally, run the following steps:
 
 ```bash
+# Install yarn globally
+# DEV: We use yarn due to linking all dependencies to their "first lookup" locations
+#   Without this, `babel-node` takes a lot longer in its lookups on disk
+#    https://github.com/babel/babel/issues/2706
+npm install --global yarn
+
 # Clone our repository
 git clone https://github.com/twolfson/react-playground
 cd react-playground
 
 # Install our dependencies
-npm install
+yarn install
 
 # Start our server
 npm run start
