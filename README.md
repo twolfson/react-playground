@@ -11,6 +11,8 @@ We've already used React in [plaidchat][] but want to take things further. In th
 - [ ] Relay
 - [ ] Webpack
 
+[plaidchat]: https://github.com/plaidchat/plaidchat/tree/v2.15.1
+
 ## Getting Started
 Install the module with: `npm install react-playground`
 
