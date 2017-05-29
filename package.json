@@ -21,8 +21,8 @@
   },
   "license": "Unlicense",
   "scripts": {
-    "precheck": "eslint *.js server/ test/",
-    "lint": "eslint *.js server/ test/ --max-warnings 0",
+    "precheck": "eslint *.js bin/ config/ server/ test/",
+    "lint": "eslint *.js bin/ config/ server/ test/ --max-warnings 0",
     "start": "bin/react-playground-server",
     "start-develop": "ENV=development nodemon -x bin/react-playground-server",
     "test": "npm run precheck && npm run test-server && npm run lint",

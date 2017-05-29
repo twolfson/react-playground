@@ -1,6 +1,6 @@
 // Based on https://github.com/twolfson/twolfson.com/blob/3.87.0/config/static.js
 // Load in our dependencies
-var _ = require('underscore');
+const _ = require('underscore');
 
 // DEV: When we want to store secrets, follow SOPS' all-in-one secret convention
 //   We prefer it over per-file as we can use aliasing in non-JSON files
@@ -23,22 +23,22 @@ exports.production = {
 };
 
 // Merge in grouped settings
-var configFiles = [
+const configFiles = [
   './static-url'
 ];
 configFiles.forEach(function mergeConfigFile (configFile) {
   // Assert that the new config has no repeated keys
-  var mainConfig = exports;
-  var newConfig = require(configFile); // eslint-disable-line global-require
-  var mainKeys = _.union(
+  const mainConfig = exports;
+  const newConfig = require(configFile); // eslint-disable-line global-require
+  let mainKeys = _.union(
     _.keys(mainConfig.common), _.keys(mainConfig.development),
     _.keys(mainConfig.test), _.keys(mainConfig.production)
   );
-  var newKeys = _.union(
+  let newKeys = _.union(
     _.keys(newConfig.common), _.keys(newConfig.development),
     _.keys(newConfig.test), _.keys(newConfig.production)
   );
-  var sameKeys = _.intersection(mainKeys, newKeys);
+  let sameKeys = _.intersection(mainKeys, newKeys);
   if (sameKeys.length > 0) {
     throw new Error('Duplicate keys found in multiple configs. Expected none. Found: ' + JSON.stringify(sameKeys));
   }

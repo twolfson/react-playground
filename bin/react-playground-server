@@ -2,15 +2,15 @@
 /* eslint-disable global-require */
 // Based on https://gist.github.com/twolfson/c1de950ea28fcbf74be8962257bd75bc
 // Load in our dependencies
-var cluster = require('cluster');
-var notWinston = console;
+const cluster = require('cluster');
+const notWinston = console;
 
 // If we are on the master
 // DEV: Ideally we skip cluster and use multiple servers but this is for demonstration
 if (cluster.isMaster) {
   // Load master specific dependencies
-  var config = require('../config').getConfig();
-  var url = require('url');
+  const config = require('../config').getConfig();
+  const url = require('url');
 
   // Create 2 workers (i.e. server instances)
   cluster.fork();
@@ -23,19 +23,19 @@ if (cluster.isMaster) {
   });
 
   // Notify the user that the server is running
-  var serverUrl = url.format(config.url.external) + '/';
+  const serverUrl = url.format(config.url.external) + '/';
   notWinston.info('Server running at ' + serverUrl);
 // Otherwise (we are on the worker)
 } else {
   // Load worker specific dependencies
   // DEV: We lazy load server after Express is monkey patched so our domains catch all the things
-  var expressDomainWrapper = require('../server/utils/express-domain-wrapper');
-  var server;
+  const expressDomainWrapper = require('../server/utils/express-domain-wrapper');
+  let server;
 
   // Monkey patch Express with domain handle
   expressDomainWrapper.monkeyPatchExpress(function handleControllerDomainError (err, req, res, next) {
     // Make sure we shut this worker down within 30 seconds
-    var killTimeout = setTimeout(function handleSetTimeout () { // eslint-disable-line callback-return
+    let killTimeout = setTimeout(function handleSetTimeout () { // eslint-disable-line callback-return
       process.exit(1);
     }, 30e3);
 

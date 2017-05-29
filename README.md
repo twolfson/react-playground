@@ -4,7 +4,7 @@ Playground environment for GraphQL, React, and more
 
 We've already used React in [plaidchat][] but want to take things further. In this repo, we plan to cover exploring:
 
-- [ ] ES6 exports
+- [ ] ES6 imports/exports
 - [ ] GraphQL
 - [ ] React
 - [ ] JSX

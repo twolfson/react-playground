@@ -1,10 +1,10 @@
 // Load in our dependencies
-var assert = require('assert');
-var Settings = require('shallow-settings');
-var staticConfig = require('./static');
+const assert = require('assert');
+const Settings = require('shallow-settings');
+const staticConfig = require('./static');
 
 // Resolve our environment
-var env = process.env.ENV;
+const env = process.env.ENV;
 assert(env, 'Expected environment variable ENV to be set but it was not. ' +
   'Please use `ENV=development`, `ENV=test`, or `ENV=production`');
 assert(['development', 'test', 'production'].indexOf(env) !== -1,
@@ -17,8 +17,8 @@ process.env.NODE_ENV = env;
 // Define our settings
 exports.getConfig = function () {
   // Load our settings
-  var settings = new Settings(staticConfig);
-  var config = settings.getSettings({env: env});
+  let settings = new Settings(staticConfig);
+  let config = settings.getSettings({env: env});
 
   // Return our configuration
   return config;
