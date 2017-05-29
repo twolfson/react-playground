@@ -1,37 +1,37 @@
 // Define our configurations
-export let common = {
+exports.common = {
 };
 
-export let development = {
+exports.development = {
   listen: {
     hostname: 'localhost',
     port: 5000
   }
 };
-development.url = {
+exports.development.url = {
   internal: {
     protocol: 'http',
     hostname: 'localhost',
-    port: development.listen.port
+    port: exports.development.listen.port
   },
   external: {
     protocol: 'http',
     hostname: 'localhost',
-    port: development.listen.port
+    port: exports.development.listen.port
   }
 };
 
-export let test = {
+exports.test = {
   listen: {
     hostname: 'localhost',
     port: 5001
   }
 };
-test.url = {
+exports.test.url = {
   internal: {
     protocol: 'http',
-    hostname: test.listen.hostname,
-    port: test.listen.port
+    hostname: exports.test.listen.hostname,
+    port: exports.test.listen.port
   },
   external: {
     protocol: 'https',
