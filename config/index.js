@@ -1,26 +1,25 @@
 // Load in our dependencies
-var _ = require('underscore');
+var assert = require('assert');
+var Settings = require('shallow-settings');
+var staticConfig = require('./static');
 
-// Define a simple config for now
-var config = {};
-config.listen = {
-  port: 5000,
-  hostname: 'localhost'
-};
-config.url = {
-  internal: {
-    protocol: 'http',
-    hostname: 'localhost',
-    port: config.listen.port
-  },
-  external: {
-    protocol: 'http',
-    hostname: 'localhost',
-    port: config.listen.port
-  }
-};
+// Resolve our environment
+var env = process.env.ENV;
+assert(env, 'Expected environment variable ENV to be set but it was not. ' +
+  'Please use `ENV=development`, `ENV=test`, or `ENV=production`');
+assert(['development', 'test', 'production'].indexOf(env) !== -1,
+  'Expected environment variable ENV to be set be one of `development`, `test`, or `production` ' +
+  'but it was "' + env + '"');
 
-// Define our export functionality
+// Adjust our NODE_ENV to ENV as well (helps with Express setup)
+process.env.NODE_ENV = env;
+
+// Define our settings
 exports.getConfig = function () {
-  return _.clone(config);
+  // Load our settings
+  var settings = new Settings(staticConfig);
+  var config = settings.getSettings({env: env});
+
+  // Return our configuration
+  return config;
 };

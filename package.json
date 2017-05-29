@@ -31,6 +31,7 @@
   "dependencies": {
     "express": "~4.15.3",
     "methods": "~1.1.2",
+    "shallow-settings": "~0.1.0",
     "underscore": "~1.8.3"
   },
   "devDependencies": {
