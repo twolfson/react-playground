@@ -23,7 +23,8 @@
   "scripts": {
     "precheck": "eslint server/ test/",
     "lint": "eslint server/ test/ --max-warnings 0",
-    "test": "npm run precheck && mocha --reporter dot && npm run lint"
+    "test": "npm run precheck && npm run test-server && npm run lint",
+    "test-server": "mocha --reporter dot test/server/"
   },
   "dependencies": {
     "express": "~4.15.3",
@@ -31,12 +32,16 @@
     "underscore": "~1.8.3"
   },
   "devDependencies": {
+    "async": "~2.4.1",
+    "chai": "~4.0.0",
+    "cheerio": "~1.0.0-rc.1",
     "eslint": "~3.19.0",
     "eslint-config-twolfson": "git://github.com/twolfson/eslint-config-twolfson#ab5ea8b",
     "foundry": "~4.3.2",
     "foundry-release-git": "~2.0.2",
     "foundry-release-npm": "~2.0.2",
-    "mocha": "~3.1.2"
+    "mocha": "~3.1.2",
+    "request": "~2.81.0"
   },
   "keywords": [],
   "foundry": {
