@@ -1,7 +1,7 @@
 // Load in dependencies
 import {expect} from 'chai';
-import httpUtils from './utils/http';
-import serverUtils from './utils/server';
+import * as httpUtils from './utils/http';
+import * as serverUtils from './utils/server';
 
 // Start our tests
 describe('A request to our server', function () {
