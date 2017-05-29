@@ -23,6 +23,8 @@
   "scripts": {
     "precheck": "eslint server/ test/",
     "lint": "eslint server/ test/ --max-warnings 0",
+    "start": "bin/react-playground-server",
+    "start-develop": "nodemon -x bin/react-playground-server",
     "test": "npm run precheck && npm run test-server && npm run lint",
     "test-server": "mocha --reporter dot test/server/"
   },
@@ -41,6 +43,7 @@
     "foundry-release-git": "~2.0.2",
     "foundry-release-npm": "~2.0.2",
     "mocha": "~3.1.2",
+    "nodemon": "~1.11.0",
     "request": "~2.81.0"
   },
   "keywords": [],

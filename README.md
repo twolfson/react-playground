@@ -15,18 +15,43 @@ We've already used React in [plaidchat][] but want to take things further. In th
 [plaidchat]: https://github.com/plaidchat/plaidchat/tree/v2.15.1
 
 ## Getting Started
-Install the module with: `npm install react-playground`
+To get our repo running locally, run the following steps:
 
-```js
-var reactPlayground = require('react-playground');
-reactPlayground(); // 'awesome'
+```bash
+# Clone our repository
+git clone https://github.com/twolfson/react-playground
+cd react-playground
+
+# Install our dependencies
+npm install
+
+# Start our server
+npm run start
+# Server running at http://localhost:5000/
 ```
 
-## Documentation
-_(Coming soon)_
+Our application will be accessible at <http://localhost:5000/>
 
-## Examples
-_(Coming soon)_
+## Documentation
+### Development
+To run our server in development mode (i.e. restart on any server-code change), run:
+
+```bash
+npm run start-develop
+```
+
+### Testing
+To run our test suite, run:
+
+```bash
+npm test
+```
+
+To run server tests specifically, run:
+
+```bash
+npm run test-server
+```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint via `npm run lint` and test via `npm test`.
