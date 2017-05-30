@@ -39,23 +39,29 @@ function Server(config) {
     res.send(
       // TODO: Transition to React
       // TODO: Escape email to prevent XSS
-      '<h1>react-playground</h1>' +
-      '<p>' +
-        (email ? 'You are logged in as: ' + email : 'You are not logged in') +
-      '</p>' +
-      // TODO: Add CSRF to form
-      '<form method="POST" action="/login">' +
-        '<div>' +
-          '<label for="email">Email: </label>' +
-          '<input name="email"/>' +
-        '</div>' +
-        '<div>' +
-          '<button type="submit">Login</button>' +
-        '</div>' +
-      '</form>' +
-      '<p>' +
-        '<a href="/logout">Log out</a>' +
-      '</p>');
+      '<head>' +
+        '<title>react-playground</title>' +
+      '</head>' +
+      '<body>' +
+        '<h1>react-playground</h1>' +
+        '<p>' +
+          (email ? 'You are logged in as: ' + email : 'You are not logged in') +
+        '</p>' +
+        // TODO: Add CSRF to form
+        '<form method="POST" action="/login">' +
+          '<div>' +
+            '<label for="email">Email: </label>' +
+            '<input name="email"/>' +
+          '</div>' +
+          '<div>' +
+            '<button type="submit">Login</button>' +
+          '</div>' +
+        '</form>' +
+        '<p>' +
+          '<a href="/logout">Log out</a>' +
+        '</p>' +
+      '</body>'
+    );
   });
   app.post('/login', function handleLoginSave (req, res, next) {
     // Resolve our parameters
@@ -69,7 +75,14 @@ function Server(config) {
 
     // Save our email and redirect to the root page
     // DEV: We don't do password/etc as this is a proof of concept
+    // TODO: Regenerate session id and destroy past one in SQLite3 to prevent fixation
     req.session.email = email;
+    res.redirect('/');
+  });
+  app.get('/logout', function handleLogoutShow (req, res, next) {
+    // Destroy our session and redirect to root page
+    // TODO: Destroy underlying session in SQLite3 to prevent fixation
+    delete req.session;
     res.redirect('/');
   });
 

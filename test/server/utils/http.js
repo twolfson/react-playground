@@ -302,42 +302,22 @@ export const session = {
   },
   // Define shorthand login with default candidate
   login: function () {
-    return this.loginAs('DEFAULT_CANDIDATE_KEY');
+    return this.loginAs('dev-user@react-playground.test');
   },
-  loginAs: function (candidateKey) {
+  loginAs: function (email) {
     before(function loginAsFn () {
       // Verify a session already has been started
       assert(this.jar, '`this.jar` doesn\'t exists for `httpUtils.session` ' +
         '(meaning a session hasn\'t been started). Please begin a session before logging in.');
     });
-    // Scrape state and pass along to callback with custom code
-    // DEV: We are using `code` as a key to determine which candidate to log in
-    //   so we cannot use `/oauth/google/request` as it uses a mock code
-    session.save({
-      // Redirects to fake Google OAuth
-      url: serverUtils.getUrl({
-        pathname: '/oauth/google/request',
-        query: {action: 'login'}
-      }),
-      followRedirect: false,
-      expectedStatusCode: 302
-    });
-    before(function callbackWithCustomCode (done) {
-      // Extract state from redirect URL
-      let redirectURL = url.parse(this.res.headers.location, true);
-      let state = redirectURL.query.state;
-      assert(state);
-
-      // Perform our custom callback
-      session._save({
-        url: serverUtils.getUrl({
-          pathname: '/oauth/google/callback',
-          query: {action: 'login', state: state, code: candidateKey}
-        }),
-        followRedirect: true,
-        expectedStatusCode: 200
-      }).call(this, done);
-    });
+    // Visit our login page and login with our given email
+    session
+      .save({url: serverUtils.getUrl('/'), expectedStatusCode: 200})
+      .save({
+        method: 'POST', url: serverUtils.getUrl('/login'),
+        htmlForm: {email: email},
+        expectedStatusCode: 302
+      });
 
     // Return this for a fluent interface
     return this;
