@@ -26,18 +26,17 @@ describe('A request to POST /login', function () {
     });
   });
 
-  // TODO: Support detecting missing/invalid emails (should use `querystring-multidict`)
-  describe.skip('with an invalid email', function () {
+  describe('with an invalid email', function () {
     httpUtils.session.init()
       .save(serverUtils.getUrl('/'))
       .save({
         method: 'POST', url: serverUtils.getUrl('/login'),
-        htmlForm: {},
-        expectedStatusCode: 200
+        body: '',
+        expectedStatusCode: 400
       });
 
     it('rejects user', function () {
-      expect(this.body).to.contain('Missing key "email"');
+      expect(this.body).to.contain('Missing/malformed parameter: "email"');
     });
   });
 });

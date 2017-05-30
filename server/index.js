@@ -60,6 +60,7 @@ function Server(config) {
   });
   app.post('/login', function handleLoginSave (req, res, next) {
     // Resolve our parameters
+    // TODO: Use `querystring-multidict` instead of one-off param checking
     let email = req.body.email;
     if (typeof email !== 'string') {
       res.status(400).send('Missing/malformed parameter: "email"');
