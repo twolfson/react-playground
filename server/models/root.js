@@ -5,10 +5,11 @@ import {GraphQLObjectType, GraphQLString} from 'graphql';
 export default new GraphQLObjectType({
   name: 'RootObjectType',
   fields: {
-    hello: {
+    // Sanity check endpoint for GraphQL syntax format
+    status: {
       type: GraphQLString,
       resolve() {
-        return 'world';
+        return 'OK';
       }
     }
   }
