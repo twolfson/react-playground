@@ -1,6 +1,8 @@
 // Load in our dependencies
 import url from 'url';
+
 import _ from 'underscore';
+
 import server from '../../../server/index.js';
 
 // Start our server immediately

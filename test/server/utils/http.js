@@ -1,12 +1,15 @@
 // Taken from https://gist.github.com/twolfson/f27eb310410b3fe28f0060b43d58d33e
 // Load in our dependencies
-import _ from 'underscore';
-import async from 'async';
 import assert from 'assert';
 import url from 'url';
+
+import _ from 'underscore';
+import async from 'async';
 import cheerio from 'cheerio';
 import request from 'request';
+
 import * as serverUtils from './server';
+
 const kueQueue = {}; // Loaded via server utils, scrubbed for GitHub
 
 // Copy over utilities from request-mocha

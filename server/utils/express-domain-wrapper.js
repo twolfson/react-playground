@@ -2,10 +2,12 @@
 // Load in our dependencies
 import assert from 'assert';
 import domain from 'domain';
+
 import {flatten} from 'underscore';
 import methods from 'methods';
 import routerProto from 'express/lib/router/index.js';
 import Route from 'express/lib/router/route.js';
+
 const slice = Array.prototype.slice;
 
 // Define our singleton constants

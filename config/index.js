@@ -1,6 +1,7 @@
 // Load in our dependencies
 import assert from 'assert';
 import Settings from 'shallow-settings';
+
 import {common, development, test, production} from './static';
 
 // Resolve our environment

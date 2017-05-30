@@ -4,6 +4,7 @@
 // Based on https://gist.github.com/twolfson/c1de950ea28fcbf74be8962257bd75bc
 // Load in our dependencies
 import cluster from 'cluster';
+
 const notWinston = console;
 
 // If we are on the master

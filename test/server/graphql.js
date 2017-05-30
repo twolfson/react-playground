@@ -1,5 +1,6 @@
 // Load in dependencies
 import {expect} from 'chai';
+
 import * as httpUtils from './utils/http';
 
 // Start our tests
