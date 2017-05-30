@@ -54,4 +54,4 @@ describe.skip('A GraphQL request about authenticated content', function () {
       // TODO: Figure out unauthed error (maybe anonymous here?)
     });
   });
-})
+});
