@@ -9,7 +9,9 @@ matrix:
     - node_js: "7"
 
 before_install:
-  - curl --location http://rawgit.com/twolfson/fix-travis-ci/master/lib/install.sh | bash -s
+  - npm install --global yarn
+install:
+  - yarn install --frozen-lockfile
 
 notifications:
   email:
