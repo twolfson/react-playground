@@ -254,6 +254,7 @@ export const save = function (options) {
 // Define GraphQL based methods
 export const graphql = function (options) {
   // Extend our options with GraphQL info
+  // TODO: Add error checking to GraphQL responses (e.g. export nice error messages)
   assert(options.body);
   options = _.defaults({
     method: 'POST',
