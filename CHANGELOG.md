@@ -1,4 +1,6 @@
 # react-playground changelog
+1.4.0 - Added session based authentication
+
 1.3.0 - Added basic GraphQL
 
 1.2.0 - Added Yarn and ES6 imports/exports
