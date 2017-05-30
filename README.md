@@ -6,7 +6,7 @@ We've already used React in [plaidchat][] but want to take things further. In th
 
 - [x] Yarn
 - [x] ES6 imports/exports
-- [ ] GraphQL
+- [x] GraphQL
 - [ ] React
 - [ ] JSX
 - [ ] Webpack
@@ -59,6 +59,13 @@ To run server tests specifically, run:
 ```bash
 npm run test-server
 ```
+
+### Debugging GraphQL
+In development, we host [GraphiQL][] at the GraphQL endpoint. It can be accessed by visiting:
+
+<http://localhost:5000/graphql>
+
+[GraphiQL]: https://github.com/graphql/graphiql
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint via `npm run lint` and test via `npm test`.
