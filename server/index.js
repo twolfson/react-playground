@@ -61,6 +61,7 @@ function Server(config) {
   app.post('/login', function handleLoginSave (req, res, next) {
     // Resolve our parameters
     // TODO: Use `querystring-multidict` instead of one-off param checking
+    // DEV: Email can be an array if it's provided multiple times to default `querystring` library via `email[]`
     let email = req.body.email;
     if (typeof email !== 'string') {
       res.status(400).send('Missing/malformed parameter: "email"');
