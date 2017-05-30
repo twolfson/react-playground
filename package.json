@@ -21,6 +21,7 @@
   },
   "license": "Unlicense",
   "scripts": {
+    "preinstall": "if test \"$_\" != \"/usr/local/bin/yarn\"; then echo \"Expected \\`yarn\\` to be run for scripts but got \\`$_\\`\" 1>&2; exit 1; fi",
     "precheck": "eslint *.js bin/ config/ server/ test/",
     "lint": "eslint *.js bin/ config/ server/ test/ --max-warnings 0",
     "start": "babel-node bin/react-playground-server",
