@@ -31,7 +31,26 @@ function Server(config) {
   // TODO: When our routes get unwieldy, break them out into another file
   app.get('/', function handleRootShow (req, res, next) {
     let email = req.session.email;
-    res.send(email ? 'You are logged in as: ' + email : 'You are not logged in');
+    res.send(
+      // TODO: Transition to React
+      // TODO: Escape email to prevent XSS
+      '<h1>react-playground</h1>' +
+      '<p>' +
+        (email ? 'You are logged in as: ' + email : 'You are not logged in') +
+      '</p>' +
+      // TODO: Add CSRF to form
+      '<form method="POST" action="/login">' +
+        '<div>' +
+          '<label for="email">Email: </label>' +
+          '<input name="email"/>' +
+        '</div>' +
+        '<div>' +
+          '<button type="submit">Login</button>' +
+        '</div>' +
+      '</form>' +
+      '<p>' +
+        '<a href="/logout">Log out</a>' +
+      '</p>');
   });
   app.get('/status', function handleRootShow (req, res, next) {
     res.send('OK');
