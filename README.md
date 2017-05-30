@@ -8,9 +8,9 @@ We've already used React in [plaidchat][] but want to take things further. In th
 - [x] ES6 imports/exports
 - [ ] GraphQL
     - [x] Basic query
+    - [ ] Authentication
     - [ ] Relationships/connections/edges
     - [ ] Mutations
-    - [ ] Authentication
 - [ ] React
 - [ ] JSX
 - [ ] Webpack
