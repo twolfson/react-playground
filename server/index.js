@@ -23,8 +23,7 @@ function Server(config) {
   const app = this.app = express();
 
   // Set up body parsing
-  app.use(bodyParser.urlencoded({
-    extended: false, type: 'application/x-www-form-urlencoded'}));
+  app.use(bodyParser.urlencoded({extended: false}));
 
   // Set up our sessions
   const SQLiteStore = connectSqlite3(expressSession);
@@ -86,6 +85,14 @@ function Server(config) {
       graphiql: true
     }));
   }
+  app.post('/graphql', function cleanPlaceholderBody (req, res, next) {
+    // Reset inappropriate body set by `body-parser` for GraphQL
+    //   https://github.com/expressjs/body-parser/blob/1.17.2/lib/types/urlencoded.js#L86
+    if (req.headers['content-type'] === 'application/graphql') {
+      delete req.body;
+    }
+    next();
+  });
   app.post('/graphql', expressGraphql({
     schema: graphqlSchema,
     graphiql: false
