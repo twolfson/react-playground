@@ -6,7 +6,7 @@ import assert from 'assert';
 import url from 'url';
 import cheerio from 'cheerio';
 import request from 'request';
-import serverUtils from './server';
+import * as serverUtils from './server';
 const kueQueue = {}; // Loaded via server utils, scrubbed for GitHub
 
 // Copy over utilities from request-mocha
@@ -203,7 +203,7 @@ export const _save = function (options) {
               }
             }
 
-            // If there was a request to parse the response, then do it
+            // If there was a request to parse the response as HTML, then do it
             if (options.parseHTML !== false) {
               try {
                 that.$ = cheerio.load(body);
@@ -211,6 +211,17 @@ export const _save = function (options) {
                 // eslint-disable-next-line no-console
                 console.error('Tried to parse response body as HTML but failed. ' +
                   'If response should not be parsed, set `parseHTML` to `false`');
+                throw err;
+              }
+            }
+            // If there was a request to parse the response as JSON, then do it
+            if (options.parseJSON === true) {
+              try {
+                that.json = JSON.parse(body);
+              } catch (err) {
+                // eslint-disable-next-line no-console
+                console.error('Tried to parse response body as JSON but failed. ' +
+                  'If response should not be parsed, set `parseJSON` to `false`');
                 throw err;
               }
             }
@@ -232,11 +243,29 @@ export const _saveCleanup = function () {
     delete this.redirects;
     delete this.lastRedirect;
     delete this.$;
+    delete this.json;
   };
 };
 export const save = function (options) {
   before(_save(options));
   after(_saveCleanup(options));
+};
+
+// Define GraphQL based methods
+export const graphql = function (options) {
+  // Extend our options with GraphQL info
+  assert(options.body);
+  options = _.defaults({
+    method: 'POST',
+    url: serverUtils.getUrl('/graphql'),
+    headers: _.defaults({
+      'Content-Type': 'application/graphql'
+    }, options.headers),
+    parseJSON: true
+  }, options);
+
+  // Make a normal request
+  save(options);
 };
 
 // Define session-based methods
