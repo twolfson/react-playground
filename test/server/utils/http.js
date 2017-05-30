@@ -1,7 +1,6 @@
 // Taken from https://gist.github.com/twolfson/f27eb310410b3fe28f0060b43d58d33e
 // Load in our dependencies
 import assert from 'assert';
-import url from 'url';
 
 import _ from 'underscore';
 import async from 'async';
@@ -340,7 +339,23 @@ function wrapSaveWithGraphQL(saveFn) {
     }, options);
 
     // Make a normal request
-    return save(options);
+    saveFn(options);
+
+    // Afterwards, verify we have expected errors
+    before(function validateErrorMessage () {
+      let errors = this.json.errors || [];
+      if (options.expectedError !== undefined) {
+        assert.strictEqual(errors.length, 1);
+        assert.strictEqual(errors[0].message, options.expectedError.message);
+        assert.strictEqual(errors[0].path.length, 1);
+        assert.strictEqual(errors[0].path[0], options.expectedError.path);
+      } else {
+        assert.strictEqual(errors.length, 0);
+      }
+    });
+
+    // Return `this` for a fluent interface
+    return this;
   };
 }
 export const graphql = wrapSaveWithGraphQL(save);

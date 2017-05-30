@@ -22,7 +22,7 @@ describe('A request to POST /graphql server', function () {
   });
 });
 
-describe.skip('A GraphQL request about authenticated content', function () {
+describe('A GraphQL request about authenticated content', function () {
   describe('from an authenticated user', function () {
     httpUtils.session.init().login()
       .graphql({
@@ -47,11 +47,11 @@ describe.skip('A GraphQL request about authenticated content', function () {
             whoami
           }
         `,
-        expectedStatusCode: 400
+        expectedError: {message: 'Forbidden', path: 'whoami'}
       });
 
     it('receives authentication error', function () {
-      // TODO: Figure out unauthed error (maybe anonymous here?)
+      // Asserted by `expectedErrorMessage`
     });
   });
 });
