@@ -11,14 +11,17 @@ export const common = {
 };
 
 export const development = {
+  hostGraphiql: true,
   viewCache: false
 };
 
 export const test = {
+  hostGraphiql: false,
   viewCache: true
 };
 
 export const production = {
+  hostGraphiql: false,
   viewCache: true
 };
 

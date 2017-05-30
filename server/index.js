@@ -2,9 +2,11 @@
 import assert from 'assert';
 import express from 'express';
 import {getConfig} from '../config';
+import expressGraphql from 'express-graphql';
 
 // Load our config
 const _config = getConfig();
+const graphqlSchema = {};
 
 // Define our server
 function Server(config) {
@@ -14,10 +16,21 @@ function Server(config) {
   // Create a new server
   const app = this.app = express();
 
-  // Define a root route
+  // Define our routes
+  // TODO: When our routes get unwieldy, break them out into another file
   app.get('/', function handleRootShow (req, res, next) {
     res.send('OK');
   });
+  if (config.hostGraphiql) {
+    app.get('/graphql', expressGraphql({
+      schema: graphqlSchema,
+      graphiql: true
+    }));
+  }
+  app.post('/graphql', expressGraphql({
+    schema: graphqlSchema,
+    graphiql: false
+  }));
 }
 Server.prototype.listen = function () {
   assert.strictEqual(this._app, undefined, 'A server is already listening to a port. Please `close` first');
