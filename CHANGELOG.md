@@ -1,4 +1,6 @@
 # react-playground changelog
+1.5.0 - Added GraphQL based authorization
+
 1.4.0 - Added session based authentication
 
 1.3.0 - Added basic GraphQL
