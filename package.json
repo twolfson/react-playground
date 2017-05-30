@@ -29,8 +29,10 @@
     "test-server": "ENV=test mocha --compilers js:babel-register --reporter dot test/server/"
   },
   "dependencies": {
+    "connect-sqlite3": "~0.9.9",
     "express": "~4.15.3",
     "express-graphql": "~0.6.6",
+    "express-session": "~1.15.3",
     "graphql": "~0.10.1",
     "methods": "~1.1.2",
     "shallow-settings": "~0.1.0",

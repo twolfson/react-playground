@@ -1,7 +1,10 @@
 // Load in our dependencies
 import assert from 'assert';
 
+import _ from 'underscore';
+import connectSqlite3 from 'connect-sqlite3';
 import express from 'express';
+import expressSession from 'express-session';
 import expressGraphql from 'express-graphql';
 
 import {getConfig} from '../config';
@@ -18,9 +21,19 @@ function Server(config) {
   // Create a new server
   const app = this.app = express();
 
+  // Set up our sessions
+  const SQLiteStore = connectSqlite3(expressSession);
+  app.use(expressSession(_.defaults({
+    store: new SQLiteStore()
+  }, config.session)));
+
   // Define our routes
   // TODO: When our routes get unwieldy, break them out into another file
   app.get('/', function handleRootShow (req, res, next) {
+    let email = req.session.email;
+    res.send(email ? 'You are logged in as: ' + email : 'You are not logged in');
+  });
+  app.get('/status', function handleRootShow (req, res, next) {
     res.send('OK');
   });
   if (config.hostGraphiql) {

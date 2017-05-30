@@ -27,7 +27,7 @@ export const production = {
 
 // Merge in grouped settings
 const configFiles = [
-  './static-url'
+  './static-session', './static-url'
 ];
 configFiles.forEach(function mergeConfigFile (configFile) {
   // Load our new config
