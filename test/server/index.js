@@ -7,7 +7,7 @@ import * as serverUtils from './utils/server';
 // Start our tests
 describe('A request to our server', function () {
   httpUtils.save({
-    url: serverUtils.getUrl('/'),
+    url: serverUtils.getUrl('/status'),
     expectedStatusCode: 200
   });
 

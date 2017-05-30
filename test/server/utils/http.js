@@ -254,24 +254,6 @@ export const save = function (options) {
   after(_saveCleanup(options));
 };
 
-// Define GraphQL based methods
-export const graphql = function (options) {
-  // Extend our options with GraphQL info
-  // TODO: Add error checking to GraphQL responses (e.g. export nice error messages)
-  assert(options.body);
-  options = _.defaults({
-    method: 'POST',
-    url: serverUtils.getUrl('/graphql'),
-    headers: _.defaults({
-      'Content-Type': 'application/graphql'
-    }, options.headers),
-    parseJSON: true
-  }, options);
-
-  // Make a normal request
-  save(options);
-};
-
 // Define session-based methods
 export const session = {
   _save: function (options) {
@@ -361,3 +343,25 @@ export const session = {
     return this;
   }
 };
+
+// Define GraphQL based methods
+function wrapSaveWithGraphQL(saveFn) {
+  return function wrapSaveWithGraphQLFn (options) {
+    // Extend our options with GraphQL info
+    // TODO: Add error checking to GraphQL responses (e.g. export nice error messages)
+    assert(options.body);
+    options = _.defaults({
+      method: 'POST',
+      url: serverUtils.getUrl('/graphql'),
+      headers: _.defaults({
+        'Content-Type': 'application/graphql'
+      }, options.headers),
+      parseJSON: true
+    }, options);
+
+    // Make a normal request
+    return save(options);
+  };
+}
+export const graphql = wrapSaveWithGraphQL(save);
+session.graphql = wrapSaveWithGraphQL(session.save);
