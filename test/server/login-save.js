@@ -12,14 +12,17 @@ describe('A request to POST /login', function () {
       .save({
         method: 'POST', url: serverUtils.getUrl('/login'),
         htmlForm: {email: 'test-user'},
+        // DEV: We use `followAllRedirects` to follow POST redirects
+        followRedirect: true, followAllRedirects: true,
         expectedStatusCode: 200
       });
 
     it('redirects user to root page', function () {
-      expect(this.lastRedirect).to.equal(10000);
+      expect(this.lastRedirect.statusCode).to.equal(302);
+      expect(this.lastRedirect.redirectUri).to.match(/\/$/);
     });
     it('logs user in', function () {
-      expect(this.body).to.contain('You are logged in as: test-userrrr');
+      expect(this.body).to.contain('You are logged in as: test-user');
     });
   });
 

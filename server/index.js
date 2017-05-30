@@ -2,6 +2,7 @@
 import assert from 'assert';
 
 import _ from 'underscore';
+import bodyParser from 'body-parser';
 import connectSqlite3 from 'connect-sqlite3';
 import express from 'express';
 import expressSession from 'express-session';
@@ -21,6 +22,10 @@ function Server(config) {
   // Create a new server
   const app = this.app = express();
 
+  // Set up body parsing
+  app.use(bodyParser.urlencoded({
+    extended: false, type: 'application/x-www-form-urlencoded'}));
+
   // Set up our sessions
   const SQLiteStore = connectSqlite3(expressSession);
   app.use(expressSession(_.defaults({
@@ -28,6 +33,7 @@ function Server(config) {
   }, config.session)));
 
   // Define our routes
+  // Generic application routes
   // TODO: When our routes get unwieldy, break them out into another file
   app.get('/', function handleRootShow (req, res, next) {
     let email = req.session.email;
@@ -52,9 +58,26 @@ function Server(config) {
         '<a href="/logout">Log out</a>' +
       '</p>');
   });
+  app.post('/login', function handleLoginSave (req, res, next) {
+    // Resolve our parameters
+    let email = req.body.email;
+    if (typeof email !== 'string') {
+      res.status(400).send('Missing/malformed parameter: "email"');
+      return;
+    }
+
+    // Save our email and redirect to the root page
+    // DEV: We don't do password/etc as this is a proof of concept
+    req.session.email = email;
+    res.redirect('/');
+  });
+
+  // Healthcheck route
   app.get('/status', function handleRootShow (req, res, next) {
     res.send('OK');
   });
+
+  // GraphQL routes
   if (config.hostGraphiql) {
     app.get('/graphql', expressGraphql({
       schema: graphqlSchema,

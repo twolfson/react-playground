@@ -30,6 +30,7 @@
     "test-server": "ENV=test mocha --compilers js:babel-register --reporter dot test/server/"
   },
   "dependencies": {
+    "body-parser": "~1.17.2",
     "connect-sqlite3": "~0.9.9",
     "express": "~4.15.3",
     "express-graphql": "~0.6.6",
