@@ -9,9 +9,9 @@ We've already used React in [plaidchat][] but want to take things further. In th
 - [ ] GraphQL
 - [ ] React
 - [ ] JSX
-- [ ] Relay
 - [ ] Webpack
 - [ ] Server side rendering
+- [ ] Relay
 
 [plaidchat]: https://github.com/plaidchat/plaidchat/tree/v2.15.1
 
