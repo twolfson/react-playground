@@ -3,10 +3,10 @@ import assert from 'assert';
 import express from 'express';
 import {getConfig} from '../config';
 import expressGraphql from 'express-graphql';
+import {schema as graphqlSchema} from './models/index.js';
 
 // Load our config
 const _config = getConfig();
-const graphqlSchema = {};
 
 // Define our server
 function Server(config) {
