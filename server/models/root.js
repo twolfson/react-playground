@@ -31,22 +31,23 @@ export const RootQueryObjectType = new GraphQLObjectType({
   }
 });
 
-class PostQueryObjectType {
-  constructor(content) {
-    this.content = content;
+const PostOutputType = new GraphQLObjectType({
+  name: 'PostOutputType',
+  fields: {
+    content: {type: GraphQLString}
   }
-}
+});
 
 export const RootMutationObjectType = new GraphQLObjectType({
   name: 'RootMutationObjectType',
   fields: {
     createPost: {
-      type: PostQueryObjectType,
+      type: PostOutputType,
       args: {
         content: {type: GraphQLString}
       },
       resolve(value, args, request) {
-        return new PostQueryObjectType(args.content);
+        return new PostOutputType(args.content);
       }
     }
   }
