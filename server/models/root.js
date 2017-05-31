@@ -14,6 +14,16 @@ export const RootQueryObjectType = new GraphQLObjectType({
         return 'OK';
       }
     },
+    // Echo endpoint
+    echo: {
+      type: GraphQLString,
+      args: {
+        content: {type: GraphQLString}
+      },
+      resolve(parentValue, args, req) {
+        return args.content;
+      }
+    },
     // Authentication and authorization check endpoint
     whoami: {
       type: GraphQLString,

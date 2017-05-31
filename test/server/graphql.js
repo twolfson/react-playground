@@ -4,11 +4,11 @@ import {expect} from 'chai';
 import * as httpUtils from './utils/http';
 
 // Start our tests
-describe('A request to POST /graphql server', function () {
+describe.only('A request to POST /graphql server', function () {
   httpUtils.graphql({
     body: `
       query {
-        status
+        echo(content: "hi")
       }
     `,
     expectedStatusCode: 200
