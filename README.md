@@ -9,8 +9,8 @@ We've already used React in [plaidchat][] but want to take things further. In th
 - [ ] GraphQL
     - [x] Basic query
     - [x] Authorization
-    - [ ] Relationships/connections/edges
     - [ ] Mutations
+    - [ ] Relationships/connections/edges
 - [ ] React
 - [ ] JSX
 - [ ] Webpack

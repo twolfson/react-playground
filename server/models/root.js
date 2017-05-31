@@ -2,9 +2,9 @@
 import httpErrors from 'http-errors';
 import {GraphQLObjectType, GraphQLString} from 'graphql';
 
-// Define our root object type
-export default new GraphQLObjectType({
-  name: 'RootObjectType',
+// Define our root object type and mutation object type
+export const RootQueryObjectType = new GraphQLObjectType({
+  name: 'RootQueryObjectType',
   fields: {
     // Sanity check endpoint for GraphQL syntax format
     status: {
@@ -26,5 +26,11 @@ export default new GraphQLObjectType({
         return req.session.email;
       }
     }
+  }
+});
+
+export const RootMutationObjectType = new GraphQLObjectType({
+  name: 'RootMutationObjectType',
+  fields: {
   }
 });
