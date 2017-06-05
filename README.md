@@ -6,12 +6,12 @@ We've already used React in [plaidchat][] but want to take things further. In th
 
 - [x] Yarn
 - [x] ES6 imports/exports
-- [ ] GraphQL
+- [x] GraphQL
     - [x] Basic query
     - [x] Authorization
     - [x] Arguments and variables
     - [x] Mutations
-    - [ ] Relationships/connections/edges
+    - [x] Relationships/connections/edges
 - [ ] React
 - [ ] JSX
 - [ ] Webpack
