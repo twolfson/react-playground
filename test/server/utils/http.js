@@ -333,7 +333,7 @@ function wrapSaveWithGraphQL(saveFn) {
       method: 'POST',
       url: serverUtils.getUrl('/graphql'),
       headers: _.defaults({
-        'Content-Type': 'application/graphql'
+        'Content-Type': 'application/json'
       }, options.headers),
       parseJSON: true
     }, options);

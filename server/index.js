@@ -98,14 +98,17 @@ function Server(config) {
       graphiql: true
     }));
   }
-  app.post('/graphql', function cleanPlaceholderBody (req, res, next) {
-    // Reset inappropriate body set by `body-parser` for GraphQL
-    //   https://github.com/expressjs/body-parser/blob/1.17.2/lib/types/urlencoded.js#L86
-    if (req.headers['content-type'] === 'application/graphql') {
-      delete req.body;
+  app.post('/graphql', [
+    bodyParser.json(),
+    function cleanPlaceholderBody (req, res, next) {
+      // Reset inappropriate body set by `body-parser` for GraphQL
+      //   https://github.com/expressjs/body-parser/blob/1.17.2/lib/types/urlencoded.js#L86
+      if (req.headers['content-type'] === 'application/graphql') {
+        delete req.body;
+      }
+      next();
     }
-    next();
-  });
+  ]);
   app.post('/graphql', expressGraphql({
     schema: graphqlSchema,
     graphiql: false

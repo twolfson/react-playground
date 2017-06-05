@@ -21,6 +21,7 @@ describe('A GraphQL query request for `echo` via arguments', function () {
 
 describe.only('A GraphQL query request for `echo` via variables', function () {
   httpUtils.graphql({
+    // https://medium.com/the-graphqlhub/graphql-tour-variables-58c6abd10f56
     body: JSON.stringify({
       query: `
         query ($content: String) {
@@ -28,14 +29,13 @@ describe.only('A GraphQL query request for `echo` via variables', function () {
         }
       `,
       variables: {
-        content: 'hi'
+        content: 'hello'
       }
     }),
     expectedStatusCode: 200
   });
 
   it('reuses input as output', function () {
-    console.log('wat', this.json);
-    expect(this.json).to.deep.equal({data: {echo: 'hi'}});
+    expect(this.json).to.deep.equal({data: {echo: 'hello'}});
   });
 });
