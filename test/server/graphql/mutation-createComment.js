@@ -4,7 +4,6 @@ import {expect} from 'chai';
 import * as httpUtils from '../utils/http';
 import * as testUtils from '../utils/test';
 import {Comment} from '../../../server/models/comment';
-import {Post} from '../../../server/models/post';
 
 // Define our tests
 describe('A GraphQL mutation request for `createComment`', function () {
@@ -29,13 +28,9 @@ describe('A GraphQL mutation request for `createComment`', function () {
     it('save a comment to our database', function () {
       let comments = Comment.getAll();
       expect(comments).to.have.lengthOf(1);
-      expect(comments[0]).to.have.keys(['id', 'content']);
+      expect(comments[0]).to.have.keys(['id', 'postId', 'content']);
+      expect(comments[0].postId).to.equal('example-post-uuid');
       expect(comments[0].content).to.equal('test-comment');
-    });
-
-    it('adds comment to our post in our database', function () {
-      let post = Post.fetchById('example-post-uuid');
-      expect(post.commentIds).to.have.lengthOf(1);
     });
   });
 

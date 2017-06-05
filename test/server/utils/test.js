@@ -21,6 +21,7 @@ export const setFixtures = function (fixtureNames) {
     });
 
     // Reset our existing models
+    Comment.deleteAll();
     Post.deleteAll();
 
     // Install our fixtures
