@@ -21,6 +21,8 @@ Comment.getById = function (id) {
 };
 Comment.getAll = function (filterAttrs) {
   let comments = _.values(Comment._modelsById);
+  // DEV: We could perform this more efficiently with another map by attributes we care about
+  //   similar to an index but this is good enough for our playground
   if (filterAttrs) {
     comments = _.where(comments, filterAttrs);
   }
