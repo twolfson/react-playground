@@ -1,7 +1,7 @@
 // Load in our dependencies
 import {expect} from 'chai';
 
-import * as httpUtils from './utils/http';
+import * as httpUtils from '../utils/http';
 
 // Define our tests
 describe('A GraphQL query request for `echo`', function () {

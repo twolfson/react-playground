@@ -27,7 +27,7 @@
     "start": "babel-node bin/react-playground-server",
     "start-develop": "ENV=development nodemon -x 'babel-node bin/react-playground-server'",
     "test": "npm run precheck && npm run test-server && npm run lint",
-    "test-server": "ENV=test mocha --compilers js:babel-register --reporter dot test/server/"
+    "test-server": "ENV=test mocha --compilers js:babel-register --reporter dot --recursive test/server/"
   },
   "dependencies": {
     "body-parser": "~1.17.2",
