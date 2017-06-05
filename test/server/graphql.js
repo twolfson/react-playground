@@ -1,16 +1,14 @@
-// Load in dependencies
+// Load in our dependencies
 import {expect} from 'chai';
 
 import * as httpUtils from './utils/http';
 
 // Start our tests
-// TODO: Relocate `echo` test to non-HTTP based testing
-// TODO: Add in testing for variables THEN take on mutations
-describe.only('A request to POST /graphql server', function () {
+describe('A request to POST /graphql server', function () {
   httpUtils.graphql({
     body: `
       query {
-        echo(content: "hi")
+        status
       }
     `,
     expectedStatusCode: 200
