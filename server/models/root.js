@@ -1,13 +1,12 @@
 // Load in our dependencies
-import uuidV4 from 'uuid/v4';
+import _ from 'underscore';
 import httpErrors from 'http-errors';
-import {GraphQLID, GraphQLInputObjectType, GraphQLObjectType, GraphQLString} from 'graphql';
+import {GraphQLObjectType, GraphQLString} from 'graphql';
+import uuidV4 from 'uuid/v4';
 
-// Define our root object type
-export const RootQueryObjectType = new GraphQLObjectType({
-  name: 'RootQueryObjectType',
-  description: 'Root for all queries',
-  fields: {
+// Define our root queries and mutations
+const rootContainer = {
+  queries: {
     status: {
       type: GraphQLString,
       description: 'Sanity field for verifying a query works',
@@ -42,61 +41,44 @@ export const RootQueryObjectType = new GraphQLObjectType({
         return req.session.email;
       }
     }
+  },
+  mutations: {}
+};
+
+// Merge our queries/mutations
+const graphQLContainers = [
+  './post'
+];
+graphQLContainers.forEach(function mergeGraphQLContainer (filepath) {
+  // Load our container
+  // DEV: We could refactor with redundant imports but we're fine hacking it now
+  const newContainer = require(filepath); // eslint-disable-line global-require, no-restricted-globals
+
+  // Assert that the new config has no repeated keys
+  let rootKeys = _.union(
+    _.keys(rootContainer.queries), _.keys(rootContainer.mutations)
+  );
+  let newKeys = _.union(
+    _.keys(newContainer.queries), _.keys(newContainer.mutations)
+  );
+  let sameKeys = _.intersection(rootKeys, newKeys);
+  if (sameKeys.length > 0) {
+    throw new Error('Duplicate keys found in multiple configs. Expected none. Found: ' + JSON.stringify(sameKeys));
   }
+
+  // Add on the new properties
+  _.extend(rootContainer.queries, newContainer.queries);
+  _.extend(rootContainer.mutations, newContainer.mutations);
 });
 
-// Define our root mutation object type
-// Mutations are based on
-//   https://github.com/graphql/graphql-relay-js/blob/v0.5.2/src/mutation/mutation.js#L59-L112
-let posts = [];
-let postsById = {};
-const createPostInputType = new GraphQLInputObjectType({
-  name: 'createPostInputType',
-  description: 'Input arguments for `createPost`',
-  fields: {
-    content: {
-      description: 'Content for post being created',
-      type: GraphQLString
-    }
-  }
+// Define our root query and mutation object types
+export const RootQueryObjectType = new GraphQLObjectType({
+  name: 'RootQueryObjectType',
+  description: 'Root for all queries',
+  fields: rootContainer.queries
 });
-const PostObjectType = new GraphQLObjectType({
-  name: 'PostObjectType',
-  description: 'A post in its GraphQL representation',
-  fields: {
-    id: {
-      description: 'ID of post',
-      type: GraphQLID
-    },
-    content: {
-      description: 'Content of post',
-      type: GraphQLString
-    }
-  }
-});
-
 export const RootMutationObjectType = new GraphQLObjectType({
   name: 'RootMutationObjectType',
   description: 'Root for all mutations',
-  fields: {
-    createPost: {
-      type: PostObjectType,
-      description: 'Create a post',
-      // DEV: We could use only GraphQL parameters but this feels more accurate/consistent
-      //   https://medium.com/@HurricaneJames/graphql-mutations-fb3ad5ae73c4
-      args: {
-        input: {
-          description: 'Input object for creating a post',
-          type: createPostInputType
-        }
-      },
-      resolve(value, args, request) {
-        // Create, save, and return our post
-        const post = {id: uuidV4(), content: args.input.content};
-        posts.push(post);
-        postsById[post.id] = post;
-        return post;
-      }
-    }
-  }
+  fields: rootContainer.mutations
 });
