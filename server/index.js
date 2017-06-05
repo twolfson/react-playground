@@ -25,10 +25,17 @@ function Server(config) {
   // Configure our views
   // http://expressjs.com/en/guide/using-template-engines.html
   app.set('views', __dirname + '/views');
-  app.set('view engine', {
-    _resolveFilename: function viewEngine () {
-      console.log(arguments);
-    }
+  app.set('view engine', 'jsx');
+  app.engine('jsx', function jsxEngine (filepath, locals, callback) {
+    // Load in our filepath
+    // DEV: We perform `default` fallback due to ES6 imports/exports
+    let viewFn = require(filepath); // eslint-disable-line global-require, no-restricted-globals
+    viewFn = viewFn.default || viewFn;
+
+    // Render our view and callback immediately
+    // DEV: This isn't great for zalgo but it feels appropriate
+    let renderedContent = viewFn(locals);
+    callback(null, renderedContent);
   });
   // DEV: We set view cache to true during testing for performance
   //   https://gist.github.com/twolfson/f81a4861d834929abcf3
