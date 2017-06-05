@@ -20,6 +20,6 @@ describe.only('A GraphQL mutation request for `createPost`', function () {
   });
 
   it('reuses input as output', function () {
-    expect(this.json).to.deep.equal({data: {echo: 'hi'}});
+    expect(this.json).to.deep.equal({data: {createPost: {content: 'hi'}}});
   });
 });

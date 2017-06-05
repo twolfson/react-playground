@@ -45,6 +45,7 @@ export const RootQueryObjectType = new GraphQLObjectType({
 // Mutations are based on
 //   https://github.com/graphql/graphql-relay-js/blob/v0.5.2/src/mutation/mutation.js#L59-L112
 // TODO: What's the difference between `InputObjectType` and `ObjectType`?
+// TODO: Figure out if it's possible to shed layers (e.g. `input` nesting, output nesting)
 const createPostInputType = new GraphQLInputObjectType({
   name: 'createPostInputType',
   fields: {
@@ -67,7 +68,7 @@ export const RootMutationObjectType = new GraphQLObjectType({
         input: {type: createPostInputType}
       },
       resolve(value, args, request) {
-        return new createPostOutputType(args.content);
+        return {content: args.input.content};
       }
     }
   }
