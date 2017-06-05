@@ -10,10 +10,7 @@ We've already used React in [plaidchat][] but want to take things further. In th
     - [x] Basic query
     - [x] Authorization
     - [x] Arguments and variables
-    - [ ] Mutations
-        - [ ] Simple mutations
-        - [ ] Nested mutations
-        - [ ] Complex mutations
+    - [x] Mutations
     - [ ] Relationships/connections/edges
 - [ ] React
 - [ ] JSX

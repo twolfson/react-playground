@@ -80,6 +80,8 @@ export const RootMutationObjectType = new GraphQLObjectType({
     createPost: {
       type: PostObjectType,
       description: 'Create a post',
+      // DEV: According to an article, we could use only GraphQL parameters but this feels more accurate/consistent
+      //   https://medium.com/@HurricaneJames/graphql-mutations-fb3ad5ae73c4
       args: {
         input: {
           description: 'Input object for creating a post',
