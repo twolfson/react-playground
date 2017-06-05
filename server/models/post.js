@@ -23,9 +23,13 @@ const PostObjectType = new GraphQLObjectType({
 
 // Define our query container
 export const queries = {
-  // posts: {
-    // type: GraphQLList
-  // }
+  posts: {
+    description: 'Retrieve posts',
+    type: new GraphQLList(PostObjectType),
+    resolve(parentValue, args, req) {
+      return posts;
+    }
+  }
 };
 
 // Define our mutations container
