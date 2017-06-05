@@ -19,8 +19,10 @@ export const RootQueryObjectType = new GraphQLObjectType({
       type: GraphQLString,
       description: 'Echo input argument as output value',
       args: {
-        description: 'Value to output',
-        content: {type: GraphQLString}
+        content: {
+          description: 'Value to output',
+          type: GraphQLString
+        }
       },
       resolve(parentValue, args, req) {
         return args.content;
