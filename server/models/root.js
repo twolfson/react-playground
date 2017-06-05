@@ -1,6 +1,6 @@
 // Load in our dependencies
 import httpErrors from 'http-errors';
-import {GraphQLObjectType, GraphQLString} from 'graphql';
+import {GraphQLInputObjectType, GraphQLObjectType, GraphQLString} from 'graphql';
 
 // Define our root object type
 // TODO: Add description to object type and fields
