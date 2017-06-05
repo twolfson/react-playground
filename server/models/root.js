@@ -1,11 +1,12 @@
 // Load in our dependencies
+import uuidV4 from 'uuid/v4';
 import httpErrors from 'http-errors';
-import {GraphQLInputObjectType, GraphQLObjectType, GraphQLString} from 'graphql';
+import {GraphQLID, GraphQLInputObjectType, GraphQLObjectType, GraphQLString} from 'graphql';
 
 // Define our root object type
-// TODO: Add description to object type and fields
 export const RootQueryObjectType = new GraphQLObjectType({
   name: 'RootQueryObjectType',
+  description: 'Root for all queries',
   fields: {
     // Sanity check endpoint for GraphQL syntax format
     status: {
@@ -44,6 +45,8 @@ export const RootQueryObjectType = new GraphQLObjectType({
 // Define our root mutation object type
 // Mutations are based on
 //   https://github.com/graphql/graphql-relay-js/blob/v0.5.2/src/mutation/mutation.js#L59-L112
+let posts = [];
+let postsById = {};
 const createPostInputType = new GraphQLInputObjectType({
   name: 'createPostInputType',
   fields: {
@@ -53,12 +56,14 @@ const createPostInputType = new GraphQLInputObjectType({
 const PostObjectType = new GraphQLObjectType({
   name: 'PostObjectType',
   fields: {
+    id: {type: GraphQLID},
     content: {type: GraphQLString}
   }
 });
 
 export const RootMutationObjectType = new GraphQLObjectType({
   name: 'RootMutationObjectType',
+  description: 'Root for all mutations',
   fields: {
     createPost: {
       type: PostObjectType,
@@ -66,7 +71,11 @@ export const RootMutationObjectType = new GraphQLObjectType({
         input: {type: createPostInputType}
       },
       resolve(value, args, request) {
-        return {content: args.input.content};
+        // Create, save, and return our post
+        const post = {id: uuidV4(), content: args.input.content};
+        posts.push(post);
+        postsById[post.id] = post;
+        return post;
       }
     }
   }

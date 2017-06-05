@@ -12,6 +12,7 @@ describe('A GraphQL mutation request for `createPost`', function () {
         createPost(input: {
           content: "hi"
         }) {
+          id
           content
         }
       }
@@ -20,6 +21,8 @@ describe('A GraphQL mutation request for `createPost`', function () {
   });
 
   it('reuses input as output', function () {
-    expect(this.json).to.deep.equal({data: {createPost: {content: 'hi'}}});
+    let post = this.json.data.createPost;
+    expect(post).to.have.keys(['id', 'content']);
+    expect(post.content).to.equal('hi');
   });
 });
