@@ -51,7 +51,7 @@ describe('A GraphQL request about authenticated content', function () {
       });
 
     it('receives authentication error', function () {
-      // Asserted by `expectedErrorMessage`
+      // Asserted by `expectedError`
     });
   });
 });

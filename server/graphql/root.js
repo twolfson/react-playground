@@ -2,7 +2,6 @@
 import _ from 'underscore';
 import httpErrors from 'http-errors';
 import {GraphQLObjectType, GraphQLString} from 'graphql';
-import uuidV4 from 'uuid/v4';
 
 // Define our root queries and mutations
 const rootContainer = {
@@ -47,6 +46,7 @@ const rootContainer = {
 
 // Merge our queries/mutations
 const graphQLContainers = [
+  './comment',
   './post'
 ];
 graphQLContainers.forEach(function mergeGraphQLContainer (filepath) {
