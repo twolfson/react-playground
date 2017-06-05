@@ -8,26 +8,27 @@ export const RootQueryObjectType = new GraphQLObjectType({
   name: 'RootQueryObjectType',
   description: 'Root for all queries',
   fields: {
-    // Sanity check endpoint for GraphQL syntax format
     status: {
       type: GraphQLString,
+      description: 'Sanity field for verifying a query works',
       resolve(parentValue, args, req) {
         return 'OK';
       }
     },
-    // Echo endpoint
     echo: {
       type: GraphQLString,
+      description: 'Echo input argument as output value',
       args: {
+        description: 'Value to output',
         content: {type: GraphQLString}
       },
       resolve(parentValue, args, req) {
         return args.content;
       }
     },
-    // Authentication and authorization check endpoint
     whoami: {
       type: GraphQLString,
+      description: 'Email address of logged in user. If not logged in, this will 403',
       resolve(parentValue, args, req) {
         // If the user is logged out, then reject them
         // TODO: Create a helper resolver
@@ -49,15 +50,26 @@ let posts = [];
 let postsById = {};
 const createPostInputType = new GraphQLInputObjectType({
   name: 'createPostInputType',
+  description: 'Input arguments for `createPost`',
   fields: {
-    content: {type: GraphQLString}
+    content: {
+      description: 'Content for post being created',
+      type: GraphQLString
+    }
   }
 });
 const PostObjectType = new GraphQLObjectType({
   name: 'PostObjectType',
+  description: 'A post in its GraphQL representation',
   fields: {
-    id: {type: GraphQLID},
-    content: {type: GraphQLString}
+    id: {
+      description: 'ID of post',
+      type: GraphQLID
+    },
+    content: {
+      description: 'Content of post',
+      type: GraphQLString
+    }
   }
 });
 
@@ -67,8 +79,12 @@ export const RootMutationObjectType = new GraphQLObjectType({
   fields: {
     createPost: {
       type: PostObjectType,
+      description: 'Create a post',
       args: {
-        input: {type: createPostInputType}
+        input: {
+          description: 'Input object for creating a post',
+          type: createPostInputType
+        }
       },
       resolve(value, args, request) {
         // Create, save, and return our post
