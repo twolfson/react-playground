@@ -7,8 +7,9 @@ import uuidV4 from 'uuid/v4';
 // Define our model backend
 export class Comment {
   constructor(attrs) {
-    this.id = attrs.id || uuidV4();
-    this.content = attrs.content;
+    this.id = attrs.id || uuidV4(); assert(this.id);
+    // Foreign key: this.postId
+    this.content = attrs.content; assert(this.content);
   }
   save() {
     Comment._modelsById[this.id] = this;
@@ -17,11 +18,6 @@ export class Comment {
 Comment._modelsById = {};
 Comment.getById = function (id) {
   return Comment._modelsById[id];
-};
-Comment.fetchById = function (id) {
-  const comment = Comment.getById(id);
-  assert(comment);
-  return comment;
 };
 Comment.getAll = function () {
   return _.values(Comment._modelsById);
