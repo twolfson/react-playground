@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import * as httpUtils from '../utils/http';
 
 // Define our tests
-describe.only('A GraphQL mutation request for `createPost`', function () {
+describe('A GraphQL mutation request for `createPost`', function () {
   // Format taken from: http://graphql.org/graphql-js/mutations-and-input-types/
   httpUtils.graphql({
     query: `
