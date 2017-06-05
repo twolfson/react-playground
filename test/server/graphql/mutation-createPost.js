@@ -2,6 +2,7 @@
 import {expect} from 'chai';
 
 import * as httpUtils from '../utils/http';
+import {posts} from '../../../server/models/post';
 
 // Define our tests
 describe('A GraphQL mutation request for `createPost`', function () {
@@ -24,5 +25,10 @@ describe('A GraphQL mutation request for `createPost`', function () {
     let post = this.json.data.createPost;
     expect(post).to.have.keys(['id', 'content']);
     expect(post.content).to.equal('hi');
+  });
+
+  it('saves a post to our database', function () {
+    expect(posts).to.have.lengthOf(1);
+    expect(posts[0]).to.have.property('content', 'hi');
   });
 });

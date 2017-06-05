@@ -2,25 +2,9 @@
 import {GraphQLID, GraphQLInputObjectType, GraphQLObjectType, GraphQLString} from 'graphql';
 import uuidV4 from 'uuid/v4';
 
-// Define our query container
-export const queries = {
-};
-
-// Define our mutations container
-// Mutations are based on
-//   https://github.com/graphql/graphql-relay-js/blob/v0.5.2/src/mutation/mutation.js#L59-L112
-let posts = [];
-let postsById = {};
-const createPostInputType = new GraphQLInputObjectType({
-  name: 'createPostInputType',
-  description: 'Input arguments for `createPost`',
-  fields: {
-    content: {
-      description: 'Content for post being created',
-      type: GraphQLString
-    }
-  }
-});
+// Define our type and store upfront
+export let posts = [];
+export let postsById = {};
 const PostObjectType = new GraphQLObjectType({
   name: 'PostObjectType',
   description: 'A post in its GraphQL representation',
@@ -36,6 +20,23 @@ const PostObjectType = new GraphQLObjectType({
   }
 });
 
+// Define our query container
+export const queries = {
+};
+
+// Define our mutations container
+// Mutations are based on
+//   https://github.com/graphql/graphql-relay-js/blob/v0.5.2/src/mutation/mutation.js#L59-L112
+const createPostInputType = new GraphQLInputObjectType({
+  name: 'createPostInputType',
+  description: 'Input arguments for `createPost`',
+  fields: {
+    content: {
+      description: 'Content for post being created',
+      type: GraphQLString
+    }
+  }
+});
 export const mutations = {
   createPost: {
     type: PostObjectType,
