@@ -105,7 +105,20 @@ function Server(config) {
     bodyParser.json(),
     expressGraphql({
       schema: graphqlSchema,
-      graphiql: false
+      graphiql: false,
+      formatError: function (err) {
+        // Based on https://github.com/graphql/graphql-js/blob/v0.10.1/src/error/formatError.js
+        let retVal = {
+          message: err.message,
+          locations: err.locations,
+          path: err.path
+        };
+        if (config.exposeStack) {
+          // DEV: We use `.split(\n)` to make JSON stringified errors legible
+          retVal.stack = err.stack.split(/\n/g);
+        }
+        return retVal;
+      }
     })
   ]);
 }
