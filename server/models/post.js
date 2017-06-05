@@ -1,4 +1,5 @@
 // Load in our dependencies
+import _ from 'underscore';
 import {GraphQLID, GraphQLInputObjectType, GraphQLList,
   GraphQLObjectType, GraphQLString} from 'graphql';
 import uuidV4 from 'uuid/v4';
@@ -11,8 +12,22 @@ import uuidV4 from 'uuid/v4';
 // Comments will be `commentIds` which are then dynamically resolve (like a foreign key)
 
 // Define our type and store upfront
-export let posts = [];
-export let postsById = {};
+export class Post {
+  constructor(attrs) {
+    this.id = attrs.id || uuidV4();
+    this.content = attrs.content;
+  }
+  save() {
+    Post._modelsById[this.id] = this;
+  }
+}
+Post._modelsById = {};
+Post.getAll = function () {
+  return _.values(Post._modelsById);
+};
+Post.deleteAll = function () {
+  Post._modelsById = {};
+};
 const PostObjectType = new GraphQLObjectType({
   name: 'PostObjectType',
   description: 'A post in its GraphQL representation',
@@ -34,7 +49,7 @@ export const queries = {
     description: 'Retrieve posts',
     type: new GraphQLList(PostObjectType),
     resolve(parentValue, args, req) {
-      return posts;
+      return Post.getAll();
     }
   }
 };
@@ -66,9 +81,8 @@ export const mutations = {
     },
     resolve(value, args, request) {
       // Create, save, and return our post
-      const post = {id: uuidV4(), content: args.input.content};
-      posts.push(post);
-      postsById[post.id] = post;
+      const post = new Post({content: args.input.content});
+      post.save();
       return post;
     }
   }

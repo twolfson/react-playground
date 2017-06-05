@@ -3,13 +3,13 @@ import assert from 'assert';
 
 import _ from 'underscore';
 
-import {posts, postsById} from '../../../server/models/post';
+import {Post} from '../../../server/models/post';
 
 // Define common fixtures
 const fixturesByName = {
   post: {
     model: 'post',
-    data: {
+    attrs: {
       id: 'example-post-uuid',
       content: 'foobar'
     }
@@ -30,16 +30,13 @@ export const setFixtures = function (fixtureNames) {
     });
 
     // Reset our existing models
-    posts.length = 0;
-    Object.keys(postsById).forEach(function removePostById (id) {
-      delete postsById[id];
-    });
+    Post.deleteAll();
 
     // Install our fixtures
     fixtures.forEach(function installFixture (fixture) {
       if (fixture.model === 'post') {
-        posts.push(fixture.data);
-        postsById[fixture.data.id] = fixture.data;
+        let post = new Post(fixture.attrs);
+        post.save();
       } else {
         throw new Error(`Unidentified fixture model "${fixture.model}"`);
       }

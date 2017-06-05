@@ -3,7 +3,7 @@ import {expect} from 'chai';
 
 import * as httpUtils from '../utils/http';
 import * as testUtils from '../utils/test';
-import {posts} from '../../../server/models/post';
+import {Post} from '../../../server/models/post';
 
 // Define our tests
 describe('A GraphQL mutation request for `createPost`', function () {
@@ -30,7 +30,7 @@ describe('A GraphQL mutation request for `createPost`', function () {
   });
 
   it('saves a post to our database', function () {
-    expect(posts).to.have.lengthOf(1);
-    expect(posts[0]).to.have.property('content', 'hi');
+    expect(Post.getAll()).to.have.lengthOf(1);
+    expect(Post.getAll()[0]).to.have.property('content', 'hi');
   });
 });
