@@ -3,6 +3,13 @@ import {GraphQLID, GraphQLInputObjectType, GraphQLList,
   GraphQLObjectType, GraphQLString} from 'graphql';
 import uuidV4 from 'uuid/v4';
 
+// TODO: A few ways to approach comment creation:
+//   `createComment(postId: id)` - stored on `post` or `comment` mutations
+
+// For resolution, make `comments` a property of `post`
+//   as well as querying all comments ever with `post` as a parent option?
+// Comments will be `commentIds` which are then dynamically resolve (like a foreign key)
+
 // Define our type and store upfront
 export let posts = [];
 export let postsById = {};
