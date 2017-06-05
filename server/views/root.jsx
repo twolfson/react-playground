@@ -1,9 +1,9 @@
 // Load in our dependencies
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Export our view
 export default class RootView extends React.Component {
-  // TODO: Add propTypes
   render() {
     return (
       <html>
@@ -34,4 +34,9 @@ export default class RootView extends React.Component {
       </html>
     );
   }
+};
+// TODO: Get `static` propTypes working so it's not weirdly placed
+// TODO: Get propTypes to throw error on mismatch instead of `console.warn`
+RootView.propTypes = {
+  email: PropTypes.string
 };

@@ -39,6 +39,7 @@
     "graphql": "~0.10.1",
     "http-errors": "~1.6.1",
     "methods": "~1.1.2",
+    "prop-types": "~15.5.10",
     "react": "~15.5.4",
     "react-dom": "~15.5.4",
     "shallow-settings": "~0.1.0",
