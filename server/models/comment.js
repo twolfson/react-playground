@@ -6,30 +6,24 @@ import {GraphQLID, GraphQLInputObjectType, GraphQLList,
   GraphQLObjectType, GraphQLString} from 'graphql';
 import uuidV4 from 'uuid/v4';
 
+import {Post} from './post';
+
 // Define our model backend
-export class Post {
+export class Comment {
   constructor(attrs) {
     this.id = attrs.id || uuidV4();
     this.content = attrs.content;
   }
   save() {
-    Post._modelsById[this.id] = this;
+    Comment._modelsById[this.id] = this;
   }
 }
-Post._modelsById = {};
-Post.getById = function (id) {
-  return Post._modelsById[id];
+Comment._modelsById = {};
+Comment.getById = function (id) {
+  return Comment._modelsById[id];
 };
-Post.fetchById = function (id) {
-  const post = Post.getById(id);
-  assert(post);
-  return post;
-};
-Post.getAll = function () {
-  return _.values(Post._modelsById);
-};
-Post.deleteAll = function () {
-  Post._modelsById = {};
+Comment.deleteAll = function () {
+  Comment._modelsById = {};
 };
 
 // Define our GraphQL type upfront
