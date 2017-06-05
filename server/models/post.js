@@ -1,5 +1,6 @@
 // Load in our dependencies
-import {GraphQLID, GraphQLInputObjectType, GraphQLObjectType, GraphQLString} from 'graphql';
+import {GraphQLID, GraphQLInputObjectType, GraphQLList,
+  GraphQLObjectType, GraphQLString} from 'graphql';
 import uuidV4 from 'uuid/v4';
 
 // Define our type and store upfront
@@ -22,6 +23,9 @@ const PostObjectType = new GraphQLObjectType({
 
 // Define our query container
 export const queries = {
+  posts: {
+    type: GraphQLList
+  }
 };
 
 // Define our mutations container

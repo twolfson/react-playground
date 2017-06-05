@@ -2,11 +2,13 @@
 import {expect} from 'chai';
 
 import * as httpUtils from '../utils/http';
+import * as testUtils from '../utils/test';
 import {posts} from '../../../server/models/post';
 
 // Define our tests
 describe('A GraphQL mutation request for `createPost`', function () {
   // Format taken from: http://graphql.org/graphql-js/mutations-and-input-types/
+  testUtils.setFixtures([]);
   httpUtils.graphql({
     query: `
       mutation {
