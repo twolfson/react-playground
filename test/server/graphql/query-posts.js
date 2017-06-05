@@ -5,7 +5,7 @@ import * as httpUtils from '../utils/http';
 import * as testUtils from '../utils/test';
 
 // Define our tests
-describe('A GraphQL query request for `posts`', function () {
+describe.skip('A GraphQL query request for `posts`', function () {
   testUtils.setFixtures([]);
   httpUtils.graphql({
     query: `
@@ -19,7 +19,7 @@ describe('A GraphQL query request for `posts`', function () {
     expectedStatusCode: 200
   });
 
-  it.skip('resolves existing posts', function () {
+  it('resolves existing posts', function () {
     expect(this.json.posts).to.deep.equal(['id', 'content']);
   });
 });
