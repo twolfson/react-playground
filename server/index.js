@@ -9,7 +9,7 @@ import expressSession from 'express-session';
 import expressGraphql from 'express-graphql';
 
 import {getConfig} from '../config';
-import {schema as graphqlSchema} from './models/index.js';
+import {schema as graphqlSchema} from './graphql/index.js';
 
 // Load our config
 const _config = getConfig();
