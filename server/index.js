@@ -7,6 +7,7 @@ import connectSqlite3 from 'connect-sqlite3';
 import express from 'express';
 import expressSession from 'express-session';
 import expressGraphql from 'express-graphql';
+import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 import {getConfig} from '../config';
@@ -25,6 +26,7 @@ function Server(config) {
 
   // Configure our views
   // http://expressjs.com/en/guide/using-template-engines.html
+  // TODO: Move to `express-react-views` instead of bespoke engine
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jsx');
   app.engine('jsx', function jsxEngine (filepath, locals, callback) {
@@ -34,8 +36,9 @@ function Server(config) {
     ViewComponent = ViewComponent.default || ViewComponent;
 
     // Render our view and callback immediately
+    // https://facebook.github.io/react/docs/react-dom-server.html#rendertostring
     // DEV: This isn't great for zalgo but it feels appropriate
-    let viewComponent = new ViewComponent(locals);
+    let viewComponent = React.createElement(ViewComponent, locals);
     let renderedContent = ReactDOMServer.renderToString(viewComponent);
     callback(null, renderedContent);
   });
