@@ -5,7 +5,7 @@ import {GraphQLID, GraphQLInputObjectType,
 import {Post} from '../models/post';
 
 // Define our GraphQL type upfront
-const CommentObjectType = new GraphQLObjectType({
+export const CommentObjectType = new GraphQLObjectType({
   name: 'CommentObjectType',
   description: 'A comment in its GraphQL representation',
   fields: {

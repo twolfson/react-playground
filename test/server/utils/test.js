@@ -3,18 +3,9 @@ import assert from 'assert';
 
 import _ from 'underscore';
 
+import {Comment} from '../../../server/models/comment';
 import {Post} from '../../../server/models/post';
-
-// Define common fixtures
-const fixturesByName = {
-  post: {
-    model: 'post',
-    attrs: {
-      id: 'example-post-uuid',
-      content: 'foobar'
-    }
-  }
-};
+import * as dbFixtures from './db-fixtures';
 
 // Define our helpers
 export const setFixtures = function (fixtureNames) {
@@ -22,7 +13,7 @@ export const setFixtures = function (fixtureNames) {
     // Resolve our input fixtures
     let fixtures = fixtureNames.map(function resolveFixture (fixtureName) {
       // Look up our fixture
-      let _fixture = fixturesByName[fixtureName];
+      let _fixture = dbFixtures[fixtureName];
       assert(_fixture, `Unable to find fixture by name "${fixtureName}"`);
 
       // Clone and return our fixture
@@ -37,6 +28,9 @@ export const setFixtures = function (fixtureNames) {
       if (fixture.model === 'post') {
         let post = new Post(fixture.attrs);
         post.save();
+      } else if (fixture.model === 'comment') {
+        let comment = new Comment(fixture.attrs);
+        comment.save();
       } else {
         throw new Error(`Unidentified fixture model "${fixture.model}"`);
       }

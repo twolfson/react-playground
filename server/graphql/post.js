@@ -2,10 +2,12 @@
 import {GraphQLID, GraphQLInputObjectType, GraphQLList,
   GraphQLObjectType, GraphQLString} from 'graphql';
 
+import {Comment} from '../models/comment';
 import {Post} from '../models/post';
+import {CommentObjectType} from './comment';
 
 // Define our GraphQL type upfront
-const PostObjectType = new GraphQLObjectType({
+export const PostObjectType = new GraphQLObjectType({
   name: 'PostObjectType',
   description: 'A post in its GraphQL representation',
   fields: {
@@ -16,6 +18,13 @@ const PostObjectType = new GraphQLObjectType({
     content: {
       description: 'Content of post',
       type: GraphQLString
+    },
+    comments: {
+      description: 'Comments on a post',
+      type: new GraphQLList(CommentObjectType),
+      resolve(post, args, request) {
+        return Comment.getAll({postId: post.id});
+      }
     }
   }
 });

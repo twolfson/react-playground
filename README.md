@@ -20,6 +20,11 @@ We've already used React in [plaidchat][] but want to take things further. In th
 
 [plaidchat]: https://github.com/plaidchat/plaidchat/tree/v2.15.1
 
+**Note:** Due to this being a playground, we've cut some corners. Here's our short list
+
+- Using a bespoke in-memory ORM
+- Missing CSRF security
+
 ## Getting Started
 To get our repo running locally, run the following steps:
 

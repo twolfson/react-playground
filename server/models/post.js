@@ -12,11 +12,11 @@ export class Post {
   constructor(attrs) {
     this.id = attrs.id || uuidV4(); assert(this.id);
     this.content = attrs.content; assert(this.content);
-    this.commentIds = [];
   }
   addComment(attrs) {
-    let comment = new Comment(attrs);
-    this.commentIds.push(comment.id);
+    let comment = new Comment(_.defaults({
+      postId: this.id
+    }, attrs));
     return comment;
   }
   save() {
