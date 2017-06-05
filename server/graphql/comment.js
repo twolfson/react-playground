@@ -56,7 +56,7 @@ export const mutations = {
     resolve(value, args, request) {
       // Retrieve our existing post, add a comment, and return it
       const post = Post.fetchByIdOr404(args.input.postId);
-      const comment = post.addComment(args.input.content);
+      const comment = post.addComment({content: args.input.content});
       comment.save();
       return comment;
     }

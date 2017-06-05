@@ -9,7 +9,7 @@ import {Post} from '../../../server/models/post';
 // Define our tests
 describe('A GraphQL mutation request for `createComment`', function () {
   // Format taken from: http://graphql.org/graphql-js/mutations-and-input-types/
-  describe.only('for an existing post', function () {
+  describe('for an existing post', function () {
     testUtils.setFixtures(['post']);
     httpUtils.graphql({
       query: `
@@ -30,12 +30,12 @@ describe('A GraphQL mutation request for `createComment`', function () {
       let comments = Comment.getAll();
       expect(comments).to.have.lengthOf(1);
       expect(comments[0]).to.have.keys(['id', 'content']);
-      expect(comments[0].content).to.equal('hi');
+      expect(comments[0].content).to.equal('test-comment');
     });
 
     it('adds comment to our post in our database', function () {
-      let post = Post.fetchById('example-post');
-      expect(post.comments).to.have.lengthOf(1);
+      let post = Post.fetchById('example-post-uuid');
+      expect(post.commentIds).to.have.lengthOf(1);
     });
   });
 
