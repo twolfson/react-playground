@@ -22,6 +22,18 @@ function Server(config) {
   // Create a new server
   const app = this.app = express();
 
+  // Configure our views
+  // http://expressjs.com/en/guide/using-template-engines.html
+  app.set('views', __dirname + '/views');
+  app.set('view engine', {
+    _resolveFilename: function viewEngine () {
+      console.log(arguments);
+    }
+  });
+  // DEV: We set view cache to true during testing for performance
+  //   https://gist.github.com/twolfson/f81a4861d834929abcf3
+  app.set('view cache', config.viewCache);
+
   // Set up body parsing
   app.use(bodyParser.urlencoded({extended: false}));
 
@@ -33,35 +45,11 @@ function Server(config) {
 
   // Define our routes
   // Generic application routes
-  // TODO: When our routes get unwieldy, break them out into another file
+  // DEV: When our routes get unwieldy, break them out into another file
   app.get('/', function handleRootShow (req, res, next) {
-    let email = req.session.email;
-    res.send(
-      // TODO: Transition to React
-      // TODO: Escape email to prevent XSS
-      '<head>' +
-        '<title>react-playground</title>' +
-      '</head>' +
-      '<body>' +
-        '<h1>react-playground</h1>' +
-        '<p>' +
-          (email ? 'You are logged in as: ' + email : 'You are not logged in') +
-        '</p>' +
-        // TODO: Add CSRF to form
-        '<form method="POST" action="/login">' +
-          '<div>' +
-            '<label for="email">Email: </label>' +
-            '<input name="email"/>' +
-          '</div>' +
-          '<div>' +
-            '<button type="submit">Login</button>' +
-          '</div>' +
-        '</form>' +
-        '<p>' +
-          '<a href="/logout">Log out</a>' +
-        '</p>' +
-      '</body>'
-    );
+    res.render('root.jsx', {
+      email: req.session.email
+    });
   });
   app.post('/login', function handleLoginSave (req, res, next) {
     // Resolve our parameters
