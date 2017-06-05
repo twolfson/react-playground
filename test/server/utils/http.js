@@ -355,7 +355,7 @@ function wrapSaveWithGraphQL(saveFn) {
         assert.strictEqual(errors[0].path.length, 1);
         assert.strictEqual(errors[0].path[0], options.expectedError.path);
       } else {
-        assert.strictEqual(errors.length, 0);
+        assert.deepEqual(errors, []);
       }
     });
 
