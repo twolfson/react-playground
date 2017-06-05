@@ -98,18 +98,16 @@ function Server(config) {
       graphiql: true
     }));
   }
-  app.post('/graphql', function cleanPlaceholderBody (req, res, next) {
-    // Reset inappropriate body set by `body-parser` for GraphQL
-    //   https://github.com/expressjs/body-parser/blob/1.17.2/lib/types/urlencoded.js#L86
-    if (req.headers['content-type'] === 'application/graphql') {
-      delete req.body;
-    }
-    next();
-  });
-  app.post('/graphql', expressGraphql({
-    schema: graphqlSchema,
-    graphiql: false
-  }));
+  app.post('/graphql', [
+    // DEV: We could support `application/graphql` but prefer a consistent format for this repo
+    //   We must use JSON for variable support
+    //   Here's our `application/graphql` variant: https://github.com/twolfson/react-playground/blob/1.5.1/server/index.js#L101-L108
+    bodyParser.json(),
+    expressGraphql({
+      schema: graphqlSchema,
+      graphiql: false
+    })
+  ]);
 }
 Server.prototype.listen = function () {
   assert.strictEqual(this._app, undefined, 'A server is already listening to a port. Please `close` first');

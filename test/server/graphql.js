@@ -6,7 +6,7 @@ import * as httpUtils from './utils/http';
 // Start our tests
 describe('A request to POST /graphql server', function () {
   httpUtils.graphql({
-    body: `
+    query: `
       query {
         status
       }
@@ -26,7 +26,7 @@ describe('A GraphQL request about authenticated content', function () {
   describe('from an authenticated user', function () {
     httpUtils.session.init().login()
       .graphql({
-        body: `
+        query: `
           query {
             whoami
           }
@@ -42,7 +42,7 @@ describe('A GraphQL request about authenticated content', function () {
   describe('from an unauthenticated user', function () {
     httpUtils.session.init()
       .graphql({
-        body: `
+        query: `
           query {
             whoami
           }

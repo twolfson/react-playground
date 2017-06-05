@@ -326,15 +326,20 @@ export const session = {
 // Define GraphQL based methods
 function wrapSaveWithGraphQL(saveFn) {
   return function wrapSaveWithGraphQLFn (options) {
+    // Construct our body
+    assert(options.query);
+    let body = {query: options.query};
+    if (options.variables) { body.variables = options.variables; }
+
     // Extend our options with GraphQL info
     // TODO: Add error checking to GraphQL responses (e.g. export nice error messages)
-    assert(options.body);
     options = _.defaults({
       method: 'POST',
       url: serverUtils.getUrl('/graphql'),
       headers: _.defaults({
-        'Content-Type': 'application/graphql'
+        'Content-Type': 'application/json'
       }, options.headers),
+      body: JSON.stringify(body),
       parseJSON: true
     }, options);
 
