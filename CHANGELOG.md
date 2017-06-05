@@ -1,4 +1,6 @@
 # react-playground changelog
+1.8.0 - Added querying support for posts
+
 1.7.0 - Added GraphQL mutation example
 
 1.6.0 - Added GraphQL arguments and variables exploration
