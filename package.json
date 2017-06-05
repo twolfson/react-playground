@@ -38,6 +38,8 @@
     "graphql": "~0.10.1",
     "http-errors": "~1.6.1",
     "methods": "~1.1.2",
+    "react": "~15.5.4",
+    "react-dom": "~15.5.4",
     "shallow-settings": "~0.1.0",
     "underscore": "~1.8.3",
     "uuid": "~3.0.1"

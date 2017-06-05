@@ -7,6 +7,7 @@ import connectSqlite3 from 'connect-sqlite3';
 import express from 'express';
 import expressSession from 'express-session';
 import expressGraphql from 'express-graphql';
+import ReactDOMServer from 'react-dom/server';
 
 import {getConfig} from '../config';
 import {schema as graphqlSchema} from './graphql/index.js';
@@ -29,12 +30,13 @@ function Server(config) {
   app.engine('jsx', function jsxEngine (filepath, locals, callback) {
     // Load in our filepath
     // DEV: We perform `default` fallback due to ES6 imports/exports
-    let viewFn = require(filepath); // eslint-disable-line global-require, no-restricted-globals
-    viewFn = viewFn.default || viewFn;
+    let ViewComponent = require(filepath); // eslint-disable-line global-require, no-restricted-globals
+    ViewComponent = ViewComponent.default || ViewComponent;
 
     // Render our view and callback immediately
     // DEV: This isn't great for zalgo but it feels appropriate
-    let renderedContent = viewFn(locals);
+    let viewComponent = new ViewComponent(locals);
+    let renderedContent = ReactDOMServer.renderToString(viewComponent);
     callback(null, renderedContent);
   });
   // DEV: We set view cache to true during testing for performance

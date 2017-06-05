@@ -24,7 +24,7 @@ describe('A request to GET /', function () {
     });
   });
 
-  describe('from an logged out user', function () {
+  describe.only('from an logged out user', function () {
     httpUtils.save({
       url: serverUtils.getUrl('/'),
       expectedStatusCode: 200
