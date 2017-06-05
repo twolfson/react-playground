@@ -1,4 +1,6 @@
 # react-playground changelog
+1.7.0 - Added GraphQL mutation example
+
 1.6.0 - Added GraphQL arguments and variables exploration
 
 1.5.1 - Added Yarn to Travis CI
