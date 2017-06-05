@@ -3,9 +3,8 @@ import httpErrors from 'http-errors';
 import {GraphQLObjectType, GraphQLString} from 'graphql';
 
 // Define our root object type
-// TODO: Add description to object type and fields
-export const RootQueryObjectType = new GraphQLObjectType({
-  name: 'RootQueryObjectType',
+export default new GraphQLObjectType({
+  name: 'RootObjectType',
   fields: {
     // Sanity check endpoint for GraphQL syntax format
     status: {
@@ -36,38 +35,6 @@ export const RootQueryObjectType = new GraphQLObjectType({
 
         // Otherwise, reply with their email
         return req.session.email;
-      }
-    }
-  }
-});
-
-// Define our root mutation object type
-// Mutations are based on
-//   https://github.com/graphql/graphql-relay-js/blob/v0.5.2/src/mutation/mutation.js#L59-L112
-// TODO: What's the difference between `InputObjectType` and `ObjectType`?
-const createPostInputType = new GraphQLInputObjectType({
-  name: 'createPostInputType',
-  fields: {
-    content: {type: GraphQLString}
-  }
-});
-const createPostOutputType = new GraphQLObjectType({
-  name: 'createPostOutputType',
-  fields: {
-    content: {type: GraphQLString}
-  }
-});
-
-export const RootMutationObjectType = new GraphQLObjectType({
-  name: 'RootMutationObjectType',
-  fields: {
-    createPost: {
-      type: createPostOutputType,
-      args: {
-        input: {type: createPostInputType}
-      },
-      resolve(value, args, request) {
-        return new createPostOutputType(args.content);
       }
     }
   }
