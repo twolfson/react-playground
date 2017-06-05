@@ -1,4 +1,6 @@
 # react-playground changelog
+1.11.0 - Added relationship resolution in GraphQL
+
 1.10.0 - Added creation support for comments
 
 1.9.0 - Formalized ORM and split apart ORM from GraphQL (a la ORM and REST splits)
