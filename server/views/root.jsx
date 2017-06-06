@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 // Export our view
 export default class RootView extends React.Component {
-  // TODO: Get propTypes to throw error on mismatch instead of `console.warn`
   static propTypes = {
     email: PropTypes.string
   };
