@@ -1,4 +1,6 @@
 # react-playground changelog
+1.13.0 - Added basic JS Webpack with LiveReload plugin
+
 1.12.1 - Fixed lint error
 
 1.12.0 - Moved `GET /` to server-side React and added `static` support to classes
