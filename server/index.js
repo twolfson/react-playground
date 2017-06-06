@@ -53,6 +53,9 @@ function Server(config) {
       email: req.session.email
     });
   });
+  app.get('/posts', function handlePostsShow (req, res, next) {
+    res.render('posts.jsx');
+  });
   app.post('/login', function handleLoginSave (req, res, next) {
     // Resolve our parameters
     // TODO: Use `querystring-multidict` instead of one-off param checking
