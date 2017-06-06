@@ -23,6 +23,9 @@ module.exports = {
 if (process.env.ENV === 'development') {
   module.exports.entry.unshift('react-hot-loader/patch');
   jsLoaders.unshift('react-hot-loader/webpack');
-  // const LiveReloadPlugin = require('webpack-livereload-plugin');
-  // module.exports.plugins.push(new LiveReloadPlugin());
+  module.exports.devServer = {
+    host: 'localhost',
+    port: 3000,
+    hot: true
+  };
 }

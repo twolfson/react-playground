@@ -12,7 +12,7 @@ class PostsApp extends React.Component {
         <form>
           <h2>Submit a new post</h2>
           <div>
-            <label for="content">Content:</label>
+            <label htmlFor="content">Content:</label>
             <input type="text" placeholder="Content goes here"></input>
           </div>
           <div>
@@ -41,4 +41,5 @@ window.addEventListener('DOMContentLoaded', function handleReady () {
     targetEl);
 
   // If we have HMR enabled, handle reloads
+  console.log('wat', module.hot);
 });
