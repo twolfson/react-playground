@@ -1,5 +1,6 @@
 // Load in our dependencies
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Define our application component
 class PostsApp extends React.Component {
@@ -32,6 +33,5 @@ window.addEventListener('DOMContentLoaded', function handleReady () {
   if (!targetEl) { throw new Error('Unable to find our target element'); }
 
   // Output content
-  // TODO: Output React content
-  targetEl.textContent = 'Hello World!';
+  ReactDOM.render(<PostsApp />, targetEl);
 });
