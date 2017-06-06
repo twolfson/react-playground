@@ -2,6 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {Layout} from './components/layout';
+
 // Export our view
 export default class RootView extends React.Component {
   static propTypes = {
@@ -10,32 +12,30 @@ export default class RootView extends React.Component {
 
   render() {
     return (
-      <html>
-        <head>
-          <title>react-playground</title>
-        </head>
-        <body>
-          <h1>react-playground</h1>
-          <p>
-            {this.props.email
-              ? `You are logged in as: ${this.props.email}`
-              : 'You are not logged in'}
-          </p>
-          {/* TODO: Add CSRF to form */}
-          <form method="POST" action="/login">
-            <div>
-              <label for="email">Email: </label>
-              <input name="email"/>
-            </div>
-            <div>
-              <button type="submit">Login</button>
-            </div>
-          </form>
-          <p>
-            <a href="/logout">Log out</a>
-          </p>
-        </body>
-      </html>
+      <Layout title="react-playground">
+        <h1>react-playground</h1>
+        <p>
+          {this.props.email
+            ? `You are logged in as: ${this.props.email}`
+            : 'You are not logged in'}
+        </p>
+        {/* TODO: Add CSRF to form */}
+        <form method="POST" action="/login">
+          <div>
+            <label for="email">Email: </label>
+            <input name="email"/>
+          </div>
+          <div>
+            <button type="submit">Login</button>
+          </div>
+        </form>
+        <p>
+          <a href="/posts">Go to posts</a>
+        </p>
+        <p>
+          <a href="/logout">Log out</a>
+        </p>
+      </Layout>
     );
   }
 }
