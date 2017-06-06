@@ -47,7 +47,7 @@ cd react-playground
 yarn install
 
 # Start our server
-npm run start
+yarn start
 # Server running at http://localhost:5000/
 ```
 
@@ -58,20 +58,26 @@ Our application will be accessible at <http://localhost:5000/>
 To run our server in development mode (i.e. restart on any server-code change), run:
 
 ```bash
-npm run start-develop
+yarn run start-develop
+```
+
+To compile assets continuously and host a LiveReload server, run:
+
+```bash
+yarn run develop
 ```
 
 ### Testing
 To run our test suite, run:
 
 ```bash
-npm test
+yarn test
 ```
 
 To run server tests specifically, run:
 
 ```bash
-npm run test-server
+yarn run test-server
 ```
 
 ### Debugging GraphQL

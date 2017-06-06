@@ -21,7 +21,8 @@
   },
   "license": "Unlicense",
   "scripts": {
-    "build": "webpack",
+    "build": "ENV=production webpack",
+    "develop": "ENV=development webpack --watch",
     "preinstall": "if test \"$(basename \"$_\")\" != \"yarn\"; then echo \"Expected \\`yarn\\` to be run for scripts but got \\`$_\\`\" 1>&2; exit 1; fi",
     "postinstall": "yarn run build",
     "precheck": "eslint --ext .js --ext .jsx *.js bin/ config/ server/ test/",
@@ -48,7 +49,8 @@
     "react-dom": "~15.5.4",
     "shallow-settings": "~0.1.0",
     "underscore": "~1.8.3",
-    "uuid": "~3.0.1"
+    "uuid": "~3.0.1",
+    "webpack-livereload-plugin": "~0.11.0"
   },
   "devDependencies": {
     "async": "~2.4.1",
