@@ -1,6 +1,7 @@
 // Load in our dependencies
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {AppContainer} from 'react-hot-loader';
 
 // Define our application component
 class PostsApp extends React.Component {
@@ -32,6 +33,12 @@ window.addEventListener('DOMContentLoaded', function handleReady () {
   let targetEl = document.querySelector('#main');
   if (!targetEl) { throw new Error('Unable to find our target element'); }
 
-  // Output content
-  ReactDOM.render(<PostsApp />, targetEl);
+  // Output content with HMR wrapper
+  ReactDOM.render(
+    <AppContainer>
+      <PostsApp />
+    </AppContainer>,
+    targetEl);
+
+  // If we have HMR enabled, handle reloads
 });
