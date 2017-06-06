@@ -3,11 +3,12 @@ import assert from 'assert';
 
 import _ from 'underscore';
 import bodyParser from 'body-parser';
-import connectSqlite3 from 'connect-sqlite3';
 import express from 'express';
 import expressSession from 'express-session';
 import expressGraphql from 'express-graphql';
 import expressReactViews from 'express-react-views';
+import expressSessionLevel from 'express-session-level';
+import levelup from 'levelup';
 
 import {getConfig} from '../config';
 import {schema as graphqlSchema} from './graphql/index.js';
@@ -40,9 +41,10 @@ function Server(config) {
   app.use(bodyParser.urlencoded({extended: false}));
 
   // Set up our sessions
-  const SQLiteStore = connectSqlite3(expressSession);
+  const levelDb = levelup(__dirname + '/../sessions');
+  const LevelStore = expressSessionLevel(expressSession);
   app.use(expressSession(_.defaults({
-    store: new SQLiteStore()
+    store: new LevelStore(levelDb)
   }, config.session)));
 
   // Set up our static content
