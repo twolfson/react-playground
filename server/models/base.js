@@ -34,6 +34,9 @@ export class Base {
     this._modelsById = {};
   }
 
+  constructor(attrs) {
+    // Do nothing by default
+  }
   save() {
     const cls = this.constructor;
     cls._modelsById[this.id] = this;
