@@ -10,8 +10,7 @@ export default class PostsView extends React.Component {
       <Layout title="react-playground posts">
         <h1>react-playground posts</h1>
         <div id="main">Loading...</div>
-        {/* TODO: Move to `browser-dist` */}
-        <script src="/browser/js/posts.js" />
+        <script src="/browser-dist/js/posts.js" />
       </Layout>
     );
   }

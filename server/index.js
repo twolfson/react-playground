@@ -48,8 +48,7 @@ function Server(config) {
   }, config.session)));
 
   // Set up our static content
-  // TODO: Move to `browser-dist`
-  app.use('/browser', express.static(__dirname + '/../browser'));
+  app.use('/browser-dist', express.static(__dirname + '/../browser-dist'));
 
   // Define our routes
   // Generic application routes
