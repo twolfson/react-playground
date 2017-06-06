@@ -41,7 +41,7 @@ function Server(config) {
   app.use(bodyParser.urlencoded({extended: false}));
 
   // Set up our sessions
-  const levelDb = levelup(__dirname + '/../sessions');
+  const levelDb = levelup(config.sessionsDir);
   const LevelStore = expressSessionLevel(expressSession);
   app.use(expressSession(_.defaults({
     store: new LevelStore(levelDb)

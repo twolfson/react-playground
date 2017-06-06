@@ -13,7 +13,8 @@ export let common = {
     saveUninitialized: true, // Always save new sessions
     secret: undefined, // OVERRIDE: Need to override in each environment
     unset: 'destroy' // Destroy deleted sessions
-  }
+  },
+  sessionsDir: __dirname + '/../sessions'
 };
 
 export let development = {
@@ -25,5 +26,6 @@ export let development = {
 export let test = {
   session: _.defaults({
     secret: 'TEST SECRET'
-  }, common.session)
+  }, common.session),
+  sessionsDir: __dirname + '/../sessions-test'
 };
