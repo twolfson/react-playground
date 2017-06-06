@@ -28,7 +28,7 @@
     "precheck": "eslint --ext .js --ext .jsx *.js bin/ config/ server/ test/",
     "lint": "eslint --ext .js --ext .jsx *.js bin/ config/ server/ test/ --max-warnings 0",
     "start": "babel-node bin/react-playground-server",
-    "start-develop": "ENV=development nodemon -x 'babel-node bin/react-playground-server'",
+    "start-develop": "ENV=development nodemon --ignore browser --ignore browser-dist -x 'babel-node bin/react-playground-server'",
     "test": "npm run precheck && npm run build && npm run test-server && npm run lint",
     "test-server": "ENV=test mocha --compilers js:babel-register --reporter dot --recursive test/server/"
   },
