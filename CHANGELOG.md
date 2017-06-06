@@ -1,4 +1,6 @@
 # react-playground changelog
+1.12.1 - Fixed lint error
+
 1.12.0 - Moved `GET /` to server-side React and added `static` support to classes
 
 1.11.0 - Added relationship resolution in GraphQL
