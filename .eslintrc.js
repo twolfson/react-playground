@@ -9,13 +9,14 @@ module.exports = {
 
   // Configure our environment
   // http://eslint.org/docs/user-guide/configuring#specifying-environments
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 6,
-    sourceType: 'module',
+    sourceType: 'module'
   },
   env: {
     node: true,
-    mocha: true,
+    mocha: true
   },
 
   // Set up ES6 rules

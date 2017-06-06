@@ -22,8 +22,8 @@
   "license": "Unlicense",
   "scripts": {
     "preinstall": "if test \"$(basename \"$_\")\" != \"yarn\"; then echo \"Expected \\`yarn\\` to be run for scripts but got \\`$_\\`\" 1>&2; exit 1; fi",
-    "precheck": "eslint *.js bin/ config/ server/ test/",
-    "lint": "eslint *.js bin/ config/ server/ test/ --max-warnings 0",
+    "precheck": "eslint --ext .js --ext .jsx *.js bin/ config/ server/ test/",
+    "lint": "eslint --ext .js --ext .jsx *.js bin/ config/ server/ test/ --max-warnings 0",
     "start": "babel-node bin/react-playground-server",
     "start-develop": "ENV=development nodemon -x 'babel-node bin/react-playground-server'",
     "test": "npm run precheck && npm run test-server && npm run lint",
@@ -51,6 +51,7 @@
   "devDependencies": {
     "async": "~2.4.1",
     "babel-cli": "~6.24.1",
+    "babel-eslint": "~7.2.3",
     "babel-preset-env": "~1.5.1",
     "babel-register": "~6.24.1",
     "chai": "~4.0.0",

@@ -38,4 +38,4 @@ export default class RootView extends React.Component {
       </html>
     );
   }
-};
+}

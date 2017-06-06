@@ -9,6 +9,27 @@ import {Comment} from './comment';
 
 // Define our model backend
 export class Post {
+  static _modelsById = {};
+  static getById(id) {
+    return this._modelsById[id];
+  }
+  static fetchById(id) {
+    const post = this.getById(id);
+    assert(post);
+    return post;
+  }
+  static fetchByIdOr404(id) {
+    const post = this.getById(id);
+    if (!post) { throw new httpErrors.NotFound(); }
+    return post;
+  }
+  static getAll() {
+    return _.values(this._modelsById);
+  }
+  static deleteAll() {
+    this._modelsById = {};
+  }
+
   constructor(attrs) {
     this.id = attrs.id || uuidV4(); assert(this.id);
     this.content = attrs.content; assert(this.content);
@@ -20,26 +41,7 @@ export class Post {
     return comment;
   }
   save() {
-    Post._modelsById[this.id] = this;
+    const cls = this.constructor;
+    cls._modelsById[this.id] = this;
   }
 }
-Post._modelsById = {};
-Post.getById = function (id) {
-  return Post._modelsById[id];
-};
-Post.fetchById = function (id) {
-  const post = Post.getById(id);
-  assert(post);
-  return post;
-};
-Post.fetchByIdOr404 = function (id) {
-  const post = Post.getById(id);
-  if (!post) { throw new httpErrors.NotFound(); }
-  return post;
-};
-Post.getAll = function () {
-  return _.values(Post._modelsById);
-};
-Post.deleteAll = function () {
-  Post._modelsById = {};
-};
