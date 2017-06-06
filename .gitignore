@@ -1,4 +1,4 @@
+browser-dist/
 node_modules/
 sessions.db
 sessions.db-journal
-browser-dist/
