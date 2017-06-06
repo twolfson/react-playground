@@ -45,6 +45,10 @@ function Server(config) {
     store: new SQLiteStore()
   }, config.session)));
 
+  // Set up our static content
+  // TODO: Move to `browser-dist`
+  app.use('/browser', express.static(__dirname + '/../browser'));
+
   // Define our routes
   // Generic application routes
   // DEV: When our routes get unwieldy, break them out into another file
