@@ -2,7 +2,6 @@
 import assert from 'assert';
 
 import _ from 'underscore';
-import httpErrors from 'http-errors';
 import uuidV4 from 'uuid/v4';
 
 import {Base} from './base';
