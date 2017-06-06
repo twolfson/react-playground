@@ -30,6 +30,7 @@
     "test-server": "ENV=test mocha --compilers js:babel-register --reporter dot --recursive test/server/"
   },
   "dependencies": {
+    "babel-plugin-transform-class-properties": "~6.24.1",
     "babel-preset-react": "~6.24.1",
     "body-parser": "~1.17.2",
     "connect-sqlite3": "~0.9.9",
