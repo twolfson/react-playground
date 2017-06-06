@@ -3,10 +3,15 @@
 
 // Define our webpack config
 module.exports = {
-  entry: __dirname + '/browser/js/posts.js',
+  entry: __dirname + '/browser/js/posts.jsx',
   output: {
     path: __dirname + '/browser-dist/js',
     filename: 'posts.js'
+  },
+  module: {
+    rules: [
+      {test: /(\.js|\.jsx)$/, use: 'babel-loader'}
+    ]
   },
   plugins: []
 };
