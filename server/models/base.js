@@ -1,5 +1,8 @@
 // Load in our dependencies
+import assert from 'assert';
+
 import _ from 'underscore';
+import httpErrors from 'http-errors';
 
 // Define our model
 export class Base {
@@ -16,6 +19,17 @@ export class Base {
     }
     return models;
   }
+  static fetchById(id) {
+    const model = this.getById(id);
+    assert(model);
+    return model;
+  }
+  static fetchByIdOr404(id) {
+    const model = this.getById(id);
+    if (!model) { throw new httpErrors.NotFound(); }
+    return model;
+  }
+
   static deleteAll() {
     this._modelsById = {};
   }

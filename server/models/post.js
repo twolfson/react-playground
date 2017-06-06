@@ -11,17 +11,6 @@ import {Comment} from './comment';
 // Define our model backend
 export class Post extends Base {
   static _modelsById = {};
-  static fetchById(id) {
-    const post = this.getById(id);
-    assert(post);
-    return post;
-  }
-  static fetchByIdOr404(id) {
-    const post = this.getById(id);
-    if (!post) { throw new httpErrors.NotFound(); }
-    return post;
-  }
-
   constructor(attrs) {
     super(attrs);
     this.id = attrs.id || uuidV4(); assert(this.id);
