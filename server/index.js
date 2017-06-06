@@ -7,8 +7,7 @@ import connectSqlite3 from 'connect-sqlite3';
 import express from 'express';
 import expressSession from 'express-session';
 import expressGraphql from 'express-graphql';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
+import expressReactViews from 'express-react-views';
 
 import {getConfig} from '../config';
 import {schema as graphqlSchema} from './graphql/index.js';
@@ -26,22 +25,13 @@ function Server(config) {
 
   // Configure our views
   // http://expressjs.com/en/guide/using-template-engines.html
-  // TODO: Move to `express-react-views` instead of bespoke engine
+  // https://github.com/reactjs/express-react-views/tree/v0.10.1#usage
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jsx');
-  app.engine('jsx', function jsxEngine (filepath, locals, callback) {
-    // Load in our filepath
-    // DEV: We perform `default` fallback due to ES6 imports/exports
-    let ViewComponent = require(filepath); // eslint-disable-line global-require, no-restricted-globals
-    ViewComponent = ViewComponent.default || ViewComponent;
-
-    // Render our view and callback immediately
-    // https://facebook.github.io/react/docs/react-dom-server.html#rendertostring
-    // DEV: This isn't great for zalgo but it feels appropriate
-    let viewComponent = React.createElement(ViewComponent, locals);
-    let renderedContent = ReactDOMServer.renderToString(viewComponent);
-    callback(null, renderedContent);
-  });
+  app.engine('jsx', expressReactViews.createEngine({
+    beautify: false,
+    transformViews: false // `babel-register` is performed via `babel-node` wrapper
+  }));
   // DEV: We set view cache to true during testing for performance
   //   https://gist.github.com/twolfson/f81a4861d834929abcf3
   app.set('view cache', config.viewCache);
