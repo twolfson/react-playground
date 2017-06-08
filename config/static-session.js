@@ -1,10 +1,10 @@
 // Load in our dependencies
-import _ from 'underscore';
+const _ = require('underscore');
 
 // Define our configurations
 // TODO: Configure session more robustly
 // https://github.com/expressjs/session/tree/v1.15.3#sessionoptions
-export let common = {
+exports.common = {
   session: {
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7 * 2 // 2 weeks
@@ -17,15 +17,15 @@ export let common = {
   sessionsDir: __dirname + '/../sessions'
 };
 
-export let development = {
+exports.development = {
   session: _.defaults({
     secret: 'DEVELOPMENT SECRET'
-  }, common.session)
+  }, exports.common.session)
 };
 
-export let test = {
+exports.test = {
   session: _.defaults({
     secret: 'TEST SECRET'
-  }, common.session),
+  }, exports.common.session),
   sessionsDir: __dirname + '/../sessions-test'
 };

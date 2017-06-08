@@ -1,28 +1,28 @@
 // Based on https://github.com/twolfson/twolfson.com/blob/3.87.0/config/static.js
 // Load in our dependencies
-import _ from 'underscore';
+const _ = require('underscore');
 
 // DEV: When we want to store secrets, follow SOPS' all-in-one secret convention
 //   We prefer it over per-file as we can use aliasing in non-JSON files
 //   https://github.com/mozilla/sops/tree/f63597f901f50f07ff72452b4bdb485518b85de7/examples
 
 // Define generic settings
-export const common = {
+exports.common = {
 };
 
-export const development = {
+exports.development = {
   exposeStack: true,
   hostGraphiql: true,
   viewCache: false
 };
 
-export const test = {
+exports.test = {
   exposeStack: true,
   hostGraphiql: false,
   viewCache: true
 };
 
-export const production = {
+exports.production = {
   exposeStack: false,
   hostGraphiql: false,
   viewCache: true
@@ -35,7 +35,7 @@ const configFiles = [
 configFiles.forEach(function mergeConfigFile (configFile) {
   // Load our new config
   // DEV: We could refactor with redundant imports but we're fine hacking it for now
-  const mainConfig = {common, development, test, production};
+  const mainConfig = exports;
   const newConfig = require(configFile); // eslint-disable-line global-require, no-restricted-globals
 
   // Assert that the new config has no repeated keys
