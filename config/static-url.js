@@ -45,3 +45,21 @@ exports.test.url = {
     hostname: 'react-playground.test'
   }
 };
+
+exports.production = {
+  listen: {
+    hostname: 'localhost',
+    port: 5000
+  }
+};
+exports.production.url = {
+  internal: {
+    protocol: 'http',
+    hostname: exports.production.listen.hostname,
+    port: exports.production.listen.port
+  },
+  external: {
+    protocol: 'https',
+    hostname: 'react-playground.com'
+  }
+};
