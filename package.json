@@ -22,7 +22,7 @@
   "license": "Unlicense",
   "scripts": {
     "build": "ENV=production webpack",
-    "develop": "ENV=development webpack --watch",
+    "develop": "ENV=development webpack-dev-server",
     "preinstall": "if test \"$(basename \"$_\")\" != \"yarn\"; then echo \"Expected \\`yarn\\` to be run for scripts but got \\`$_\\`\" 1>&2; exit 1; fi",
     "postinstall": "yarn run build",
     "precheck": "eslint --ext .js --ext .jsx *.js bin/ config/ server/ test/",
@@ -71,7 +71,8 @@
     "nodemon": "~1.11.0",
     "react-hot-loader": "3.0.0-beta.6",
     "request": "~2.81.0",
-    "webpack": "~2.6.1"
+    "webpack": "~2.6.1",
+    "webpack-dev-server": "~2.4.5"
   },
   "keywords": [],
   "foundry": {

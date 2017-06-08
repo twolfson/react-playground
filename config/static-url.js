@@ -20,6 +20,12 @@ development.url = {
     port: development.listen.port
   }
 };
+development.webpackDevServerUrl = {
+  protocol: 'http',
+  hostname: 'localhost',
+  // LiveReload (35729) + 1
+  port: 35730
+};
 
 export let test = {
   listen: {
