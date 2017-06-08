@@ -27,8 +27,6 @@ import Counter from './counter';
   if (module.hot) {
     module.hot.accept('./counter', () => {
       console.log('reeeerender');
-      console.log('wat', Counter);
-      const x = require('./counter').default;
       render(x);
     });
   }
