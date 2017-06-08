@@ -19,7 +19,7 @@ module.exports = {
     // DEV: We must specify `publicPath` for consistent support via HMR
     // publicPath: http://localhost:5000/browser-dist/js/
     publicPath: url.format(_.defaults({
-      path: '/browser-dist/js/'
+      pathname: '/browser-dist/js/'
     }, config.url.external))
   },
   module: {
@@ -41,6 +41,12 @@ if (process.env.ENV === 'development') {
   module.exports.devServer = {
     host: config.webpackDevServerUrl.hostname,
     port: config.webpackDevServerUrl.port,
-    hot: true
+    hot: true,
+    headers: {
+      // TODO: Restrict origin
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
+    }
   };
 }
