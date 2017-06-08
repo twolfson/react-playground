@@ -24,6 +24,8 @@ window.addEventListener('DOMContentLoaded', function handleReady () {
   // If we have HMR enabled, handle reloads
   // TODO: Tidy up errors
   if (module.hot) {
-    module.hot.accept('./posts-app', () => render(PostsApp));
+    module.hot.accept('./posts-app', () => {
+      render(PostsApp);
+    });
   }
 });

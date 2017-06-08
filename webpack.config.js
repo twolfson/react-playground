@@ -22,6 +22,9 @@ module.exports = {
       pathname: '/browser-dist/js/'
     }, config.url.external))
   },
+  resolve: {
+    extensions: ['.js', '.json', '.jsx']
+  },
   module: {
     rules: [
       {test: /(\.js|\.jsx)$/, use: ['babel-loader'], exclude: /node_modules/}
