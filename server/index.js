@@ -16,6 +16,15 @@ import {schema as graphqlSchema} from './graphql/index.js';
 // Load our config
 const _config = getConfig();
 
+// Define our app locals
+// DEV: We disable ESLint for an inline non-redundant import syntax
+/* eslint-disable no-restricted-globals,global-require */
+const appLocals = {
+  webpackDevServerUrl: _config.webpackDevServerUrl,
+  url: require('url')
+};
+/* eslint-enable no-restricted-globals,global-require */
+
 // Define our server
 function Server(config) {
   // Save our config for later
@@ -23,6 +32,9 @@ function Server(config) {
 
   // Create a new server
   const app = this.app = express();
+
+  // Expose our locals to the app
+  _.extend(app.locals, appLocals);
 
   // Configure our views
   // http://expressjs.com/en/guide/using-template-engines.html

@@ -1,11 +1,18 @@
 // Define our configurations
 exports.common = {
+  webpackDevServerUrl: null
 };
 
 exports.development = {
   listen: {
     hostname: 'localhost',
     port: 5000
+  },
+  webpackDevServerUrl: {
+    protocol: 'http',
+    hostname: 'localhost',
+    // LiveReload (35729) + 1
+    port: 35730
   }
 };
 exports.development.url = {
@@ -19,12 +26,6 @@ exports.development.url = {
     hostname: 'localhost',
     port: exports.development.listen.port
   }
-};
-exports.development.webpackDevServerUrl = {
-  protocol: 'http',
-  hostname: 'localhost',
-  // LiveReload (35729) + 1
-  port: 35730
 };
 
 exports.test = {
