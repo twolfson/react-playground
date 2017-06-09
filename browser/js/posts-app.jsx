@@ -65,10 +65,6 @@ export default class PostsApp extends React.Component {
     };
   }
 
-  componentWillUpdate() {
-    // window.location.reload();
-  }
-
   render() {
     return (
       <div>
@@ -89,20 +85,22 @@ export default class PostsApp extends React.Component {
         {this.state.isLoading ? (
           <p>Loading...</p>
         ) : (
-          {/* TODO: Handle empty state */}
+          // TODO: Handle empty state
           this.state.posts.map((post) => {
             return (
-              <p>
-                <div className="post__title" key={post.id}><strong>Post:</strong> {post.content}</div>
-                <div className="post__comments" style={{marginLeft: '20px'}}>
-                  {/* TODO: Handle empty state */}
+              // Ideally this would be a `<p>` but React complains about nesting div's in p's which is fair
+              <div key={post.id} style={{marginBottom: '20px'}}>
+                <div className="post__title"><strong>Post:</strong> {post.content}</div>
+                <div className="post__comments"
+                    style={{marginLeft: '10px', borderLeft: '4px solid #CCC', paddingLeft: '5px'}}>
+                  {/* Do nothing on no comments */}
                   {post.comments.map((comment) => {
                     return (
                       <div key={comment.id}>{comment.content}</div>
                     );
                   })}
                 </div>
-              </p>
+              </div>
             );
           })
         )}

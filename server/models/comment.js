@@ -22,10 +22,12 @@ export class Comment extends Base {
 if (true) {
   Comment._modelsById['example-comment'] = {
     id: 'example-comment',
+    postId: 'example-post',
     content: 'This is an example comment'
   };
   Comment._modelsById['example-comment2'] = {
     id: 'example-comment2',
+    postId: 'example-post',
     content: 'This is another example comment'
   };
 }
