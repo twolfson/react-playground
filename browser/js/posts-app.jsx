@@ -8,7 +8,7 @@ export default class PostsApp extends React.Component {
       <div>
         {/* GraphQL form */}
         <form>
-          <h3>Submit a new post</h3>
+          <h1>Submit a new post</h1>
           <div>
             <label htmlFor="content">Content:</label>
             <input type="text" placeholder="Content goes here"></input>

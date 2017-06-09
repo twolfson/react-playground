@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 
-import Counter from './counter';
+import PostsApp from './posts-app';
 
 // When our page loads
 window.addEventListener('DOMContentLoaded', function handleReady () {
@@ -19,13 +19,13 @@ window.addEventListener('DOMContentLoaded', function handleReady () {
       </AppContainer>,
       targetEl);
   };
-  render(Counter);
+  render(PostsApp);
 
   // If we have HMR enabled, handle reloads
   /* eslint-disable no-restricted-globals */
   if (module.hot) {
-    module.hot.accept('./counter', () => {
-      render(Counter);
+    module.hot.accept('./posts-app', () => {
+      render(PostsApp);
     });
   }
   /* eslint-enable no-restricted-globals */
