@@ -34,11 +34,7 @@ module.exports = {
       {
         test: /(\.js|\.jsx)$/,
         exclude: /node_modules/,
-        use: [{
-          loader: 'babel-loader',
-          // DEV: We use `babelConfig` so it can be extended for HMR
-          options: babelConfig
-        }]
+        use: ['react-hot-loader/webpack', 'babel-loader']
       }
     ]
   },
@@ -58,15 +54,6 @@ if (process.env.ENV === 'development') {
   module.exports.plugins.push(new webpack.HotModuleReplacementPlugin());
   module.exports.plugins.push(new webpack.NamedModulesPlugin());
   module.exports.plugins.push(new webpack.NoEmitOnErrorsPlugin());
-  assert(babelConfig.presets.includes('env'));
-  babelConfig.presets = babelConfig.presets.map(function removeModulesFromEnv (preset) {
-    if (preset === 'env') {
-      return ['env', {modules: false}];
-    } else {
-      return preset;
-    }
-  });
-  babelConfig.plugins.unshift('react-hot-loader/babel');
   module.exports.devServer = {
     host: config.webpackDevServerUrl.hostname,
     port: config.webpackDevServerUrl.port,
