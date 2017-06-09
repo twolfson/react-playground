@@ -6,6 +6,6 @@ const WARN = 'warn';
 module.exports = {
   rules: {
     // Allow `module`, `exports`, and `require` due to ES5 Webpack loading this directory
-    'no-restricted-globals': OFF,
+    'no-restricted-globals': OFF
   }
 };
