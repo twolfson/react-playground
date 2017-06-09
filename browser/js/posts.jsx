@@ -22,10 +22,11 @@ window.addEventListener('DOMContentLoaded', function handleReady () {
   render(Counter);
 
   // If we have HMR enabled, handle reloads
-  // TODO: Tidy up errors
+  /* eslint-disable no-restricted-globals */
   if (module.hot) {
     module.hot.accept('./counter', () => {
       render(Counter);
     });
   }
+  /* eslint-enable no-restricted-globals */
 });
