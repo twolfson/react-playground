@@ -89,7 +89,22 @@ export default class PostsApp extends React.Component {
         {this.state.isLoading ? (
           <p>Loading...</p>
         ) : (
-          'foo'
+          {/* TODO: Handle empty state */}
+          this.state.posts.map((post) => {
+            return (
+              <p>
+                <div className="post__title" key={post.id}><strong>Post:</strong> {post.content}</div>
+                <div className="post__comments" style={{marginLeft: '20px'}}>
+                  {/* TODO: Handle empty state */}
+                  {post.comments.map((comment) => {
+                    return (
+                      <div key={comment.id}>{comment.content}</div>
+                    );
+                  })}
+                </div>
+              </p>
+            );
+          })
         )}
       </div>
     );
