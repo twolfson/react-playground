@@ -22,7 +22,7 @@
   "license": "Unlicense",
   "scripts": {
     "build": "ENV=production webpack",
-    "develop": "ENV=development webpack-dev-server",
+    "develop": "BABEL_ENV=development-hmr ENV=development webpack-dev-server",
     "preinstall": "if test \"$(basename \"$_\")\" != \"yarn\"; then echo \"Expected \\`yarn\\` to be run for scripts but got \\`$_\\`\" 1>&2; exit 1; fi",
     "postinstall": "yarn run build",
     "precheck": "eslint --ext .js --ext .jsx *.js bin/ config/ server/ test/",

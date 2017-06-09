@@ -11,7 +11,6 @@ const {getConfig} = require('./config');
 
 // Define our Webpack config
 const config = getConfig();
-const babelConfig = require('./.babelrc.js');
 module.exports = {
   entry: ['./browser/js/posts-container.jsx'],
   output: {
@@ -32,10 +31,7 @@ module.exports = {
       {
         test: /(\.js|\.jsx)$/,
         exclude: /node_modules/,
-        use: [{
-          loader: 'babel-loader',
-          options: babelConfig
-        }]
+        use: ['babel-loader']
       }
     ]
   },
