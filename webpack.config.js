@@ -51,7 +51,7 @@ if (process.env.ENV === 'development') {
   module.exports.entry.unshift('react-hot-loader/patch');
   // http://localhost:5000/browser-dist/js/ -> http://localhost:35730/browser-dist/js/
   module.exports.output.publicPath = module.exports.output.publicPath.replace(
-    url.format(config.url.internal), url.format(config.webpackDevServerUrl));
+    url.format(config.url.external), url.format(config.webpackDevServerUrl));
   module.exports.plugins.push(new webpack.HotModuleReplacementPlugin());
   module.exports.plugins.push(new webpack.NamedModulesPlugin());
   module.exports.plugins.push(new webpack.NoEmitOnErrorsPlugin());
@@ -61,8 +61,7 @@ if (process.env.ENV === 'development') {
     port: config.webpackDevServerUrl.port,
     hot: true,
     headers: {
-      // TODO: Restrict origin
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': url.format(config.url.external),
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
       'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
     }
