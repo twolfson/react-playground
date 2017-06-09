@@ -19,7 +19,7 @@ We've already used React in [plaidchat][] but want to take things further. In th
 - [ ] Webpack
     - [x] Basic compilation
     - [x] LiveReload integration
-    - [ ] Hot module reload integration
+    - [x] Hot module reload integration
     - [ ] Bundle splitting
 - [ ] Server side rendering
     - [x] Static content
