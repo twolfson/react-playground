@@ -22,8 +22,8 @@ export default class PostsApp extends React.Component {
 
     // Generate our XHR
     // TODO: Add tests for me
+    // TODO: Relocate state fetching to a singleton store (e.g. Redux)
     // DEV: We will worry about hydration via props in the next step
-    //   Maybe define a singleton state and run `init` on that
     // http://youmightnotneedjquery.com/#post
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/graphql', true /* async */);
@@ -81,7 +81,6 @@ export default class PostsApp extends React.Component {
         </form>
         <h2>Existing posts</h2>
         {/* TODO: Load posts dynamically via GraphQL and server-side render that shiz */}
-        {/* TODO: Start with React component that's browser only */}
         {this.state.isLoading ? (
           <p>Loading...</p>
         ) : (

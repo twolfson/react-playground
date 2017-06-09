@@ -12,9 +12,9 @@ We've already used React in [plaidchat][] but want to take things further. In th
     - [x] Arguments and variables
     - [x] Mutations
     - [x] Relationships/connections/edges
-- [ ] React
+- [x] React
     - [x] Static content
-    - [ ] Data fetching
+    - [x] Data fetching
 - [x] JSX
 - [ ] Webpack
     - [x] Basic compilation
