@@ -24,7 +24,14 @@ export default class PostsApp extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({
       query: `query {
-        status
+        posts {
+          id
+          content
+          comments {
+            id
+            content
+          }
+        }
       }`
     }));
 

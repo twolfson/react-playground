@@ -26,3 +26,17 @@ export class Post extends Base {
     cls._modelsById[this.id] = this;
   }
 }
+
+// If we want to serve mock data, then load it up
+// TODO: Move to config for `if`
+// TODO: Relocate into fixture file
+if (true) {
+  Post._modelsById['example-post'] = {
+    id: 'example-post',
+    content: 'This is an example post'
+  };
+  Post._modelsById['example-post2'] = {
+    id: 'example-post2',
+    content: 'This is another example post'
+  };
+}
