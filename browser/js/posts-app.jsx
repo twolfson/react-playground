@@ -79,7 +79,8 @@ export default class PostsApp extends React.Component {
             <input type="text" placeholder="Content goes here"></input>
           </div>
           <div>
-            <button type="submit">Create post</button>
+            {/* TODO: Add support for creating a post via GraphQL */}
+            <button type="submit" disabled="disabled">Create post (support pending)</button>
           </div>
         </form>
         <h2>Existing posts</h2>
