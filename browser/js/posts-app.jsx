@@ -7,13 +7,19 @@ export default class PostsApp extends React.Component {
     super(props);
     this.state = {
       err: null,
-      loading: true,
+      isLoading: true,
       posts: []
     };
     this._fetchData();
   }
 
   _fetchData() {
+    // Reset our state
+    this.setState({
+      err: null,
+      isLoading: true
+    });
+
     // Generate our XHR
     // TODO: Add tests for me
     // DEV: We will worry about hydration via props in the next step
@@ -40,7 +46,7 @@ export default class PostsApp extends React.Component {
     const saveError = function (err) {
       that.setState({
         err: err,
-        loading: false
+        isLoading: false
       });
     };
     xhr.onerror = saveError;
@@ -50,11 +56,10 @@ export default class PostsApp extends React.Component {
           `Expected status code "200" but got "${xhr.status}" and body "${xhr.responseText}"`));
       } else {
         // TODO: Handle GraphQL errors
-        console.log(xhr.responseText);
         that.setState({
-          err: null,
           // TODO: Handle non-JSON
-          posts: []
+          posts: JSON.parse(xhr.responseText).data.posts,
+          isLoading: false
         });
       }
     };
@@ -81,6 +86,11 @@ export default class PostsApp extends React.Component {
         <h2>Existing posts</h2>
         {/* TODO: Load posts dynamically via GraphQL and server-side render that shiz */}
         {/* TODO: Start with React component that's browser only */}
+        {this.state.isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          'foo'
+        )}
       </div>
     );
   }
