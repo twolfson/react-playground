@@ -7,10 +7,11 @@ const assert = require('assert');
 const _ = require('underscore');
 
 // Define our configuration options
-const env = process.env.NODE_ENV;
+const env = process.env.ENV;
+const isWebpack = require.main.filename.includes('webpack');
 assert(env);
 let enableHMR = false;
-if (env === 'development') {
+if (env === 'development' && isWebpack) {
   enableHMR = true;
 }
 
