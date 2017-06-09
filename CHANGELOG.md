@@ -1,4 +1,6 @@
 # react-playground changelog
+1.14.0 - Added hot module replacement support
+
 1.13.0 - Added basic JS Webpack with LiveReload plugin
 
 1.12.1 - Fixed lint error
