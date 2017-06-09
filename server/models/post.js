@@ -29,7 +29,9 @@ export class Post extends Base {
 }
 
 // If we want to serve mock data, then load it up
-// TODO: Relocate into fixture file
+// TODO: Relocate into fixture file and consolidate loading via `config.loadFixtures`
+//   It would be safer to do it via a `useMocks` loader in the controllers
+//   but that's a loooot more work
 if (config.loadMocks) {
   Post._modelsById['example-post'] = {
     id: 'example-post',

@@ -18,7 +18,7 @@ export class Comment extends Base {
 }
 
 // If we want to serve mock data, then load it up
-// TODO: Relocate into fixture file
+// TODO: Relocate into fixture file (see `post.js` for more details)
 if (config.loadMocks) {
   Comment._modelsById['example-comment'] = {
     id: 'example-comment',
