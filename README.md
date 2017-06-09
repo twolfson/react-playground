@@ -1,7 +1,5 @@
 # react-playground [![Build status](https://travis-ci.org/twolfson/react-playground.svg?branch=master)](https://travis-ci.org/twolfson/react-playground)
 
-TODO: Issue seems to be missing `react-hot-loader` from `.babelrc`/`webpack` as well as `{module: false}` but `modules: false` is giving us shit so drop it for now (out of time) and come back when we have more time. Get everything working with `serve` first. NO SERVERS
-
 Playground environment for GraphQL, React, and more
 
 We've already used React in [plaidchat][] but want to take things further. In this repo, we plan to cover exploring:
