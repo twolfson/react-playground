@@ -1,4 +1,6 @@
 # react-playground changelog
+1.14.1 - Fixed test compilation and dropped Node.js@4 to fix Travis CI
+
 1.14.0 - Added hot module replacement support
 
 1.13.0 - Added basic JS Webpack with LiveReload plugin
