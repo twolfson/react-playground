@@ -12,10 +12,11 @@ const {getConfig} = require('./config');
 // Define our Webpack config
 const config = getConfig();
 module.exports = {
-  entry: ['./browser/js/posts.jsx'],
+  entry: ['./browser/js/posts-container.jsx'],
   output: {
     path: __dirname + '/browser-dist/js',
-    filename: 'posts.js',
+    // https://webpack.js.org/configuration/output/#output-filename
+    filename: 'posts-container.js',
     // DEV: We must specify `publicPath` for consistent support via HMR
     // publicPath: http://localhost:5000/browser-dist/js/
     publicPath: url.format(_.defaults({
