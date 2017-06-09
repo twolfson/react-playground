@@ -5,20 +5,56 @@ import React from 'react';
 export default class PostsApp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {posts: [], loading: true};
+    this.state = {
+      err: null,
+      loading: true,
+      posts: []
+    };
     this._fetchData();
   }
 
   _fetchData() {
-    // Fetch our posts from GraphQL
+    // Generate our XHR
     // TODO: Add tests for me
     // DEV: We will worry about hydration via props in the next step
     //   Maybe define a singleton state and run `init` on that
-    console.log('hiiii');
+    // http://youmightnotneedjquery.com/#post
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/graphql', true /* async */);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+      query: `query {
+        status
+      }`
+    }));
+
+    // Handle our XHR response
+    const that = this;
+    const saveError = function (err) {
+      that.setState({
+        err: err,
+        loading: false
+      });
+    };
+    xhr.onerror = saveError;
+    xhr.onload = function () {
+      if (xhr.status !== 200) {
+        saveError(new Error(
+          `Expected status code "200" but got "${xhr.status}" and body "${xhr.responseText}"`));
+      } else {
+        // TODO: Handle GraphQL errors
+        console.log(xhr.responseText);
+        that.setState({
+          err: null,
+          // TODO: Handle non-JSON
+          posts: []
+        });
+      }
+    };
   }
 
   componentWillUpdate() {
-    window.reload();
+    // window.location.reload();
   }
 
   render() {
