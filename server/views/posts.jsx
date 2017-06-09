@@ -12,9 +12,9 @@ export default class PostsView extends React.Component {
         <h1>react-playground posts</h1>
         <div id="main">Loading...</div>
         {webpackDevServerUrl ? (
-          <script src={`${url.format(webpackDevServerUrl)}/browser-dist/js/posts.js`} />
+          <script src={`${url.format(webpackDevServerUrl)}/browser-dist/js/posts-container.js`} />
         ) : (
-          <script src="/browser-dist/js/posts.js" />
+          <script src="/browser-dist/js/posts-container.js" />
         )}
       </Layout>
     );

@@ -43,7 +43,7 @@ module.exports = {
 //   https://github.com/gaearon/react-hot-boilerplate/blob/530fb8fee703e52eeeed894301af3d46d266cae9/webpack.config.js
 //   If something breaks, we recommend ditching the server and switching to `serve .` temporarily
 //   Then compare between the boilerplate and the code -- it should be an `index.html`, `index.js`, and `app.js`
-if (process.env.ENV === 'development') {
+if (process.env.BABEL_ENV === 'development-hmr') {
   module.exports.entry.unshift('react-hot-loader/patch');
   // http://localhost:5000/browser-dist/js/ -> http://localhost:35730/browser-dist/js/
   module.exports.output.publicPath = module.exports.output.publicPath.replace(
