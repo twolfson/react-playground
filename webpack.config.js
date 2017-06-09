@@ -2,8 +2,6 @@
 /* eslint-disable no-restricted-globals,global-require */
 
 // Load in our dependencies
-const assert = require('assert');
-const fs = require('fs');
 const url = require('url');
 
 const _ = require('underscore');
@@ -13,7 +11,7 @@ const {getConfig} = require('./config');
 
 // Define our Webpack config
 const config = getConfig();
-let babelConfig = JSON.parse(fs.readFileSync(__dirname + '/.babelrc', 'utf8'));
+const babelConfig = require('./.babelrc.js');
 module.exports = {
   entry: ['./browser/js/posts-container.jsx'],
   output: {
@@ -34,7 +32,10 @@ module.exports = {
       {
         test: /(\.js|\.jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: [{
+          loader: 'babel-loader',
+          options: babelConfig
+        }]
       }
     ]
   },
@@ -54,6 +55,7 @@ if (process.env.ENV === 'development') {
   module.exports.plugins.push(new webpack.HotModuleReplacementPlugin());
   module.exports.plugins.push(new webpack.NamedModulesPlugin());
   module.exports.plugins.push(new webpack.NoEmitOnErrorsPlugin());
+  // DEV: We also set up HMR via `.babelrc`
   module.exports.devServer = {
     host: config.webpackDevServerUrl.hostname,
     port: config.webpackDevServerUrl.port,
@@ -66,6 +68,3 @@ if (process.env.ENV === 'development') {
     }
   };
 }
-
-// console.log(module.exports.module.rules[0].use[0].options.presets);
-// console.log(module.exports.module.rules[0].use[0].options.plugins);

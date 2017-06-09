@@ -9,7 +9,7 @@ const _ = require('underscore');
 // Define our configuration options
 const env = process.env.NODE_ENV;
 assert(env);
-const enableHMR = false;
+let enableHMR = false;
 if (env === 'development') {
   enableHMR = true;
 }
