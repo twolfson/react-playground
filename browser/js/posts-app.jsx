@@ -10,7 +10,7 @@ export default class PostsApp extends React.Component {
         <form>
           <h1>Submit a new post</h1>
           <div>
-            <label htmlFor="content">Content:</label>
+            <label htmlFor="content">Conent:</label>
             <input type="text" placeholder="Content goes here"></input>
           </div>
           <div>

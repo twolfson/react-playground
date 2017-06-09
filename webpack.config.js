@@ -13,7 +13,7 @@ const {getConfig} = require('./config');
 
 // Define our Webpack config
 const config = getConfig();
-let babelConfig = JSON.parse(fs.readFileSync(__dirname + '/.babelrc.bak', 'utf8'));
+let babelConfig = JSON.parse(fs.readFileSync(__dirname + '/.babelrc', 'utf8'));
 module.exports = {
   entry: ['./browser/js/posts-container.jsx'],
   output: {
@@ -34,11 +34,7 @@ module.exports = {
       {
         test: /(\.js|\.jsx)$/,
         exclude: /node_modules/,
-        use: [{
-          loader: 'babel-loader',
-          // DEV: We use `babelConfig` so it can be extended for HMR
-          options: babelConfig
-        }]
+        use: ['babel-loader']
       }
     ]
   },
@@ -58,12 +54,6 @@ if (process.env.ENV === 'development') {
   module.exports.plugins.push(new webpack.HotModuleReplacementPlugin());
   module.exports.plugins.push(new webpack.NamedModulesPlugin());
   module.exports.plugins.push(new webpack.NoEmitOnErrorsPlugin());
-  // assert(babelConfig.presets.includes('env'));
-  babelConfig.presets = [
-    ["env", {"modules": false}],
-    "react"
-  ];
-  babelConfig.plugins.unshift('react-hot-loader/babel');
   module.exports.devServer = {
     host: config.webpackDevServerUrl.hostname,
     port: config.webpackDevServerUrl.port,
