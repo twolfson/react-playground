@@ -4,6 +4,7 @@ import assert from 'assert';
 import uuidV4 from 'uuid/v4';
 
 import {Base} from './base';
+import config from '../_config';
 
 // Define our model backend
 export class Comment extends Base {
@@ -17,9 +18,8 @@ export class Comment extends Base {
 }
 
 // If we want to serve mock data, then load it up
-// TODO: Move to config for `if`
 // TODO: Relocate into fixture file
-if (true) {
+if (config.loadMocks) {
   Comment._modelsById['example-comment'] = {
     id: 'example-comment',
     postId: 'example-post',

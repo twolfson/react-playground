@@ -10,11 +10,8 @@ import expressReactViews from 'express-react-views';
 import expressSessionLevel from 'express-session-level';
 import levelup from 'levelup';
 
-import {getConfig} from '../config';
+import _config from './_config';
 import {schema as graphqlSchema} from './graphql/index.js';
-
-// Load our config
-const _config = getConfig();
 
 // Define our app locals
 // DEV: We disable ESLint for an inline non-redundant import syntax

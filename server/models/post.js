@@ -6,6 +6,7 @@ import uuidV4 from 'uuid/v4';
 
 import {Base} from './base';
 import {Comment} from './comment';
+import config from '../_config';
 
 // Define our model backend
 export class Post extends Base {
@@ -28,9 +29,8 @@ export class Post extends Base {
 }
 
 // If we want to serve mock data, then load it up
-// TODO: Move to config for `if`
 // TODO: Relocate into fixture file
-if (true) {
+if (config.loadMocks) {
   Post._modelsById['example-post'] = {
     id: 'example-post',
     content: 'This is an example post'
