@@ -1,21 +1,10 @@
-// Load in our dependencies
-const _ = require('underscore');
-
-const {getConfig} = require('./config');
-
 // Define our Webpack config
-const config = getConfig();
 module.exports = {
   entry: ['./browser/js/posts-container.jsx'],
   output: {
     path: __dirname + '/browser-dist/js',
     // https://webpack.js.org/configuration/output/#output-filename
-    filename: 'posts-container.js',
-    // DEV: We must specify `publicPath` for consistent support via HMR
-    // publicPath: http://localhost:5000/browser-dist/js/
-    publicPath: url.format(_.defaults({
-      pathname: '/browser-dist/js/'
-    }, config.url.external))
+    filename: 'posts-container.js'
   },
   resolve: {
     extensions: ['.js', '.json', '.jsx']
