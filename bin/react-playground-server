@@ -61,7 +61,7 @@ if (cluster.isMaster) {
   });
 
   // Start our server listener
-  server = require('../server/index.js').default;
+  server = require('../server/index.js');
   server.listen();
 }
 
