@@ -7,7 +7,7 @@ const {Post} = require('../models/post');
 const {CommentObjectType} = require('./comment');
 
 // Define our GraphQL type upfront
-export const PostObjectType = new GraphQLObjectType({
+exports.PostObjectType = new GraphQLObjectType({
   name: 'PostObjectType',
   description: 'A post in its GraphQL representation',
   fields: {
@@ -30,7 +30,7 @@ export const PostObjectType = new GraphQLObjectType({
 });
 
 // Define our query container
-export const queries = {
+exports.queries = {
   posts: {
     description: 'Retrieve posts',
     type: new GraphQLList(PostObjectType),
@@ -53,7 +53,7 @@ const createPostInputType = new GraphQLInputObjectType({
     }
   }
 });
-export const mutations = {
+exports.mutations = {
   createPost: {
     type: PostObjectType,
     description: 'Create a post',

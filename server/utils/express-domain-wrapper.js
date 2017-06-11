@@ -14,7 +14,7 @@ const slice = Array.prototype.slice;
 let monkeyPatchedExpress = false;
 
 // Define and export our wrapper function
-export const monkeyPatchExpress = function (domainErrorCallback) {
+exports.monkeyPatchExpress = function (domainErrorCallback) {
   // If Express has already been monkey patched, then error out
   if (monkeyPatchedExpress === true) {
     throw new Error('Express cannot be wrapped with domains twice as we refer to a server singleton. ' +

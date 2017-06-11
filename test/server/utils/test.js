@@ -8,7 +8,7 @@ const {Post} = require('../../../server/models/post');
 const dbFixtures = require('./db-fixtures');
 
 // Define our helpers
-export const setFixtures = function (fixtureNames) {
+exports.setFixtures = function (fixtureNames) {
   before(function setFixturesFn () {
     // Resolve our input fixtures
     let fixtures = fixtureNames.map(function resolveFixture (fixtureName) {

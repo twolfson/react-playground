@@ -71,12 +71,12 @@ graphQLContainers.forEach(function mergeGraphQLContainer (filepath) {
 });
 
 // Define our root query and mutation object types
-export const RootQueryObjectType = new GraphQLObjectType({
+exports.RootQueryObjectType = new GraphQLObjectType({
   name: 'RootQueryObjectType',
   description: 'Root for all queries',
   fields: rootContainer.queries
 });
-export const RootMutationObjectType = new GraphQLObjectType({
+exports.RootMutationObjectType = new GraphQLObjectType({
   name: 'RootMutationObjectType',
   description: 'Root for all mutations',
   fields: rootContainer.mutations

@@ -1,12 +1,12 @@
 // Define our fixtures
-export const post = {
+exports.post = {
   model: 'post',
   attrs: {
     id: 'example-post-uuid',
     content: 'foobar'
   }
 };
-export const comment = {
+exports.comment = {
   model: 'comment',
   attrs: {
     id: 'example-comment-uuid',

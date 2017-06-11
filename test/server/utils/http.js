@@ -14,7 +14,7 @@ const kueQueue = {}; // Loaded via server utils, scrubbed for GitHub
 // Copy over utilities from request-mocha
 // https://github.com/uber-archive/request-mocha/blob/0.2.0/lib/request-mocha.js
 // DEV: We use copy/paste as it's easier to integrate Cheerio parsing
-export const _save = function (options) {
+exports._save = function (options) {
   return function _saveFn (done) {
     // Save our context for later
     const that = this;
@@ -236,7 +236,7 @@ export const _save = function (options) {
     }
   };
 };
-export const _saveCleanup = function () {
+exports._saveCleanup = function () {
   return function _saveCleanupFn () {
     delete this.err;
     delete this.req;
@@ -248,13 +248,13 @@ export const _saveCleanup = function () {
     delete this.json;
   };
 };
-export const save = function (options) {
+exports.save = function (options) {
   before(_save(options));
   after(_saveCleanup(options));
 };
 
 // Define session-based methods
-export const session = {
+exports.session = {
   _save: function (options) {
     return function saveFn (done) {
       // Verify we have a cookie jar to leverage
@@ -363,5 +363,5 @@ function wrapSaveWithGraphQL(saveFn) {
     return this;
   };
 }
-export const graphql = wrapSaveWithGraphQL(save);
+exports.graphql = wrapSaveWithGraphQL(save);
 session.graphql = wrapSaveWithGraphQL(session.save);
