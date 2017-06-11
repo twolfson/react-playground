@@ -1,7 +1,7 @@
 // Load in our dependencies
 const React = require('react');
 
-const {Layout} = require('./components/layout');
+const Layout = require('./components/layout');
 
 // Export our view
 module.exports = class PostsView extends React.Component {
@@ -19,4 +19,4 @@ module.exports = class PostsView extends React.Component {
       </Layout>
     );
   }
-}
+};

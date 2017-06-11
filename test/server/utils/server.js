@@ -10,7 +10,7 @@ const server = require('../../../server/index.js');
 server.listen();
 
 // Re-expose server, app, and its config for convenience
-export {server};
+exports.server = server;
 exports.app = server.app;
 exports.config = server.config;
 
@@ -28,5 +28,5 @@ exports.getUrl = function (params) {
   }
 
   // Return our formatted URL
-  return url.format(_.defaults(params, config.url.internal));
+  return url.format(_.defaults(params, exports.config.url.internal));
 };

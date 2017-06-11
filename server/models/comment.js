@@ -3,10 +3,10 @@ const assert = require('assert');
 
 const uuidV4 = require('uuid/v4');
 
-const {Base} = require('./base');
+const Base = require('./base');
 
 // Define our model backend
-export class Comment extends Base {
+module.exports = class Comment extends Base {
   static _modelsById = {};
   constructor(attrs) {
     super(attrs);
@@ -14,4 +14,4 @@ export class Comment extends Base {
     this.postId = attrs.postId; assert(this.postId);
     this.content = attrs.content; assert(this.content);
   }
-}
+};

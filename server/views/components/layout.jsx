@@ -4,7 +4,7 @@ const PropTypes = require('prop-types');
 
 // Export our view
 // Based on https://github.com/reactjs/express-react-views/tree/v0.10.1
-export class Layout extends React.Component {
+module.exports = class Layout extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired
   };
@@ -22,4 +22,4 @@ export class Layout extends React.Component {
       </html>
     );
   }
-}
+};

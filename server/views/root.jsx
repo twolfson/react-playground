@@ -2,7 +2,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 
-const {Layout} = require('./components/layout');
+const Layout = require('./components/layout');
 
 // Export our view
 module.exports = class RootView extends React.Component {
@@ -38,4 +38,4 @@ module.exports = class RootView extends React.Component {
       </Layout>
     );
   }
-}
+};
