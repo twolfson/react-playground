@@ -52,7 +52,8 @@
     "react-dom": "~15.5.4",
     "shallow-settings": "~0.1.0",
     "underscore": "~1.8.3",
-    "uuid": "~3.0.1"
+    "uuid": "~3.0.1",
+    "webpack-stream": "~3.2.0"
   },
   "devDependencies": {
     "async": "~2.4.1",
@@ -67,9 +68,13 @@
     "eslint-plugin-react": "~7.0.1",
     "foundry": "~4.3.2",
     "foundry-release-git": "~2.0.2",
+    "gulp": "~3.9.1",
+    "gulp-livereload": "~3.8.1",
+    "gulp-notify": "~3.0.0",
     "mocha": "~3.1.2",
     "nodemon": "~1.11.0",
     "request": "~2.81.0",
+    "rimraf": "~2.6.1",
     "webpack": "~2.6.1",
     "webpack-livereload-plugin": "~0.11.0"
   },
