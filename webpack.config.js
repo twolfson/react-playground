@@ -1,8 +1,5 @@
 // Load in our dependencies
-const url = require('url');
-
 const _ = require('underscore');
-const webpack = require('webpack');
 
 const {getConfig} = require('./config');
 
@@ -35,28 +32,11 @@ module.exports = {
   plugins: []
 };
 
-// If we are in development, then enable hot module replacement (HMR)
-// DEV: We found this worked via trial/error/snooping in `react-hot-boilerplate#next`
-//   https://github.com/gaearon/react-hot-boilerplate/blob/530fb8fee703e52eeeed894301af3d46d266cae9/webpack.config.js
-//   If something breaks, we recommend ditching the server and switching to `serve .` temporarily
-//   Then compare between the boilerplate and the code -- it should be an `index.html`, `index.js`, and `app.js`
-if (process.env.BABEL_ENV === 'development-hmr') {
-  module.exports.entry.unshift('react-hot-loader/patch');
-  // http://localhost:5000/browser-dist/js/ -> http://localhost:35730/browser-dist/js/
-  module.exports.output.publicPath = module.exports.output.publicPath.replace(
-    url.format(config.url.external), url.format(config.webpackDevServerUrl));
-  module.exports.plugins.push(new webpack.HotModuleReplacementPlugin());
-  module.exports.plugins.push(new webpack.NamedModulesPlugin());
-  module.exports.plugins.push(new webpack.NoEmitOnErrorsPlugin());
-  // DEV: We also set up HMR via `.babelrc`
-  module.exports.devServer = {
-    host: config.webpackDevServerUrl.hostname,
-    port: config.webpackDevServerUrl.port,
-    hot: true,
-    headers: {
-      'Access-Control-Allow-Origin': url.format(config.url.external),
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
-    }
-  };
+// If we are in development, then enable LiveReload
+// https://github.com/statianzo/webpack-livereload-plugin/tree/v0.11.0
+if (process.env.ENV === 'development') {
+  /* eslint-disable global-require */
+  const LiveReloadPlugin = require('webpack-livereload-plugin');
+  /* eslint-enable global-require */
+  module.exports.plugins.push(new LiveReloadPlugin());
 }
