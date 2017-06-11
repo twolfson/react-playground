@@ -21,8 +21,8 @@
   },
   "license": "Unlicense",
   "scripts": {
-    "build": "ENV=production webpack",
-    "develop": "ENV=development webpack --watch",
+    "build": "ENV=production gulp build",
+    "develop": "ENV=development gulp develop",
     "preinstall": "if test \"$(basename \"$_\")\" != \"yarn\"; then echo \"Expected \\`yarn\\` to be run for scripts but got \\`$_\\`\" 1>&2; exit 1; fi",
     "postinstall": "yarn run build",
     "precheck": "eslint --ext .js --ext .jsx *.js bin/ browser/ config/ server/ test/",
