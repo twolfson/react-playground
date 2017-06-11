@@ -3,8 +3,8 @@ const assert = require('assert');
 
 const _ = require('underscore');
 
-const {Comment} = require('../../../server/models/comment');
-const {Post} = require('../../../server/models/post');
+const Comment = require('../../../server/models/comment');
+const Post = require('../../../server/models/post');
 const dbFixtures = require('./db-fixtures');
 
 // Define our helpers

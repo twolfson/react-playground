@@ -3,7 +3,7 @@ const {expect} = require('chai');
 
 const httpUtils = require('../utils/http');
 const testUtils = require('../utils/test');
-const {Comment} = require('../../../server/models/comment');
+const Comment = require('../../../server/models/comment');
 
 // Define our tests
 describe('A GraphQL mutation request for `createComment`', function () {
