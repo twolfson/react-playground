@@ -1,4 +1,6 @@
 # react-playground changelog
+1.15.1 - Dropped HMR due to higher cost than value
+
 1.15.0 - Dropped ES6 imports/exports due to higher cost than value
 
 1.14.1 - Fixed test compilation and dropped Node.js@4 to fix Travis CI
