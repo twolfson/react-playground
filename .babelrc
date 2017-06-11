@@ -2,7 +2,7 @@
   "env": {
     "development-hmr": {
       "presets": [
-        "env",
+        ["env", {"modules": false}],
         "react"
       ],
       "plugins": [
