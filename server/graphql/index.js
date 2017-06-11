@@ -1,7 +1,7 @@
 // Load in our dependencies
-import {GraphQLSchema} from 'graphql';
+const {GraphQLSchema} = require('graphql');
 
-import {RootQueryObjectType, RootMutationObjectType} from './root';
+const {RootQueryObjectType, RootMutationObjectType} = require('./root');
 
 // Initialize our schema and export it
 export const schema = new GraphQLSchema({

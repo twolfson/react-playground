@@ -1,11 +1,11 @@
 // Load in our dependencies
-import assert from 'assert';
+const assert = require('assert');
 
-import _ from 'underscore';
+const _ = require('underscore');
 
-import {Comment} from '../../../server/models/comment';
-import {Post} from '../../../server/models/post';
-import * as dbFixtures from './db-fixtures';
+const {Comment} = require('../../../server/models/comment');
+const {Post} = require('../../../server/models/post');
+const * as dbFixtures = require('./db-fixtures');
 
 // Define our helpers
 export const setFixtures = function (fixtureNames) {

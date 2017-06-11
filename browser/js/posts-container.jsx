@@ -1,9 +1,9 @@
 // Load in our dependencies
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {AppContainer} from 'react-hot-loader';
+const React = require('react');
+const ReactDOM = require('react-dom');
+const {AppContainer} = require('react-hot-loader');
 
-import PostsApp from './posts-app';
+const PostsApp = require('./posts-app');
 
 // When our page loads
 window.addEventListener('DOMContentLoaded', function handleReady () {

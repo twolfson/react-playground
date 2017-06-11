@@ -1,5 +1,5 @@
 // Load in our dependencies
-import React from 'react';
+const React = require('react');
 
 // Define our application component
 export default class PostsApp extends React.Component {

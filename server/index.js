@@ -1,17 +1,17 @@
 // Load in our dependencies
-import assert from 'assert';
+const assert = require('assert');
 
-import _ from 'underscore';
-import bodyParser from 'body-parser';
-import express from 'express';
-import expressSession from 'express-session';
-import expressGraphql from 'express-graphql';
-import expressReactViews from 'express-react-views';
-import expressSessionLevel from 'express-session-level';
-import levelup from 'levelup';
+const _ = require('underscore');
+const bodyParser = require('body-parser');
+const express = require('express');
+const expressSession = require('express-session');
+const expressGraphql = require('express-graphql');
+const expressReactViews = require('express-react-views');
+const expressSessionLevel = require('express-session-level');
+const levelup = require('levelup');
 
-import {getConfig} from '../config';
-import {schema as graphqlSchema} from './graphql/index.js';
+const {getConfig} = require('../config');
+const {schema as graphqlSchema} = require('./graphql/index.js');
 
 // Load our config
 const _config = getConfig();

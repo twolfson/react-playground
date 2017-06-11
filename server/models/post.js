@@ -1,11 +1,11 @@
 // Load in our dependencies
-import assert from 'assert';
+const assert = require('assert');
 
-import _ from 'underscore';
-import uuidV4 from 'uuid/v4';
+const _ = require('underscore');
+const uuidV4 = require('uuid/v4');
 
-import {Base} from './base';
-import {Comment} from './comment';
+const {Base} = require('./base');
+const {Comment} = require('./comment');
 
 // Define our model backend
 export class Post extends Base {

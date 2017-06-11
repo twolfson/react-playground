@@ -1,8 +1,8 @@
 // Load in our dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
+const React = require('react');
+const PropTypes = require('prop-types');
 
-import {Layout} from './components/layout';
+const {Layout} = require('./components/layout');
 
 // Export our view
 export default class RootView extends React.Component {

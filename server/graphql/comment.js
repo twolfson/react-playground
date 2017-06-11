@@ -2,7 +2,7 @@
 import {GraphQLID, GraphQLInputObjectType,
   GraphQLObjectType, GraphQLString} from 'graphql';
 
-import {Post} from '../models/post';
+const {Post} = require('../models/post');
 
 // Define our GraphQL type upfront
 export const CommentObjectType = new GraphQLObjectType({

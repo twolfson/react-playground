@@ -1,7 +1,7 @@
 // Load in our dependencies
-import React from 'react';
+const React = require('react');
 
-import {Layout} from './components/layout';
+const {Layout} = require('./components/layout');
 
 // Export our view
 export default class PostsView extends React.Component {

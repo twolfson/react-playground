@@ -1,12 +1,12 @@
 // Based on https://gist.github.com/twolfson/c1de950ea28fcbf74be8962257bd75bc
 // Load in our dependencies
-import assert from 'assert';
-import domain from 'domain';
+const assert = require('assert');
+const domain = require('domain');
 
-import {flatten} from 'underscore';
-import methods from 'methods';
-import routerProto from 'express/lib/router/index.js';
-import Route from 'express/lib/router/route.js';
+const {flatten} = require('underscore');
+const methods = require('methods');
+const routerProto = require('express/lib/router/index.js');
+const Route = require('express/lib/router/route.js');
 
 const slice = Array.prototype.slice;
 

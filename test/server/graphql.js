@@ -1,7 +1,7 @@
 // Load in our dependencies
-import {expect} from 'chai';
+const {expect} = require('chai');
 
-import * as httpUtils from './utils/http';
+const * as httpUtils = require('./utils/http');
 
 // Start our tests
 describe('A request to POST /graphql server', function () {

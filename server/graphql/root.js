@@ -1,7 +1,7 @@
 // Load in our dependencies
-import _ from 'underscore';
-import httpErrors from 'http-errors';
-import {GraphQLObjectType, GraphQLString} from 'graphql';
+const _ = require('underscore');
+const httpErrors = require('http-errors');
+const {GraphQLObjectType, GraphQLString} = require('graphql');
 
 // Define our root queries and mutations
 const rootContainer = {

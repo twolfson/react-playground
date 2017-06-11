@@ -1,9 +1,9 @@
 // Load in our dependencies
-import assert from 'assert';
+const assert = require('assert');
 
-import uuidV4 from 'uuid/v4';
+const uuidV4 = require('uuid/v4');
 
-import {Base} from './base';
+const {Base} = require('./base');
 
 // Define our model backend
 export class Comment extends Base {
