@@ -2,7 +2,7 @@
 const React = require('react');
 
 // Define our application component
-export default class PostsApp extends React.Component {
+module.exports = class PostsApp extends React.Component {
   render() {
     return (
       <div>

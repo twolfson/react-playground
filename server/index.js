@@ -143,4 +143,4 @@ Server.prototype.close = function (cb) {
 
 // Export an initialized yet not listening server
 const server = new Server(_config);
-export default server;
+module.exports = server;

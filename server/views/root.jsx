@@ -5,7 +5,7 @@ const PropTypes = require('prop-types');
 const {Layout} = require('./components/layout');
 
 // Export our view
-export default class RootView extends React.Component {
+module.exports = class RootView extends React.Component {
   static propTypes = {
     email: PropTypes.string
   };

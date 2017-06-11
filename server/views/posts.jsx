@@ -4,7 +4,7 @@ const React = require('react');
 const {Layout} = require('./components/layout');
 
 // Export our view
-export default class PostsView extends React.Component {
+module.exports = class PostsView extends React.Component {
   render() {
     const {url, webpackDevServerUrl} = this.props;
     return (
