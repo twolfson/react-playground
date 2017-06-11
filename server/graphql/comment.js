@@ -43,7 +43,7 @@ const createCommentInputType = new GraphQLInputObjectType({
 });
 exports.mutations = {
   createComment: {
-    type: CommentObjectType,
+    type: exports.CommentObjectType,
     description: 'Create a post',
     // DEV: We could use only GraphQL parameters but this feels more accurate/consistent
     //   https://medium.com/@HurricaneJames/graphql-mutations-fb3ad5ae73c4

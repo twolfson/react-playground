@@ -249,8 +249,8 @@ exports._saveCleanup = function () {
   };
 };
 exports.save = function (options) {
-  before(_save(options));
-  after(_saveCleanup(options));
+  before(exports._save(options));
+  after(exports._saveCleanup(options));
 };
 
 // Define session-based methods
@@ -275,12 +275,12 @@ exports.session = {
       }
 
       // Make our request
-      return _save(options).call(this, done);
+      return exports._save(options).call(this, done);
     };
   },
   save: function (options) {
-    before(session._save(options));
-    after(_saveCleanup(options));
+    before(exports.session._save(options));
+    after(exports._saveCleanup(options));
     return this;
   },
   init: function () {
@@ -310,7 +310,7 @@ exports.session = {
         '(meaning a session hasn\'t been started). Please begin a session before logging in.');
     });
     // Visit our login page and login with our given email
-    session
+    exports.session
       .save({url: serverUtils.getUrl('/'), expectedStatusCode: 200})
       .save({
         method: 'POST', url: serverUtils.getUrl('/login'),
@@ -363,5 +363,5 @@ function wrapSaveWithGraphQL(saveFn) {
     return this;
   };
 }
-exports.graphql = wrapSaveWithGraphQL(save);
-session.graphql = wrapSaveWithGraphQL(session.save);
+exports.graphql = wrapSaveWithGraphQL(exports.save);
+exports.session.graphql = wrapSaveWithGraphQL(exports.session.save);

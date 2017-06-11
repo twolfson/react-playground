@@ -33,7 +33,7 @@ exports.PostObjectType = new GraphQLObjectType({
 exports.queries = {
   posts: {
     description: 'Retrieve posts',
-    type: new GraphQLList(PostObjectType),
+    type: new GraphQLList(exports.PostObjectType),
     resolve(parentValue, args, req) {
       return Post.getAll();
     }
@@ -55,7 +55,7 @@ const createPostInputType = new GraphQLInputObjectType({
 });
 exports.mutations = {
   createPost: {
-    type: PostObjectType,
+    type: exports.PostObjectType,
     description: 'Create a post',
     // DEV: We could use only GraphQL parameters but this feels more accurate/consistent
     //   https://medium.com/@HurricaneJames/graphql-mutations-fb3ad5ae73c4
