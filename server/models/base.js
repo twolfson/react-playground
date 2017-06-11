@@ -1,11 +1,11 @@
 // Load in our dependencies
-import assert from 'assert';
+const assert = require('assert');
 
-import _ from 'underscore';
-import httpErrors from 'http-errors';
+const _ = require('underscore');
+const httpErrors = require('http-errors');
 
 // Define our model
-export class Base {
+module.exports = class Base {
   // DEV: Separate models must implement their own `_modelsById` to prevent mixing classes accidentally
   static getById(id) {
     return this._modelsById[id];
@@ -41,4 +41,4 @@ export class Base {
     const cls = this.constructor;
     cls._modelsById[this.id] = this;
   }
-}
+};

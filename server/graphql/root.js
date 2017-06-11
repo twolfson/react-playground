@@ -1,7 +1,7 @@
 // Load in our dependencies
-import _ from 'underscore';
-import httpErrors from 'http-errors';
-import {GraphQLObjectType, GraphQLString} from 'graphql';
+const _ = require('underscore');
+const httpErrors = require('http-errors');
+const {GraphQLObjectType, GraphQLString} = require('graphql');
 
 // Define our root queries and mutations
 const rootContainer = {
@@ -51,8 +51,7 @@ const graphQLContainers = [
 ];
 graphQLContainers.forEach(function mergeGraphQLContainer (filepath) {
   // Load our container
-  // DEV: We could refactor with redundant imports but we're fine hacking it now
-  const newContainer = require(filepath); // eslint-disable-line global-require, no-restricted-globals
+  const newContainer = require(filepath); // eslint-disable-line global-require
 
   // Assert that the new config has no repeated keys
   let rootKeys = _.union(
@@ -72,12 +71,12 @@ graphQLContainers.forEach(function mergeGraphQLContainer (filepath) {
 });
 
 // Define our root query and mutation object types
-export const RootQueryObjectType = new GraphQLObjectType({
+exports.RootQueryObjectType = new GraphQLObjectType({
   name: 'RootQueryObjectType',
   description: 'Root for all queries',
   fields: rootContainer.queries
 });
-export const RootMutationObjectType = new GraphQLObjectType({
+exports.RootMutationObjectType = new GraphQLObjectType({
   name: 'RootMutationObjectType',
   description: 'Root for all mutations',
   fields: rootContainer.mutations

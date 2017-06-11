@@ -1,15 +1,15 @@
 // Load in our dependencies
-import assert from 'assert';
+const assert = require('assert');
 
-import _ from 'underscore';
-import uuidV4 from 'uuid/v4';
+const _ = require('underscore');
+const uuidV4 = require('uuid/v4');
 
-import {Base} from './base';
-import {Comment} from './comment';
-import config from '../_config';
+const Base = require('./base');
+const Comment = require('./comment');
+const config = require('../_config');
 
 // Define our model backend
-export class Post extends Base {
+module.exports = class Post extends Base {
   static _modelsById = {};
   constructor(attrs) {
     super(attrs);
@@ -26,7 +26,7 @@ export class Post extends Base {
     const cls = this.constructor;
     cls._modelsById[this.id] = this;
   }
-}
+};
 
 // If we want to serve mock data, then load it up
 // TODO: Relocate into fixture file and consolidate loading via `config.loadFixtures`

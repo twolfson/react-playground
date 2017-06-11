@@ -12,8 +12,6 @@ module.exports = {
   parser: 'babel-eslint',
   plugins: ['react'],
   parserOptions: {
-    ecmaVersion: 6,
-    sourceType: 'module',
     ecmaFeatures: {
       jsx: true
     }
@@ -29,8 +27,6 @@ module.exports = {
     'no-var': WARN,
     // Ignore `this` related strict mode warnings
     'no-invalid-this': OFF,
-    // Disallow CommonJS module/exports
-    'no-restricted-globals': [WARN, 'require', 'module', 'exports'],
 
     // Register JSX usage of React and variables
     'react/jsx-uses-react': WARN,

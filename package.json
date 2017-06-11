@@ -22,11 +22,11 @@
   "license": "Unlicense",
   "scripts": {
     "build": "ENV=production webpack",
-    "develop": "BABEL_ENV=development-hmr ENV=development webpack-dev-server",
+    "develop": "ENV=development webpack --watch",
     "preinstall": "if test \"$(basename \"$_\")\" != \"yarn\"; then echo \"Expected \\`yarn\\` to be run for scripts but got \\`$_\\`\" 1>&2; exit 1; fi",
     "postinstall": "yarn run build",
-    "precheck": "eslint --ext .js --ext .jsx *.js bin/ config/ server/ test/",
-    "lint": "eslint --ext .js --ext .jsx *.js bin/ config/ server/ test/ --max-warnings 0",
+    "precheck": "eslint --ext .js --ext .jsx *.js bin/ browser/ config/ server/ test/",
+    "lint": "eslint --ext .js --ext .jsx *.js bin/ browser/ config/ server/ test/ --max-warnings 0",
     "start": "babel-node bin/react-playground-server",
     "start-develop": "ENV=development nodemon --ignore browser --ignore browser-dist -x 'babel-node bin/react-playground-server'",
     "test": "npm run precheck && npm run build && npm run test-server && npm run lint",
@@ -69,10 +69,9 @@
     "foundry-release-git": "~2.0.2",
     "mocha": "~3.1.2",
     "nodemon": "~1.11.0",
-    "react-hot-loader": "3.0.0-beta.6",
     "request": "~2.81.0",
     "webpack": "~2.6.1",
-    "webpack-dev-server": "~2.4.5"
+    "webpack-livereload-plugin": "~0.11.0"
   },
   "keywords": [],
   "foundry": {

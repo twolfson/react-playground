@@ -6,6 +6,9 @@ We've already used React in [plaidchat][] but want to take things further. In th
 
 - [x] Yarn
 - [x] ES6 imports/exports
+    - Dropped in `1.15.0` due to causing more frustration than adding value
+        - Example: `react-hot-loader` requires `modules: false`
+        - Example: Doesn't play well with mocking https://github.com/babel/babel/issues/3811
 - [x] GraphQL
     - [x] Basic query
     - [x] Authorization
@@ -20,6 +23,10 @@ We've already used React in [plaidchat][] but want to take things further. In th
     - [x] Basic compilation
     - [x] LiveReload integration
     - [x] Hot module reload integration
+        - Dropped in `1.15.1` due to causing more frustration than adding value
+            - `react-hot-loader@3.0.0-beta6` refused to work with CommonJS
+            - Required separate `.babelrc` invocation
+            - Limited usefulness -- no CSS or HTML reloading, better to supplement LiveReload than replace it
     - [ ] Bundle splitting
 - [ ] Server side rendering
     - [x] Static content

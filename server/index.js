@@ -1,26 +1,24 @@
 // Load in our dependencies
-import assert from 'assert';
+const assert = require('assert');
 
-import _ from 'underscore';
-import bodyParser from 'body-parser';
-import express from 'express';
-import expressSession from 'express-session';
-import expressGraphql from 'express-graphql';
-import expressReactViews from 'express-react-views';
-import expressSessionLevel from 'express-session-level';
-import levelup from 'levelup';
+const _ = require('underscore');
+const bodyParser = require('body-parser');
+const express = require('express');
+const expressSession = require('express-session');
+const expressGraphql = require('express-graphql');
+const expressReactViews = require('express-react-views');
+const expressSessionLevel = require('express-session-level');
+const levelup = require('levelup');
 
-import _config from './_config';
-import {schema as graphqlSchema} from './graphql/index.js';
+const _config = require('./_config');
+const graphqlSchema = require('./graphql/index.js').schema;
 
 // Define our app locals
-// DEV: We disable ESLint for an inline non-redundant import syntax
-/* eslint-disable no-restricted-globals,global-require */
+/* eslint-disable global-require */
 const appLocals = {
-  webpackDevServerUrl: _config.webpackDevServerUrl,
   url: require('url')
 };
-/* eslint-enable no-restricted-globals,global-require */
+/* eslint-enable global-require */
 
 // Define our server
 function Server(config) {
@@ -141,4 +139,4 @@ Server.prototype.close = function (cb) {
 
 // Export an initialized yet not listening server
 const server = new Server(_config);
-export default server;
+module.exports = server;

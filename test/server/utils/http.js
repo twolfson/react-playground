@@ -1,20 +1,20 @@
 // Taken from https://gist.github.com/twolfson/f27eb310410b3fe28f0060b43d58d33e
 // Load in our dependencies
-import assert from 'assert';
+const assert = require('assert');
 
-import _ from 'underscore';
-import async from 'async';
-import cheerio from 'cheerio';
-import request from 'request';
+const _ = require('underscore');
+const async = require('async');
+const cheerio = require('cheerio');
+const request = require('request');
 
-import * as serverUtils from './server';
+const serverUtils = require('./server');
 
 const kueQueue = {}; // Loaded via server utils, scrubbed for GitHub
 
 // Copy over utilities from request-mocha
 // https://github.com/uber-archive/request-mocha/blob/0.2.0/lib/request-mocha.js
 // DEV: We use copy/paste as it's easier to integrate Cheerio parsing
-export const _save = function (options) {
+exports._save = function (options) {
   return function _saveFn (done) {
     // Save our context for later
     const that = this;
@@ -236,7 +236,7 @@ export const _save = function (options) {
     }
   };
 };
-export const _saveCleanup = function () {
+exports._saveCleanup = function () {
   return function _saveCleanupFn () {
     delete this.err;
     delete this.req;
@@ -248,13 +248,13 @@ export const _saveCleanup = function () {
     delete this.json;
   };
 };
-export const save = function (options) {
-  before(_save(options));
-  after(_saveCleanup(options));
+exports.save = function (options) {
+  before(exports._save(options));
+  after(exports._saveCleanup(options));
 };
 
 // Define session-based methods
-export const session = {
+exports.session = {
   _save: function (options) {
     return function saveFn (done) {
       // Verify we have a cookie jar to leverage
@@ -275,12 +275,12 @@ export const session = {
       }
 
       // Make our request
-      return _save(options).call(this, done);
+      return exports._save(options).call(this, done);
     };
   },
   save: function (options) {
-    before(session._save(options));
-    after(_saveCleanup(options));
+    before(exports.session._save(options));
+    after(exports._saveCleanup(options));
     return this;
   },
   init: function () {
@@ -310,7 +310,7 @@ export const session = {
         '(meaning a session hasn\'t been started). Please begin a session before logging in.');
     });
     // Visit our login page and login with our given email
-    session
+    exports.session
       .save({url: serverUtils.getUrl('/'), expectedStatusCode: 200})
       .save({
         method: 'POST', url: serverUtils.getUrl('/login'),
@@ -363,5 +363,5 @@ function wrapSaveWithGraphQL(saveFn) {
     return this;
   };
 }
-export const graphql = wrapSaveWithGraphQL(save);
-session.graphql = wrapSaveWithGraphQL(session.save);
+exports.graphql = wrapSaveWithGraphQL(exports.save);
+exports.session.graphql = wrapSaveWithGraphQL(exports.session.save);

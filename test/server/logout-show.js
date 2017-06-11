@@ -1,8 +1,8 @@
 // Load in dependencies
-import {expect} from 'chai';
+const {expect} = require('chai');
 
-import * as httpUtils from './utils/http';
-import * as serverUtils from './utils/server';
+const httpUtils = require('./utils/http');
+const serverUtils = require('./utils/server');
 
 // Start our tests
 describe('A request to GET /logout', function () {

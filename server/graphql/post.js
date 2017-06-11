@@ -1,13 +1,13 @@
 // Load in our dependencies
-import {GraphQLID, GraphQLInputObjectType, GraphQLList,
-  GraphQLObjectType, GraphQLString} from 'graphql';
+const {GraphQLID, GraphQLInputObjectType, GraphQLList,
+  GraphQLObjectType, GraphQLString} = require('graphql');
 
-import {Comment} from '../models/comment';
-import {Post} from '../models/post';
-import {CommentObjectType} from './comment';
+const Comment = require('../models/comment');
+const Post = require('../models/post');
+const {CommentObjectType} = require('./comment');
 
 // Define our GraphQL type upfront
-export const PostObjectType = new GraphQLObjectType({
+exports.PostObjectType = new GraphQLObjectType({
   name: 'PostObjectType',
   description: 'A post in its GraphQL representation',
   fields: {
@@ -30,10 +30,10 @@ export const PostObjectType = new GraphQLObjectType({
 });
 
 // Define our query container
-export const queries = {
+exports.queries = {
   posts: {
     description: 'Retrieve posts',
-    type: new GraphQLList(PostObjectType),
+    type: new GraphQLList(exports.PostObjectType),
     resolve(parentValue, args, req) {
       return Post.getAll();
     }
@@ -53,9 +53,9 @@ const createPostInputType = new GraphQLInputObjectType({
     }
   }
 });
-export const mutations = {
+exports.mutations = {
   createPost: {
-    type: PostObjectType,
+    type: exports.PostObjectType,
     description: 'Create a post',
     // DEV: We could use only GraphQL parameters but this feels more accurate/consistent
     //   https://medium.com/@HurricaneJames/graphql-mutations-fb3ad5ae73c4

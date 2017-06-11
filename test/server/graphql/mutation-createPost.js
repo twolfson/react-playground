@@ -1,9 +1,9 @@
 // Load in our dependencies
-import {expect} from 'chai';
+const {expect} = require('chai');
 
-import * as httpUtils from '../utils/http';
-import * as testUtils from '../utils/test';
-import {Post} from '../../../server/models/post';
+const httpUtils = require('../utils/http');
+const testUtils = require('../utils/test');
+const Post = require('../../../server/models/post');
 
 // Define our tests
 describe('A GraphQL mutation request for `createPost`', function () {

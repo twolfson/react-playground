@@ -1,8 +1,8 @@
 // Load in our dependencies
-import React from 'react';
+const React = require('react');
 
 // Define our application component
-export default class PostsApp extends React.Component {
+module.exports = class PostsApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -113,4 +113,4 @@ export default class PostsApp extends React.Component {
       </div>
     );
   }
-}
+};
