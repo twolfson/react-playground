@@ -1,7 +1,7 @@
 // Load in our dependencies
 const {expect} = require('chai');
 
-const * as httpUtils = require('../utils/http');
+const httpUtils = require('../utils/http');
 
 // Define our tests
 describe('A GraphQL query request for `echo` via arguments', function () {

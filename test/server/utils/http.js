@@ -7,7 +7,7 @@ const async = require('async');
 const cheerio = require('cheerio');
 const request = require('request');
 
-const * as serverUtils = require('./server');
+const serverUtils = require('./server');
 
 const kueQueue = {}; // Loaded via server utils, scrubbed for GitHub
 

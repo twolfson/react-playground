@@ -5,7 +5,7 @@ const _ = require('underscore');
 
 const {Comment} = require('../../../server/models/comment');
 const {Post} = require('../../../server/models/post');
-const * as dbFixtures = require('./db-fixtures');
+const dbFixtures = require('./db-fixtures');
 
 // Define our helpers
 export const setFixtures = function (fixtureNames) {

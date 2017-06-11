@@ -1,8 +1,8 @@
 // Load in dependencies
 const {expect} = require('chai');
 
-const * as httpUtils = require('./utils/http');
-const * as serverUtils = require('./utils/server');
+const httpUtils = require('./utils/http');
+const serverUtils = require('./utils/server');
 
 // Start our tests
 describe('A request to GET /', function () {
