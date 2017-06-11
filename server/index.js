@@ -19,7 +19,6 @@ const _config = getConfig();
 // Define our app locals
 /* eslint-disable global-require */
 const appLocals = {
-  webpackDevServerUrl: _config.webpackDevServerUrl,
   url: require('url')
 };
 /* eslint-enable global-require */

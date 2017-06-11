@@ -11,9 +11,5 @@ window.addEventListener('DOMContentLoaded', function handleReady () {
   if (!targetEl) { throw new Error('Unable to find our target element'); }
 
   // Output our content
-  ReactDOM.render(
-    <AppContainer>
-      <PostsApp />
-    </AppContainer>,
-    targetEl);
+  ReactDOM.render(<PostsApp />, targetEl);
 });
