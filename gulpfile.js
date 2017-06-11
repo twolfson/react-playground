@@ -35,7 +35,8 @@ gulp.task('build-js', function buildJs () {
   // Bundle Webpack content
   let jsStream = gulp.src('browser/js/posts-container.jsx')
     .pipe(webpackStream(_.defaults({
-      watch: config.watchFiles
+      watch: config.watchFiles,
+      output: {filename: 'posts-container.js'}
     }, webpackConfig), webpack));
 
   // If we are allowing failures, then log them
