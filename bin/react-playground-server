@@ -11,10 +11,8 @@ const notWinston = console;
 // DEV: Ideally we skip cluster and use multiple servers but this is for demonstration
 if (cluster.isMaster) {
   // Load master specific dependencies
-  /* eslint-disable no-restricted-globals */
   const config = require('../config').getConfig();
   const url = require('url');
-  /* eslint-enable no-restricted-globals */
 
   // Create 2 workers (i.e. server instances)
   cluster.fork();
@@ -33,9 +31,7 @@ if (cluster.isMaster) {
 } else {
   // Load worker specific dependencies
   // DEV: We lazy load server after Express is monkey patched so our domains catch all the things
-  /* eslint-disable no-restricted-globals */
   const expressDomainWrapper = require('../server/utils/express-domain-wrapper');
-  /* eslint-enable no-restricted-globals */
   let server;
 
   // Monkey patch Express with domain handle
