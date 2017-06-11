@@ -1,13 +1,10 @@
 // Load in our dependencies
-const _ = require('underscore');
 const gulp = require('gulp');
 const gulpNotify = require('gulp-notify');
 const gulpLivereload = require('gulp-livereload');
 const rimraf = require('rimraf');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
-
-const webpackConfig = require('./webpack.config.js');
 
 // Set up our configuration
 let config = {
@@ -34,9 +31,21 @@ gulp.task('build-css', function buildJs () {
 gulp.task('build-js', function buildJs () {
   // Bundle Webpack content
   let jsStream = gulp.src('browser/js/posts-container.jsx')
-    .pipe(webpackStream(_.defaults({
-      watch: config.watchFiles
-    }, webpackConfig), webpack));
+    .pipe(webpackStream({
+      watch: config.watchFiles,
+      resolve: {
+        extensions: ['.js', '.json', '.jsx']
+      },
+      module: {
+        rules: [
+          {
+            test: /(\.js|\.jsx)$/,
+            exclude: /node_modules/,
+            use: ['babel-loader']
+          }
+        ]
+      }
+    }, webpack));
 
   // If we are allowing failures, then log them
   if (config.allowFailures) {
