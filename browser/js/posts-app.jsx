@@ -23,4 +23,4 @@ module.exports = class PostsApp extends React.Component {
       </div>
     );
   }
-}
+};
