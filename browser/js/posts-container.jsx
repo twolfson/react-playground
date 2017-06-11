@@ -22,11 +22,9 @@ window.addEventListener('DOMContentLoaded', function handleReady () {
   render(PostsApp);
 
   // If we have HMR enabled, handle reloads
-  /* eslint-disable no-restricted-globals */
   if (module.hot) {
     module.hot.accept('./posts-app', () => {
       render(PostsApp);
     });
   }
-  /* eslint-enable no-restricted-globals */
 });

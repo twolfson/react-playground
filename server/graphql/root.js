@@ -51,8 +51,7 @@ const graphQLContainers = [
 ];
 graphQLContainers.forEach(function mergeGraphQLContainer (filepath) {
   // Load our container
-  // DEV: We could refactor with redundant imports but we're fine hacking it now
-  const newContainer = require(filepath); // eslint-disable-line global-require, no-restricted-globals
+  const newContainer = require(filepath); // eslint-disable-line global-require
 
   // Assert that the new config has no repeated keys
   let rootKeys = _.union(

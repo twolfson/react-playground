@@ -1,6 +1,6 @@
 // Load in our dependencies
-import {GraphQLID, GraphQLInputObjectType, GraphQLList,
-  GraphQLObjectType, GraphQLString} from 'graphql';
+const {GraphQLID, GraphQLInputObjectType, GraphQLList,
+  GraphQLObjectType, GraphQLString} = require('graphql');
 
 const {Comment} = require('../models/comment');
 const {Post} = require('../models/post');

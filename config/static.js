@@ -34,9 +34,8 @@ const configFiles = [
 ];
 configFiles.forEach(function mergeConfigFile (configFile) {
   // Load our new config
-  // DEV: We could refactor with redundant imports but we're fine hacking it for now
   const mainConfig = exports;
-  const newConfig = require(configFile); // eslint-disable-line global-require, no-restricted-globals
+  const newConfig = require(configFile); // eslint-disable-line global-require
 
   // Assert that the new config has no repeated keys
   let mainKeys = _.union(

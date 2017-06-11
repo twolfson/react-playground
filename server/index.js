@@ -11,19 +11,18 @@ const expressSessionLevel = require('express-session-level');
 const levelup = require('levelup');
 
 const {getConfig} = require('../config');
-const {schema as graphqlSchema} = require('./graphql/index.js');
+const graphqlSchema = require('./graphql/index.js').schema;
 
 // Load our config
 const _config = getConfig();
 
 // Define our app locals
-// DEV: We disable ESLint for an inline non-redundant import syntax
-/* eslint-disable no-restricted-globals,global-require */
+/* eslint-disable global-require */
 const appLocals = {
   webpackDevServerUrl: _config.webpackDevServerUrl,
   url: require('url')
 };
-/* eslint-enable no-restricted-globals,global-require */
+/* eslint-enable global-require */
 
 // Define our server
 function Server(config) {

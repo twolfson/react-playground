@@ -61,9 +61,7 @@ if (cluster.isMaster) {
   });
 
   // Start our server listener
-  /* eslint-disable no-restricted-globals */
   server = require('../server/index.js').default;
-  /* eslint-enable no-restricted-globals */
   server.listen();
 }
 

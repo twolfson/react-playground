@@ -1,6 +1,3 @@
-// Disable ES5 lint warnings
-/* eslint-disable no-restricted-globals,global-require */
-
 // Load in our dependencies
 const url = require('url');
 
