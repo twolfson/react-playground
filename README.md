@@ -6,6 +6,9 @@ We've already used React in [plaidchat][] but want to take things further. In th
 
 - [x] Yarn
 - [x] ES6 imports/exports
+    - Dropped in `1.15.0` due to causing more frustration than adding value
+        - Example: `react-hot-loader` requires `modules: false`
+        - Example: Doesn't play well with mocking https://github.com/babel/babel/issues/3811
 - [x] GraphQL
     - [x] Basic query
     - [x] Authorization
