@@ -35,9 +35,12 @@ gulp.task('build-js', function buildJs () {
   // Bundle Webpack content
   let jsStream = gulp.src('browser/js/posts-container.jsx')
     .pipe(webpackStream(_.defaults({
-      watch: config.watchFiles,
-      output: {filename: 'posts-container.js'}
-    }, webpackConfig), webpack));
+      // watch: config.watchFiles,
+      output: {filename: 'posts-container.js'},
+      stats: {cached: true, cacheAssets: true}
+    }, webpackConfig), webpack, function stats (err, stats) {
+      console.log(stats.startTime, stats.endTime, stats.endTime - stats.startTime);
+    }));
 
   // If we are allowing failures, then log them
   if (config.allowFailures) {
@@ -65,4 +68,5 @@ gulp.task('develop', ['build'], function develop () {
   // When one of our src files changes, re-run its corresponding task
   gulp.watch(['server/**/*'], ['livereload-update']);
   gulp.watch(['browser/css/**/*'], ['build-css']);
+  gulp.watch(['browser/js/**/*'], ['build-js']);
 });
