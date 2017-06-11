@@ -5,7 +5,7 @@ const _ = require('underscore');
 const httpErrors = require('http-errors');
 
 // Define our model
-module.exports = class Base {
+class Base {
   // DEV: Separate models must implement their own `_modelsById` to prevent mixing classes accidentally
   static getById(id) {
     return this._modelsById[id];
@@ -41,4 +41,5 @@ module.exports = class Base {
     const cls = this.constructor;
     cls._modelsById[this.id] = this;
   }
-};
+}
+module.exports = Base;

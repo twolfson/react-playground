@@ -8,9 +8,11 @@ const _ = require('underscore');
 
 // Define generic settings
 exports.common = {
+  loadMocks: false
 };
 
 exports.development = {
+  loadMocks: true,
   exposeStack: true,
   hostGraphiql: true,
   viewCache: false

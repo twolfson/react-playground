@@ -9,7 +9,7 @@ const Comment = require('./comment');
 const config = require('../_config');
 
 // Define our model backend
-module.exports = class Post extends Base {
+class Post extends Base {
   static _modelsById = {};
   constructor(attrs) {
     super(attrs);
@@ -26,7 +26,8 @@ module.exports = class Post extends Base {
     const cls = this.constructor;
     cls._modelsById[this.id] = this;
   }
-};
+}
+module.exports = Post;
 
 // If we want to serve mock data, then load it up
 // TODO: Relocate into fixture file and consolidate loading via `config.loadFixtures`
