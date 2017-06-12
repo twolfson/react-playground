@@ -31,16 +31,18 @@ module.exports = class PostsApp extends React.Component {
     xhr.open('POST', '/graphql', true /* async */);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({
-      query: `query {
-        posts {
-          id
-          content
-          comments {
+      query: `
+        query {
+          posts {
             id
             content
+            comments {
+              id
+              content
+            }
           }
         }
-      }`
+      `
     }));
 
     // Handle our XHR response

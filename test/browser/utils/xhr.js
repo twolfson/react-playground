@@ -3,6 +3,7 @@ const assert = require('assert');
 
 const _ = require('underscore');
 const sinon = require('sinon');
+const stripIndent = require('strip-indent');
 
 // Define `xhrUtils.mock`
 exports.mock = function (responses) {
@@ -94,7 +95,7 @@ exports.graphql = function (filepaths) {
       const graphqlContract = _.find(graphqlContracts, function isMatchingContract (graphqlContract) {
         // TODO: Perform parsing and subsetting
         // TODO: Add variables matching
-        return graphqlContract.request.query === reqQuery;
+        return graphqlContract.request.query === stripIndent(reqQuery).trim();
       });
       assert(graphqlContract, `Unable to find matching GraphQL contract for query "${reqQuery}" ' +
         'and variables "${JSON.stringify(variables)}"`);
