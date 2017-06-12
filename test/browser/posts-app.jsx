@@ -9,13 +9,7 @@ const sinonUtils = require('../utils/sinon');
 // Define our tests
 describe('A PostApp component', function () {
   describe('loading content', function () {
-    sinonUtils.mockXHR([{
-      method: 'POST',
-      url: '/graphql',
-      fn: function handleGraphQL (req) {
-        throw new Error('Should not be called due to loading only tests');
-      }
-    }]);
+    sinonUtils.mockXHR([graphqlFixtures.LOADING_ONLY]);
     reactUtils.mount(function () {
       return (<PostsApp />);
     });
@@ -26,26 +20,12 @@ describe('A PostApp component', function () {
   });
 
   describe('with no content', function () {
-    // TODO: Move to contract based tests
-    //   Maybe self-contained files that are generated or asserted in server tests
-    //     Varies based on environment flags and/or command run
-    //   Then their contents are reused as fixtures in these tests where we assert the query is equal to or a subset
-    //   Format: {
     //     fixtures: ['post', 'comment'],
     //     query: `query { posts { id, comment } }`,
     //     response: `{data: {posts: [{id, comment}]}}`}
-    sinonUtils.mockXHR([{
-      method: 'POST',
-      url: '/graphql',
-      fn: function handleGraphQL (req) {
-        // http://sinonjs.org/releases/v2.3.4/fake-xhr-and-server/#simulating-server-responses
-        req.respond(200, {}, JSON.stringify({
-          data: {
-            posts: []
-          }
-        }));
-      }
-    }]);
+    sinonUtils.mockXHR([
+      graphqlFixtures(['posts-and-comments-empty-200.json'])
+    ]);
     reactUtils.mount(function () {
       return (<PostsApp />);
     });
