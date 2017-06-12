@@ -1,4 +1,6 @@
 // Load in our dependencies
+const assert = require('assert');
+
 const {mount} = require('enzyme');
 
 // Define our test helpers
@@ -12,9 +14,18 @@ exports.mount = function (renderFn, options) {
     document.body.appendChild(mountEl);
 
     // Set up request listeners
-    // TODO: Handle waiting for requests
-    const waitForRequests = options.waitForRequests || 0;
-    setTimeout(done, 1000);
+    /* eslint-disable callback-return */
+    let waitForRequests = options.waitForRequests;
+    if (waitForRequests) {
+      assert(!this.onRequest);
+      this.onRequest = function () {
+        waitForRequests -= 1;
+        if (waitForRequests <= 0) { done(); }
+      };
+    } else {
+      process.nextTick(done);
+    }
+    /* eslint-enable callback-return */
 
     // Render our React component and bind it to the page
     this.$el = mount(renderFn(), {

@@ -21,6 +21,9 @@ exports.mockXHR = function (responses) {
       that.sinonServer.respondWith(response.method, response.url, function handleRequest (req) {
         // Save our request
         that.requests.push(req);
+        if (that.onRequest) {
+          that.onRequest(req);
+        }
 
         // Call our fixture
         return response.fn.apply(that, arguments);
