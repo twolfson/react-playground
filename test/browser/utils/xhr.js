@@ -70,6 +70,19 @@ exports.graphql = function (filepaths) {
       `Unable to find GraphQL contract for "${filepath}". Please verify it's loaded via \`require\``);
     return graphqlContract;
   });
-  console.log(graphqlContracts);
+
+  // Return a mock XHR response for our GraphQL endpoint
+  // TODO: Find matching contracts
+  assert.strictEqual(graphqlContracts.length, 1,
+    'Only 1 GraphQL contract supported at a time due to lack of matching support');
+  return {
+    method: 'POST',
+    url: '/graphql',
+    fn: function (req) {
+      // http://sinonjs.org/releases/v2.3.4/fake-xhr-and-server/#simulating-server-responses
+      const graphqlContract = graphqlContracts[0];
+      req.respond(graphqlContract.response.statusCode, {},
+        JSON.stringify(graphqlContract.response.body));
+    }
+  };
 };
-// http://sinonjs.org/releases/v2.3.4/fake-xhr-and-server/#simulating-server-responses
