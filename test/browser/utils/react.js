@@ -3,18 +3,25 @@ const {mount} = require('enzyme');
 
 // Define our test helpers
 let loggedDebugNotice = false;
-exports.mount = function (renderFn) {
+exports.mount = function (renderFn, options) {
   let mountEl;
-  before(function runRenderFn () {
+  options = options || {};
+  before(function runRenderFn (done) {
     // Create a fixture entry point
     mountEl = document.createElement('div');
     document.body.appendChild(mountEl);
+
+    // Set up request listeners
+    // TODO: Handle waiting for requests
+    const waitForRequests = options.waitForRequests || 0;
+    setTimeout(done, 1000);
 
     // Render our React component and bind it to the page
     this.$el = mount(renderFn(), {
       attachTo: mountEl
     });
   });
+
   after(function cleanup () {
     // Taken from https://github.com/twolfson/multi-image-mergetool/blob/1.32.1/test/browser/utils/application.js#L128-L147
     // If we are on the debug page, expose everything
