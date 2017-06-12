@@ -8,6 +8,23 @@ const sinonUtils = require('../utils/sinon');
 
 // Define our tests
 describe('A PostApp component', function () {
+  describe('loading content', function () {
+    sinonUtils.mockXHR([{
+      method: 'POST',
+      url: '/graphql',
+      fn: function handleGraphQL (req) {
+        throw new Error('Should not be called due to loading only tests');
+      }
+    }]);
+    reactUtils.mount(function () {
+      return (<PostsApp />);
+    });
+
+    it('renders loading prompt', function () {
+      expect(this.$el.text()).to.contain('Loading...');
+    });
+  });
+
   describe('with no content', function () {
     sinonUtils.mockXHR([{
       method: 'POST',
