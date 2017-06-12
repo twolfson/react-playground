@@ -1,5 +1,18 @@
 // Load in our dependencies
-const webpackConfig = require('./webpack.config.js');
+const _ = require('underscore');
+
+let webpackConfig = require('./webpack.config.js');
+
+// Adjust Webpack config for Enzyme
+// https://github.com/airbnb/enzyme/blob/v2.8.2/docs/guides/webpack.md#webpack-2
+webpackConfig = _.defaults({
+  externals: _.defaults({
+    cheerio: 'window',
+    'react/addons': 'react',
+    'react/lib/ExecutionEnvironment': 'react',
+    'react/lib/ReactContext': 'react'
+  }, webpackConfig.externals)
+}, webpackConfig);
 
 // Karma configuration
 // Generated on Sun Jun 11 2017 16:44:05 GMT-0700 (PDT)
