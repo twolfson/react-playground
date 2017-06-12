@@ -9,7 +9,7 @@ const sinonUtils = require('../utils/sinon');
 // Define our tests
 describe('A PostApp component', function () {
   describe('loading content', function () {
-    sinonUtils.mockXHR([graphqlFixtures.LOADING_ONLY]);
+    sinonUtils.mockXHR([{graphql: 'loading-only'}]);
     reactUtils.mount(function () {
       return (<PostsApp />);
     });
@@ -20,11 +20,8 @@ describe('A PostApp component', function () {
   });
 
   describe('with no content', function () {
-    //     fixtures: ['post', 'comment'],
-    //     query: `query { posts { id, comment } }`,
-    //     response: `{data: {posts: [{id, comment}]}}`}
     sinonUtils.mockXHR([
-      graphqlFixtures(['posts-and-comments-empty-200.json'])
+      {graphql: 'posts-and-comments-empty-200.json'}
     ]);
     reactUtils.mount(function () {
       return (<PostsApp />);
@@ -37,32 +34,9 @@ describe('A PostApp component', function () {
   });
 
   describe('with multiple posts and comments', function () {
-    sinonUtils.mockXHR([{
-      method: 'POST',
-      url: '/graphql',
-      fn: function handleGraphQL (req) {
-        // http://sinonjs.org/releases/v2.3.4/fake-xhr-and-server/#simulating-server-responses
-        req.respond(200, {}, JSON.stringify({
-          data: {
-            posts: [{
-              id: 'foo-post',
-              content: 'This is an example post',
-              comments: [{
-                id: 'foo-comment',
-                content: 'This is an example comment'
-              }, {
-                id: 'foo-comment2',
-                content: 'This is another example comment'
-              }]
-            }, {
-              id: 'foo-post2',
-              content: 'This is another example post',
-              comments: []
-            }]
-          }
-        }));
-      }
-    }]);
+    sinonUtils.mockXHR([
+      {graphql: 'posts-and-comments-full-200.json'}
+    ]);
     reactUtils.mount(function () {
       return (<PostsApp />);
     });
