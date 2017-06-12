@@ -1,15 +1,17 @@
 {
   "request": {
-    "query": "query {
-      posts {
-        id
-        content
-        comments {
-          id
-          content
-        }
-      }
-    }",
+    "queryLines": [
+      "query {",
+      "  posts {",
+      "    id",
+      "    content",
+      "    comments {",
+      "      id",
+      "      content",
+      "    }",
+      "  }",
+      "}"
+    ],
     "variables": {}
   },
   "response": {
@@ -18,21 +20,21 @@
       "data": {
         "posts": [
           {
-            "id": "foo-post",
+            "id": "example-post-uuid",
             "content": "This is an example post",
             "comments": [
               {
-                "id": "foo-comment",
+                "id": "example-comment-uuid",
                 "content": "This is an example comment"
               },
               {
-                "id": "foo-comment2",
+                "id": "example-comment-another-uuid",
                 "content": "This is another example comment"
               }
             ]
           },
           {
-            "id": "foo-post2",
+            "id": "example-post-another-uuid",
             "content": "This is another example post",
             "comments": []
           }

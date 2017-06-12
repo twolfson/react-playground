@@ -83,6 +83,7 @@
     "react-test-renderer": "~15.5.4",
     "request": "~2.81.0",
     "sinon": "~2.3.4",
+    "strip-indent": "~2.0.0",
     "webpack": "~2.6.1",
     "webpack-livereload-plugin": "~0.11.0"
   },

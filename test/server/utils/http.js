@@ -1,11 +1,13 @@
 // Taken from https://gist.github.com/twolfson/f27eb310410b3fe28f0060b43d58d33e
 // Load in our dependencies
 const assert = require('assert');
+const fs = require('fs');
 
 const _ = require('underscore');
 const async = require('async');
 const cheerio = require('cheerio');
 const request = require('request');
+const stripIndent = require('strip-indent');
 
 const serverUtils = require('./server');
 
@@ -362,9 +364,10 @@ function wrapSaveWithGraphQL(saveFn) {
       // If this was a GraphQL contract
       if (options.contract) {
         // Serialize our content
+        // DEV: We use an array for legible serialized queries (instead of `\n` everywhere)
         const contractObj = {
           request: {
-            query: options.query,
+            queryLines: stripIndent(options.query).trim().split(/\n/g),
             variables: options.variables || {}
           },
           response: {
@@ -378,7 +381,9 @@ function wrapSaveWithGraphQL(saveFn) {
           throw new Error('Verify we fail in Travis CI');
         // Otherwise, overwrite our file contents
         } else {
-          return process.nextTick(done);
+          return fs.writeFile(
+            __dirname + '/../../test-files/graphql-contracts/' + options.contract,
+            JSON.stringify(contractObj, null, 2), done);
         }
       // Otherwise, callback in a bit
       // DEV: We wait to prevent zalgo

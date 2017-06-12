@@ -85,7 +85,7 @@ describe('GraphQL contracts for `posts` with `comments`', function () {
   });
 
   describe('Contract: Posts and comments', function () {
-    testUtils.setFixtures([]);
+    testUtils.setFixtures([dbFixtures.POST_WITH_COMMENTS, dbFixtures.POST_ANOTHER]);
     httpUtils.graphql({
       contract: 'posts-and-comments-full-200.json',
       query: `
