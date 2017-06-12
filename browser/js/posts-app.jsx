@@ -18,6 +18,7 @@ module.exports = class PostsApp extends React.Component {
           </div>
         </form>
         <h2>Existing posts</h2>
+        <p>No posts exist yet. Create one via "Create Post"</p>
         {/* TODO: Load posts dynamically via GraphQL and server-side render that shiz */}
         {/* TODO: Start with React component that's browser only */}
       </div>
