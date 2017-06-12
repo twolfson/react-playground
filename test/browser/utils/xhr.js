@@ -3,7 +3,7 @@ const assert = require('assert');
 
 const _ = require('underscore');
 const sinon = require('sinon');
-const stripIndent = require('strip-indent');
+const graphqlParser = require('graphql-parser').default;
 
 // Define `xhrUtils.mock`
 exports.mock = function (responses) {
@@ -61,6 +61,7 @@ exports.GRAPHQL_LOADING_ONLY = {
 function loadGraphqlContract(graphqlContract) {
   // Parse our query lines into a query
   graphqlContract.request.query = graphqlContract.request.queryLines.join('\n');
+  console.log(graphqlParser(graphqlContract.request.query));
   return graphqlContract;
 }
 const graphqlContractsByFilepath = {
@@ -95,7 +96,8 @@ exports.graphql = function (filepaths) {
       const graphqlContract = _.find(graphqlContracts, function isMatchingContract (graphqlContract) {
         // TODO: Perform parsing and subsetting
         // TODO: Add variables matching
-        return graphqlContract.request.query === stripIndent(reqQuery).trim();
+        return true;
+        // return graphqlContract.request.query === stripIndent(reqQuery).trim();
       });
       assert(graphqlContract, `Unable to find matching GraphQL contract for query "${reqQuery}" ' +
         'and variables "${JSON.stringify(variables)}"`);
