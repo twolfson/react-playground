@@ -107,6 +107,8 @@ To debug our browser tests:
     - This will trigger unmounting of the element on our debug page
 - Run our tests in debuggable mode (continuous runs + visible window)
     - `yarn run test-browser-debug`
+- Click "Debug" button in Karma
+    - New window should have rendered content and Developer Tools can be used
 
 ### Debugging GraphQL
 In development, we host [GraphiQL][] at the GraphQL endpoint. It can be accessed by visiting:
