@@ -1,6 +1,5 @@
 // Load in our dependencies
 const assert = require('assert');
-const fs = require('fs');
 
 const sinon = require('sinon');
 
@@ -56,17 +55,21 @@ exports.GRAPHQL_LOADING_ONLY = {
       'Please remove any `this.sinonServer.respond()`');
   }
 };
-const filepathCache = {};
+/* eslint-disable global-require */
+const graphqlContractsByFilepath = {
+  'posts-and-comments-empty-200.json': require(__dirname + '/../../test-files/graphql-contracts' +
+    '/posts-and-comments-empty-200.json')
+};
+/* eslint-enable global-require */
 exports.graphql = function (filepaths) {
   // Load our matching filepaths
   assert(Array.isArray(filepaths), `Expected ${filepaths} to be an array but it wasn't`);
-  // DEV: If we run into trouble with Webpack/Browserify due to dynamic `fs`, update `filepathCache` to generate statically and make this an `assert`
-  const graphqlResponses = filepaths.map(filepaths, function resolveGraphqlResponse (filepath) {
-    const graphqlResponse = filepathCache[filepath] || fs.readFileSync(
-      __dirname + '/../../test-files/graphql-contracts/' + filepath, 'utf8');
-    filepathCache[filepath] = graphqlResponse;
-    return graphqlResponse;
+  const graphqlContracts = filepaths.map(function resolveGraphqlContract (filepath) {
+    const graphqlContract = graphqlContractsByFilepath[filepath];
+    assert(graphqlContract,
+      `Unable to find GraphQL contract for "${filepath}". Please verify it's loaded via \`require\``);
+    return graphqlContract;
   });
-  console.log(graphqlResponses);
+  console.log(graphqlContracts);
 };
 // http://sinonjs.org/releases/v2.3.4/fake-xhr-and-server/#simulating-server-responses
