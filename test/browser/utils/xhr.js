@@ -3,7 +3,7 @@ const assert = require('assert');
 
 const _ = require('underscore');
 const sinon = require('sinon');
-const graphqlParser = require('graphql-parser').default;
+const graphqlLanguage = require('graphql/language');
 
 // Define `xhrUtils.mock`
 exports.mock = function (responses) {
@@ -61,7 +61,14 @@ exports.GRAPHQL_LOADING_ONLY = {
 function loadGraphqlContract(graphqlContract) {
   // Parse our query lines into a query
   graphqlContract.request.query = graphqlContract.request.queryLines.join('\n');
-  console.log(graphqlParser(graphqlContract.request.query));
+  var x = new graphqlLanguage.Source(graphqlContract.request.query);
+  // console.log(graphqlLanguage.Source);
+  var y = graphqlLanguage.createLexer(x);
+  console.log(y.token);
+  console.log(y.advance());
+  console.log(y.token);
+  console.log(y.advance());
+  console.log(y.token);
   return graphqlContract;
 }
 const graphqlContractsByFilepath = {
