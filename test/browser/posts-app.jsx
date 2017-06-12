@@ -59,10 +59,17 @@ describe('A PostApp component', function () {
             posts: [{
               id: 'foo-post',
               content: 'This is an example post',
-              comments: {
+              comments: [{
                 id: 'foo-comment',
                 content: 'This is an example comment'
-              }
+              }, {
+                id: 'foo-comment2',
+                content: 'This is another example comment'
+              }]
+            }, {
+              id: 'foo-post2',
+              content: 'This is another example post',
+              comments: []
             }]
           }
         }));
@@ -72,9 +79,12 @@ describe('A PostApp component', function () {
       return (<PostsApp />);
     });
 
-    it('renders call to action for new post', function () {
+    it('renders posts and comments', function () {
       this.sinonServer.respond();
-      expect(this.$el.text()).to.contain('No posts exist yet. Create one via "Create Post"');
+      expect(this.$el.text()).to.contain('This is an example post');
+      expect(this.$el.text()).to.contain('This is an example comment');
+      expect(this.$el.text()).to.contain('This is another example comment');
+      expect(this.$el.text()).to.contain('This is another example post');
     });
   });
 });
