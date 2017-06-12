@@ -2,8 +2,9 @@
 const assert = require('assert');
 
 const _ = require('underscore');
-const sinon = require('sinon');
+const diff = require('diff');
 const graphqlLanguage = require('graphql/language');
+const sinon = require('sinon');
 
 // Define `xhrUtils.mock`
 exports.mock = function (responses) {
@@ -93,9 +94,12 @@ exports.graphql = function (filepaths) {
 
       // Find our matching contract
       const matchingContracts = graphqlContracts.filter(function isMatchingContract (graphqlContract) {
-        // TODO: Perform subsetting matching (e.g. via `graphqlLanguage.parse`)
-        // TODO: Add variables matching
-        return graphqlContract.request.cleanedQuery === cleanedReqQuery;
+        // DEV: We use `diff` with only missing lines as it's more/less same as GraphQL query subsetting
+        // TODO: Collapse fragments and variables into query comparison
+        const queryToMatch = graphqlContract.request.cleanedQuery;
+        const results = diff.diffLines(cleanedReqQuery, queryToMatch, {ignoreWhitespace: false});
+        let removedLines = _.findWhere(results, {added: true});
+        return !!removedLines;
       });
       assert.notEqual(matchingContracts.length, 0,
         `Unable to find matching GraphQL contract for query "${reqQuery}" ` +
