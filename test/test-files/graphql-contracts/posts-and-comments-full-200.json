@@ -1,0 +1,46 @@
+{
+  "user": null,
+  "fixtures": [],
+  "request": {
+    "query": "query {
+      posts {
+        id
+        content
+        comments {
+          id
+          content
+        }
+      }
+    }",
+    "variables": {}
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "posts": [
+          {
+            "id": "foo-post",
+            "content": "This is an example post",
+            "comments": [
+              {
+                "id": "foo-comment",
+                "content": "This is an example comment"
+              },
+              {
+                "id": "foo-comment2",
+                "content": "This is another example comment"
+              }
+            ]
+          },
+          {
+            "id": "foo-post2",
+            "content": "This is another example post",
+            "comments": []
+          }
+        ]
+      }
+    }
+  }
+}
