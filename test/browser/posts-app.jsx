@@ -47,4 +47,34 @@ describe('A PostApp component', function () {
       expect(this.$el.text()).to.contain('No posts exist yet. Create one via "Create Post"');
     });
   });
+
+  describe('with multiple posts and comments', function () {
+    sinonUtils.mockXHR([{
+      method: 'POST',
+      url: '/graphql',
+      fn: function handleGraphQL (req) {
+        // http://sinonjs.org/releases/v2.3.4/fake-xhr-and-server/#simulating-server-responses
+        req.respond(200, {}, JSON.stringify({
+          data: {
+            posts: [{
+              id: 'foo-post',
+              content: 'This is an example post',
+              comments: {
+                id: 'foo-comment',
+                content: 'This is an example comment'
+              }
+            }]
+          }
+        }));
+      }
+    }]);
+    reactUtils.mount(function () {
+      return (<PostsApp />);
+    });
+
+    it('renders call to action for new post', function () {
+      this.sinonServer.respond();
+      expect(this.$el.text()).to.contain('No posts exist yet. Create one via "Create Post"');
+    });
+  });
 });
