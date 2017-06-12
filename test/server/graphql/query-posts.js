@@ -58,3 +58,53 @@ describe('A GraphQL query request for `posts` with `comments`', function () {
     });
   });
 });
+
+describe('GraphQL contracts for `posts` with `comments`', function () {
+  describe('Contract: No posts', function () {
+    testUtils.setFixtures([]);
+    httpUtils.graphql({
+      contract: true,
+      query: `
+        query {
+          posts {
+            id
+            content
+            comments {
+              id
+              content
+            }
+          }
+        }
+      `,
+      expectedStatusCode: 200
+    });
+
+    it('has no errors', function () {
+      // Asserted by `expectedStatusCode`
+    });
+  });
+
+  describe('Contract: Posts and comments', function () {
+    testUtils.setFixtures([]);
+    httpUtils.graphql({
+      contract: true,
+      query: `
+        query {
+          posts {
+            id
+            content
+            comments {
+              id
+              content
+            }
+          }
+        }
+      `,
+      expectedStatusCode: 200
+    });
+
+    it('has no errors', function () {
+      // Asserted by `expectedStatusCode`
+    });
+  });
+});
