@@ -142,4 +142,5 @@ const server = new Server(_config);
 module.exports = server;
 
 // Load our db fixtures (which contains conditional to load up fixtures)
+// eslint-disable-next-line global-require
 void require('./models/db-fixtures');
