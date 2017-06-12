@@ -48,19 +48,25 @@ exports.GRAPHQL_LOADING_ONLY = {
   }
 };
 /* eslint-disable global-require */
-function loadGraphqlContract(graphqlContract) {
+function extendGraphqlContract(graphqlContract, filepath) {
+  // Save our filepath for ease of reference
+  graphqlContract.filepath = filepath;
+
   // Parse our query lines into a query
   const query = graphqlContract.request.query = graphqlContract.request.queryLines.join('\n');
   const parsedQuery = graphqlContract.request.parsedQuery = graphqlLanguage.parse(query);
   graphqlContract.request.cleanedQuery = graphqlLanguage.print(parsedQuery);
+
+  // Return our contract
   return graphqlContract;
 }
 const graphqlContractsByFilepath = {
-  'posts-and-comments-empty-200.json': loadGraphqlContract(require(__dirname + '/../../test-files/graphql-contracts' +
-    '/posts-and-comments-empty-200.json')),
-  'posts-and-comments-full-200.json': loadGraphqlContract(require(__dirname + '/../../test-files/graphql-contracts' +
-    '/posts-and-comments-full-200.json'))
+  'posts-and-comments-empty-200.json': require(__dirname + '/../../test-files/graphql-contracts' +
+    '/posts-and-comments-empty-200.json'),
+  'posts-and-comments-full-200.json': require(__dirname + '/../../test-files/graphql-contracts' +
+    '/posts-and-comments-full-200.json')
 };
+_.each(graphqlContractsByFilepath, extendGraphqlContract);
 /* eslint-enable global-require */
 exports.graphql = function (filepaths) {
   // Load our matching filepaths
@@ -85,18 +91,24 @@ exports.graphql = function (filepaths) {
       const parsedReqQuery = graphqlLanguage.parse(reqQuery);
       const cleanedReqQuery = graphqlLanguage.print(parsedReqQuery);
 
-      // Find the first matching contract
-      const graphqlContract = _.find(graphqlContracts, function isMatchingContract (graphqlContract) {
+      // Find our matching contract
+      const matchingContracts = graphqlContracts.filter(function isMatchingContract (graphqlContract) {
         // TODO: Perform subsetting matching (e.g. via `graphqlLanguage.parse`)
         // TODO: Add variables matching
         return graphqlContract.request.cleanedQuery === cleanedReqQuery;
       });
-      assert(graphqlContract, `Unable to find matching GraphQL contract for query "${reqQuery}" ' +
-        'and variables "${JSON.stringify(variables)}"`);
+      assert.notEqual(matchingContracts.length, 0,
+        `Unable to find matching GraphQL contract for query "${reqQuery}" ` +
+        `and variables "${JSON.stringify(variables)}"`);
+      assert.strictEqual(matchingContracts.length, 1,
+        `Found multiple matching GraphQL contracts for query "${reqQuery}" ` +
+        `and variables "${JSON.stringify(variables)}". ` +
+        `Matching queries: ${JSON.stringify(_.pluck(matchingContracts, 'filepath'))}`);
+      const matchingContract = matchingContracts[0];
 
       // http://sinonjs.org/releases/v2.3.4/fake-xhr-and-server/#simulating-server-responses
-      req.respond(graphqlContract.response.statusCode, {},
-        JSON.stringify(graphqlContract.response.body));
+      req.respond(matchingContract.response.statusCode, {},
+        JSON.stringify(matchingContract.response.body));
     }
   };
 };
