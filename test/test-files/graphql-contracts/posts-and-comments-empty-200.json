@@ -1,0 +1,26 @@
+{
+  "user": null,
+  "fixtures": [],
+  "request": {
+    "query": "query {
+      posts {
+        id
+        content
+        comments {
+          id
+          content
+        }
+      }
+    }",
+    "variables": {}
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {},
+    "body": "{
+      data: {
+        posts: []
+      }
+    }"
+  }
+}
