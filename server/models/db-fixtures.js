@@ -11,8 +11,8 @@ const dbFixtures = {};
 
 // Define fixture managment functions
 const fixtureStrToModel = {
-  'post': Post,
-  'comment': Comment
+  post: Post,
+  comment: Comment
 };
 exports.deleteAll = function () {
   // Reset our existing models
@@ -21,7 +21,7 @@ exports.deleteAll = function () {
 };
 exports.setFixtures = function (fixtureNames) {
   // Resolve our input fixtures
-  let fixtures = fixtureNames.map(function resolveFixture (fixtureName) {
+  let fixtures = _.flatten(fixtureNames).map(function resolveFixture (fixtureName) {
     // Look up our fixture
     let _fixture = dbFixtures[fixtureName];
     assert(_fixture, `Unable to find fixture by name "${fixtureName}"`);
@@ -44,7 +44,7 @@ exports.setFixtures = function (fixtureNames) {
 
 // Define fixture registration functions
 function addFixture(key, modelName, attrs) {
-  assert.notEqual(dbFixtures.key, undefined, `Fixture ${key} is already defined`);
+  assert.strictEqual(dbFixtures[key], undefined, `Fixture ${key} is already defined`);
   assert(fixtureStrToModel[modelName], `Unidentified model ${modelName}. Please double check the model's spelling`);
   dbFixtures[key] = {
     model: modelName,
@@ -52,30 +52,37 @@ function addFixture(key, modelName, attrs) {
   };
   return key;
 }
+function addPost(key, attrs) { return addFixture(key, 'post', attrs); }
+function addComment(key, attrs) { return addFixture(key, 'comment', attrs); }
 
 // Define our fixtures
-addFixture('post', 'post', {
-  id: 'example-post-uuid',
-  content: 'This is an example post'
-});
-addFixture('post--another', 'post', {
+const POST_ID = 'example-post-uuid';
+exports.POST_WITH_COMMENT = [
+  exports.POST = addPost('post', {
+    id: POST_ID,
+    content: 'This is an example post'
+  }),
+  addComment('comment', {
+    id: 'example-comment-uuid',
+    postId: POST_ID,
+    content: 'This is an example comment'
+  })
+];
+exports.POST_WITH_COMMENTS = _.flatten(exports.POST_WITH_COMMENT, [
+  addComment('comment--another', {
+    id: 'example-comment-another-uuid',
+    postId: POST_ID,
+    content: 'This is another example comment'
+  })
+]);
+exports.POST_ANOTHER = addPost('post--another', {
   id: 'example-post-another-uuid',
   content: 'This is another example post'
-});
-addFixture('comment', 'comment', {
-  id: 'example-comment-uuid',
-  postId: 'example-post-uuid',
-  content: 'This is an example comment'
-});
-addFixture('comment--another', 'comment', {
-  id: 'example-comment-another-uuid',
-  postId: 'example-post-uuid',
-  content: 'This is another example comment'
 });
 
 // If we are providing a set of default mocks, then load them up
 // DEV: It would be ideal to load mocks on a per-request basis in controllers
 //   but that's a loooot more work
 if (config.loadDefaultFixtures) {
-  exports.setFixtures(['post', 'post--another', 'comment', 'comment--another']);
+  exports.setFixtures([exports.POST_WITH_COMMENTS, exports.POST_ANOTHER]);
 }

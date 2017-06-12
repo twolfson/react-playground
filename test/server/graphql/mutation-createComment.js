@@ -1,6 +1,7 @@
 // Load in our dependencies
 const {expect} = require('chai');
 
+const dbFixtures = require('../utils/db-fixtures');
 const httpUtils = require('../utils/http');
 const testUtils = require('../utils/test');
 const Comment = require('../../../server/models/comment');
@@ -9,7 +10,7 @@ const Comment = require('../../../server/models/comment');
 describe('A GraphQL mutation request for `createComment`', function () {
   // Format taken from: http://graphql.org/graphql-js/mutations-and-input-types/
   describe('for an existing post', function () {
-    testUtils.setFixtures(['post']);
+    testUtils.setFixtures([dbFixtures.POST]);
     httpUtils.graphql({
       query: `
         mutation {

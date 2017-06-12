@@ -1,12 +1,13 @@
 // Load in our dependencies
 const {expect} = require('chai');
 
+const dbFixtures = require('../utils/db-fixtures');
 const httpUtils = require('../utils/http');
 const testUtils = require('../utils/test');
 
 // Define our tests
 describe('A GraphQL query request for `posts`', function () {
-  testUtils.setFixtures(['post']);
+  testUtils.setFixtures([dbFixtures.POST]);
   httpUtils.graphql({
     query: `
       query {
@@ -27,7 +28,7 @@ describe('A GraphQL query request for `posts`', function () {
 });
 
 describe('A GraphQL query request for `posts` with `comments`', function () {
-  testUtils.setFixtures(['post', 'comment']);
+  testUtils.setFixtures([dbFixtures.POST_WITH_COMMENT]);
   httpUtils.graphql({
     query: `
       query {
