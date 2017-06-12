@@ -87,7 +87,7 @@ exports.graphql = function (filepaths) {
 
       // Find the first matching contract
       const graphqlContract = _.find(graphqlContracts, function isMatchingContract (graphqlContract) {
-        // TODO: Perform subsetting matching
+        // TODO: Perform subsetting matching (e.g. via `graphqlLanguage.parse`)
         // TODO: Add variables matching
         return graphqlContract.request.cleanedQuery === cleanedReqQuery;
       });
