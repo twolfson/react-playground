@@ -358,6 +358,34 @@ function wrapSaveWithGraphQL(saveFn) {
         assert.deepEqual(errors, []);
       }
     });
+    before(function saveContract (done) {
+      // If this was a GraphQL contract
+      if (options.contract) {
+        // Serialize our content
+        const contractObj = {
+          request: {
+            query: options.query,
+            variables: options.variables || {}
+          },
+          response: {
+            statusCode: this.res.statusCode,
+            body: this.json
+          }
+        };
+
+        // If we are in assertion mode
+        if (process.env.ASSERT_CONTRACTS === 'true') {
+          throw new Error('Verify we fail in Travis CI');
+        // Otherwise, overwrite our file contents
+        } else {
+          return process.nextTick(done);
+        }
+      // Otherwise, callback in a bit
+      // DEV: We wait to prevent zalgo
+      } else {
+        return process.nextTick(done);
+      }
+    });
 
     // Return `this` for a fluent interface
     return this;
