@@ -1,9 +1,8 @@
 // Load in our dependencies
 const assert = require('assert');
+const fs = require('fs');
 
 const sinon = require('sinon');
-
-const graphqlFixtures = require('./utils/graphql-fixtures');
 
 // Define `xhrUtils.mock`
 exports.mock = function (responses) {
