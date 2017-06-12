@@ -35,7 +35,7 @@ describe('A PostApp component', function () {
 
   describe('with multiple posts and comments', function () {
     xhrUtils.mock([
-      xhrUtils.graphql(['posts-and-comments-empty-200.json'])
+      xhrUtils.graphql(['posts-and-comments-full-200.json'])
     ]);
     reactUtils.mount(function () {
       return (<PostsApp />);
