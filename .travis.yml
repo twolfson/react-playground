@@ -14,7 +14,7 @@ install:
 
 script:
   # Set up GraphQL assertions
-  - export ASSERT_CONTRACTS="true"
+  - export ASSERT_CONTRACTS="TRUE"
   # Run our tests
   - yarn test
 

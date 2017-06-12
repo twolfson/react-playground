@@ -365,6 +365,7 @@ function wrapSaveWithGraphQL(saveFn) {
       if (options.contract) {
         // Serialize our content
         // DEV: We use an array for legible serialized queries (instead of `\n` everywhere)
+        const contractFilepath = __dirname + '/../../test-files/graphql-contracts/' + options.contract;
         const contractObj = {
           request: {
             queryLines: stripIndent(options.query).trim().split(/\n/g),
@@ -377,13 +378,21 @@ function wrapSaveWithGraphQL(saveFn) {
         };
 
         // If we are in assertion mode
-        if (process.env.ASSERT_CONTRACTS === 'true') {
-          throw new Error('Verify we fail in Travis CI');
+        if (process.env.ASSERT_CONTRACTS.toUpperCase() === 'TRUE') {
+          fs.readFile(contractFilepath, 'utf8', function handleReadFile (err, expectedContents) {
+            // If there was an error, callback with it
+            if (err) {
+              return done(err);
+            }
+
+            // Otherwise, assert our contents
+            assert.deepEqual(JSON.parse(expectedContents), contractObj,
+              `Expected contents "${contractFilepath}" to match current request`);
+            done();
+          });
         // Otherwise, overwrite our file contents
         } else {
-          return fs.writeFile(
-            __dirname + '/../../test-files/graphql-contracts/' + options.contract,
-            JSON.stringify(contractObj, null, 2), done);
+          return fs.writeFile(contractFilepath, JSON.stringify(contractObj, null, 2), done);
         }
       // Otherwise, callback in a bit
       // DEV: We wait to prevent zalgo
