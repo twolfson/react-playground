@@ -18,6 +18,7 @@ We've already used React in [plaidchat][] but want to take things further. In th
 - [x] React
     - [x] Static content
     - [x] Data fetching
+    - [ ] Data posting
 - [x] JSX
 - [ ] Webpack
     - [x] Basic compilation
