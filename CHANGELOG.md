@@ -1,4 +1,6 @@
 # react-playground changelog
+1.19.0 - Added GraphQL contracts for synced browser/server testing
+
 1.18.0 - Consolidated database fixtures/mocks
 
 1.17.0 - Added data fetching to browser code
