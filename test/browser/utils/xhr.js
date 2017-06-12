@@ -16,16 +16,6 @@ exports.mock = function (responses) {
       'Please only use `testUtils.mockXHR` once per test');
     this.sinonServer = sinon.fakeServer.create();
 
-    // Resolve GraphQL specific fixtures
-    responses = responses.map(function resolveGraphQLFixtures (response) {
-      if (response.graphql) {
-        // graphqlFixtures(['posts-and-comments-empty-200.json'])
-        return graphqlFixtures(response.graphql);
-      } else {
-        return response;
-      }
-    });
-
     // Bind our responses
     this.requests = [];
     const that = this;
@@ -60,15 +50,9 @@ exports.GRAPHQL_LOADING_ONLY = {
 /* eslint-disable global-require */
 function loadGraphqlContract(graphqlContract) {
   // Parse our query lines into a query
-  graphqlContract.request.query = graphqlContract.request.queryLines.join('\n');
-  var x = new graphqlLanguage.Source(graphqlContract.request.query);
-  // console.log(graphqlLanguage.Source);
-  var y = graphqlLanguage.createLexer(x);
-  console.log(y.token);
-  console.log(y.advance());
-  console.log(y.token);
-  console.log(y.advance());
-  console.log(y.token);
+  const query = graphqlContract.request.query = graphqlContract.request.queryLines.join('\n');
+  const parsedQuery = graphqlContract.request.parsedQuery = graphqlLanguage.parse(query);
+  graphqlContract.request.cleanedQuery = graphqlLanguage.print(parsedQuery);
   return graphqlContract;
 }
 const graphqlContractsByFilepath = {
@@ -98,13 +82,14 @@ exports.graphql = function (filepaths) {
       const reqQuery = reqBody.query;
       assert(reqQuery, `No \`query\` was specified for "${req.requestBody}"`);
       const variables = reqBody.variables || {};
+      const parsedReqQuery = graphqlLanguage.parse(reqQuery);
+      const cleanedReqQuery = graphqlLanguage.print(parsedReqQuery);
 
       // Find the first matching contract
       const graphqlContract = _.find(graphqlContracts, function isMatchingContract (graphqlContract) {
-        // TODO: Perform parsing and subsetting
+        // TODO: Perform subsetting matching
         // TODO: Add variables matching
-        return true;
-        // return graphqlContract.request.query === stripIndent(reqQuery).trim();
+        return graphqlContract.request.cleanedQuery === cleanedReqQuery;
       });
       assert(graphqlContract, `Unable to find matching GraphQL contract for query "${reqQuery}" ' +
         'and variables "${JSON.stringify(variables)}"`);
