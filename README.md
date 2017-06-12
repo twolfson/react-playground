@@ -111,6 +111,23 @@ To debug our browser tests:
 - Click "Debug" button in Karma
     - New window should have rendered content and Developer Tools can be used
 
+#### GraphQL contracts
+To guarantee consistency between our browser/server tests (i.e. our request/response never goes out of sync), we've built a contract system. For the specifics, please see:
+
+[docs/graphql-contracts.md](docs/graphql-contracts.md)
+
+**Relevant command summary:**
+
+```bash
+# Update existing contracts
+yarn run test-server
+# Equivalent to:
+# ASSERT_CONTRACTS=FALSE yarn run test-server
+
+# Assert existing contracts
+ASSERT_CONTRACTS=TRUE yarn run test-server
+```
+
 ### Debugging GraphQL
 In development, we host [GraphiQL][] at the GraphQL endpoint. It can be accessed by visiting:
 
