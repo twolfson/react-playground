@@ -1,3 +1,6 @@
+// Load in our dependencies
+const webpackConfig = require('./webpack.config.js');
+
 // Karma configuration
 // Generated on Sun Jun 11 2017 16:44:05 GMT-0700 (PDT)
 module.exports = function (config) {
@@ -11,7 +14,7 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/browser/*.{js,jsx}'
+      {pattern: 'test/browser/*.{js,jsx}', watched: false}
     ],
 
     // list of files to exclude
@@ -21,6 +24,11 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'test/browser/*.{js,jsx}': ['webpack']
+    },
+    webpack: webpackConfig,
+    webpackMiddleware: {
+      stats: 'minimal'
     },
 
     // test results reporter to use
