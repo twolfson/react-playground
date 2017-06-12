@@ -3,6 +3,8 @@ const assert = require('assert');
 
 const sinon = require('sinon');
 
+const graphqlFixtures = require('./utils/graphql-fixtures');
+
 // XHR mocking
 exports.mockXHR = function (responses) {
   before(function callMockXHR () {
@@ -13,6 +15,16 @@ exports.mockXHR = function (responses) {
     assert(!this.sinonServer, 'Expected no Sinon server to be running but one is. ' +
       'Please only use `testUtils.mockXHR` once per test');
     this.sinonServer = sinon.fakeServer.create();
+
+    // Resolve GraphQL specific fixtures
+    responses = responses.map(function resolveGraphQLFixtures (response) {
+      if (response.graphql) {
+        // graphqlFixtures(['posts-and-comments-empty-200.json'])
+        return graphqlFixtures(response.graphql);
+      } else {
+        return response;
+      }
+    });
 
     // Bind our responses
     this.requests = [];
