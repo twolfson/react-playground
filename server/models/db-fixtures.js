@@ -43,33 +43,33 @@ exports.setFixtures = function (fixtureNames) {
 };
 
 // Define our fixtures
-dbFixtures['post--example'] = {
+dbFixtures.post = {
   model: 'post',
   attrs: {
-    id: 'example-post',
+    id: 'example-post-uuid',
     content: 'This is an example post'
   }
 };
-dbFixtures['post--example2'] = {
+dbFixtures['post--another'] = {
   model: 'post',
   attrs: {
-    id: 'example-post2',
+    id: 'example-post-another-uuid',
     content: 'This is another example post'
   }
 };
-dbFixtures['comment--example'] = {
+dbFixtures.comment = {
   model: 'comment',
   attrs: {
-    id: 'example-comment',
-    postId: 'example-post',
+    id: 'example-comment-uuid',
+    postId: 'example-post-uuid',
     content: 'This is an example comment'
   }
 };
-dbFixtures['comment--example2'] = {
+dbFixtures['comment--another'] = {
   model: 'comment',
   attrs: {
-    id: 'example-comment2',
-    postId: 'example-post',
+    id: 'example-comment-another-uuid',
+    postId: 'example-post-uuid',
     content: 'This is another example comment'
   }
 };
@@ -78,5 +78,5 @@ dbFixtures['comment--example2'] = {
 // DEV: It would be ideal to load mocks on a per-request basis in controllers
 //   but that's a loooot more work
 if (config.loadDefaultFixtures) {
-  exports.setFixtures(['post--example', 'post--example2', 'comment--example', 'comment--example2']);
+  exports.setFixtures(['post', 'post--another', 'comment', 'comment--another']);
 }

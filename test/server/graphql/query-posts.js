@@ -21,7 +21,7 @@ describe('A GraphQL query request for `posts`', function () {
 
   it('resolves existing posts', function () {
     expect(this.json.data).to.deep.equal({
-      posts: [{id: 'example-post-uuid', content: 'foobar'}]
+      posts: [{id: 'example-post-uuid', content: 'This is an example post'}]
     });
   });
 });
@@ -48,10 +48,10 @@ describe('A GraphQL query request for `posts` with `comments`', function () {
     expect(this.json.data).to.deep.equal({
       posts: [{
         id: 'example-post-uuid',
-        content: 'foobar',
+        content: 'This is an example post',
         comments: [{
           id: 'example-comment-uuid',
-          content: 'baz'
+          content: 'This is an example comment'
         }]
       }]
     });
