@@ -12,15 +12,21 @@ describe('A PostApp component', function () {
     sinonUtils.mockXHR([{
       method: 'POST',
       url: '/graphql',
-      fn: function handleGraphQL () {
-        console.log('wat', arguments);
+      fn: function handleGraphQL (req) {
+        // http://sinonjs.org/releases/v2.3.4/fake-xhr-and-server/#simulating-server-responses
+        req.respond(200, {}, JSON.stringify({
+          data: {
+            posts: []
+          }
+        }));
       }
     }]);
     reactUtils.mount(function () {
       return (<PostsApp />);
-    }, {waitForRequests: 1});
+    });
 
     it('renders call to action for new post', function () {
+      this.sinonServer.respond();
       expect(this.$el.text()).to.contain('No posts exist yet. Create one via "Create Post"');
     });
   });
