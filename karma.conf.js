@@ -14,8 +14,7 @@ webpackConfig = _.defaults({
   }, webpackConfig.externals)
 }, webpackConfig);
 
-// Karma configuration
-// Generated on Sun Jun 11 2017 16:44:05 GMT-0700 (PDT)
+// Define our Karma configuration
 module.exports = function (config) {
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
