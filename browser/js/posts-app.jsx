@@ -24,7 +24,6 @@ module.exports = class PostsApp extends React.Component {
     });
 
     // Generate our XHR
-    // TODO: Add tests for me
     // TODO: Relocate state fetching to a singleton store (e.g. Redux)
     // DEV: We will worry about hydration via props in the next step
     // http://youmightnotneedjquery.com/#post
