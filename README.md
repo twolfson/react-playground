@@ -85,10 +85,23 @@ To run our test suite, run:
 yarn test
 ```
 
-To run server tests specifically, run:
+To run our server tests specifically, run:
 
 ```bash
 yarn run test-server
+```
+
+To run our browser tests specifically, run:
+
+```bash
+# Single run
+yarn run test-browser-single
+
+# Continuous mode
+yarn run test-browser-continuous
+
+# Debuggable mode (continuous mode + visible window)
+yarn run test-browser-debug
 ```
 
 ### Debugging GraphQL
