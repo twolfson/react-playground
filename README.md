@@ -85,11 +85,30 @@ To run our test suite, run:
 yarn test
 ```
 
-To run server tests specifically, run:
+To run our server tests specifically, run:
 
 ```bash
 yarn run test-server
 ```
+
+To run our browser tests specifically, run:
+
+```bash
+# Single run
+yarn run test-browser-single
+
+# Continuous mode
+yarn run test-browser-continuous
+```
+
+To debug our browser tests:
+
+- Add a `.only` flag to the desired test
+    - This will trigger unmounting of the element on our debug page
+- Run our tests in debuggable mode (continuous runs + visible window)
+    - `yarn run test-browser-debug`
+- Click "Debug" button in Karma
+    - New window should have rendered content and Developer Tools can be used
 
 ### Debugging GraphQL
 In development, we host [GraphiQL][] at the GraphQL endpoint. It can be accessed by visiting:
