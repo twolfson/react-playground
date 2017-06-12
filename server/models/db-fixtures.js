@@ -68,7 +68,8 @@ exports.POST_WITH_COMMENT = [
     content: 'This is an example comment'
   })
 ];
-exports.POST_WITH_COMMENTS = _.flatten(exports.POST_WITH_COMMENT, [
+exports.POST_WITH_COMMENTS = _.flatten([
+  exports.POST_WITH_COMMENT,
   addComment('comment--another', {
     id: 'example-comment-another-uuid',
     postId: POST_ID,
