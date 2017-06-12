@@ -4,12 +4,12 @@ const React = require('react');
 
 const PostsApp = require('../../browser/js/posts-app');
 const reactUtils = require('./utils/react');
-const sinonUtils = require('../utils/sinon');
+const xhrUtils = require('./utils/xhr');
 
 // Define our tests
 describe('A PostApp component', function () {
   describe('loading content', function () {
-    sinonUtils.mockXHR([{graphql: ['loading-only']}]);
+    xhrUtils.mock([xhrUtils.GRAPHQL_LOADING_ONLY]);
     reactUtils.mount(function () {
       return (<PostsApp />);
     });
@@ -20,8 +20,8 @@ describe('A PostApp component', function () {
   });
 
   describe('with no content', function () {
-    sinonUtils.mockXHR([
-      {graphql: ['posts-and-comments-empty-200.json']}
+    xhrUtils.mock([
+      xhrUtils.graphql(['posts-and-comments-empty-200.json'])
     ]);
     reactUtils.mount(function () {
       return (<PostsApp />);
@@ -34,8 +34,8 @@ describe('A PostApp component', function () {
   });
 
   describe('with multiple posts and comments', function () {
-    sinonUtils.mockXHR([
-      {graphql: ['posts-and-comments-full-200.json']}
+    xhrUtils.mock([
+      xhrUtils.graphql(['posts-and-comments-empty-200.json'])
     ]);
     reactUtils.mount(function () {
       return (<PostsApp />);

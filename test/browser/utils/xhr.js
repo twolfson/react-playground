@@ -5,8 +5,8 @@ const sinon = require('sinon');
 
 const graphqlFixtures = require('./utils/graphql-fixtures');
 
-// XHR mocking
-exports.mockXHR = function (responses) {
+// Define `xhrUtils.mock`
+exports.mock = function (responses) {
   before(function callMockXHR () {
     // Create our server
     // http://sinonjs.org/docs/#fakeServer
@@ -47,3 +47,27 @@ exports.mockXHR = function (responses) {
     delete this.sinonServer;
   });
 };
+
+// Define our GraphQL fixtures
+exports.GRAPHQL_LOADING_ONLY = {
+  method: 'POST',
+  url: '/graphql',
+  fn: function (req) {
+    throw new Error('GRAPHQL_LOADING_ONLY was run when it should never be run. ' +
+      'Please remove any `this.sinonServer.respond()`');
+  }
+};
+const filepathCache = {};
+exports.graphql = function (filepaths) {
+  // Load our matching filepaths
+  assert(Array.isArray(filepaths), `Expected ${filepaths} to be an array but it wasn't`);
+  // DEV: If we run into trouble with Webpack/Browserify due to dynamic `fs`, update `filepathCache` to generate statically and make this an `assert`
+  const graphqlResponses = filepaths.map(filepaths, function resolveGraphqlResponse (filepath) {
+    const graphqlResponse = filepathCache[filepath] || fs.readFileSync(
+      __dirname + '/../../test-files/graphql-contracts/' + filepath, 'utf8');
+    filepathCache[filepath] = graphqlResponse;
+    return graphqlResponse;
+  });
+  console.log(graphqlResponses);
+};
+// http://sinonjs.org/releases/v2.3.4/fake-xhr-and-server/#simulating-server-responses
