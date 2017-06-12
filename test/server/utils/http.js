@@ -378,7 +378,7 @@ function wrapSaveWithGraphQL(saveFn) {
         };
 
         // If we are in assertion mode
-        if (process.env.ASSERT_CONTRACTS.toUpperCase() === 'TRUE') {
+        if (process.env.ASSERT_CONTRACTS === 'TRUE') {
           fs.readFile(contractFilepath, 'utf8', function handleReadFile (err, expectedContents) {
             // If there was an error, callback with it
             if (err) {
