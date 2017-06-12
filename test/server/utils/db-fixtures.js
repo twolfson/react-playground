@@ -1,16 +1,2 @@
-// Define our fixtures
-exports.post = {
-  model: 'post',
-  attrs: {
-    id: 'example-post-uuid',
-    content: 'foobar'
-  }
-};
-exports.comment = {
-  model: 'comment',
-  attrs: {
-    id: 'example-comment-uuid',
-    postId: 'example-post-uuid',
-    content: 'baz'
-  }
-};
+// Use this file as a symlink for our server's fixtures
+module.exports = require('../../server/models/db-fixtures');

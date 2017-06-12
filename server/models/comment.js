@@ -4,7 +4,6 @@ const assert = require('assert');
 const uuidV4 = require('uuid/v4');
 
 const Base = require('./base');
-const config = require('../_config');
 
 // Define our model backend
 class Comment extends Base {
@@ -17,18 +16,3 @@ class Comment extends Base {
   }
 }
 module.exports = Comment;
-
-// If we want to serve mock data, then load it up
-// TODO: Relocate into fixture file (see `post.js` for more details)
-if (config.loadMocks) {
-  Comment._modelsById['example-comment'] = {
-    id: 'example-comment',
-    postId: 'example-post',
-    content: 'This is an example comment'
-  };
-  Comment._modelsById['example-comment2'] = {
-    id: 'example-comment2',
-    postId: 'example-post',
-    content: 'This is another example comment'
-  };
-}

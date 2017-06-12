@@ -140,3 +140,6 @@ Server.prototype.close = function (cb) {
 // Export an initialized yet not listening server
 const server = new Server(_config);
 module.exports = server;
+
+// Load our db fixtures (which contains conditional to load up fixtures)
+void require('./models/db-fixtures');
