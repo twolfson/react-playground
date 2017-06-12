@@ -1,4 +1,6 @@
 # react-playground changelog
+1.18.0 - Consolidated database fixtures/mocks
+
 1.17.0 - Added data fetching to browser code
 
 1.16.0 - Added browser tests via Karma
