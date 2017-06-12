@@ -1,3 +1,6 @@
+// Load in our dependencies
+const webpack = require('webpack');
+
 // Define our Webpack config
 module.exports = {
   entry: ['./browser/js/posts-container.jsx'],
@@ -12,13 +15,20 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /(\.js|\.jsx)$/,
+        test: /(\.js|\.jsx)($|\?)/,
         exclude: /node_modules/,
         use: ['babel-loader']
       }
     ]
   },
-  plugins: []
+  plugins: [
+    // Fix sourcemaps for Karma and still support Chrome
+    //   Unable to get Firefox working =(
+    //   https://github.com/webpack-contrib/karma-webpack/issues/109#issuecomment-224961264
+    new webpack.SourceMapDevToolPlugin({
+      test: /(\.js|\.jsx)($|\?)/
+    })
+  ]
 };
 
 // If we are in development, then enable LiveReload
