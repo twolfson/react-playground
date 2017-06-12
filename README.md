@@ -99,10 +99,14 @@ yarn run test-browser-single
 
 # Continuous mode
 yarn run test-browser-continuous
-
-# Debuggable mode (continuous mode + visible window)
-yarn run test-browser-debug
 ```
+
+To debug our browser tests:
+
+- Add a `.only` flag to the desired test
+    - This will trigger unmounting of the element on our debug page
+- Run our tests in debuggable mode (continuous runs + visible window)
+    - `yarn run test-browser-debug`
 
 ### Debugging GraphQL
 In development, we host [GraphiQL][] at the GraphQL endpoint. It can be accessed by visiting:
