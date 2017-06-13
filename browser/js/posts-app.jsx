@@ -12,7 +12,7 @@ module.exports = class PostsApp extends React.Component {
       //   Also data should be normalized, not pre-nested
       // DEV: PRELOADED_STATE should be keyed by `el.key` not a singleton PostsApp
       //   but this is a proof of concept
-      posts: window.__PRELOADED_STATE__.PostsApp.posts || []
+      posts: window.__PRELOADED_STATE__ ? window.__PRELOADED_STATE__.PostsApp.posts : []
     };
   }
 
