@@ -61,21 +61,17 @@ function extendGraphqlContract(graphqlContract, filepath) {
   // Return our contract
   return graphqlContract;
 }
-const graphqlContractsByFilepath = {
-  'posts-and-comments-empty-200.json': require('../../test-files/graphql-contracts' +
-    '/posts-and-comments-empty-200.json'),
-  'posts-and-comments-full-200.json': require('../../test-files/graphql-contracts' +
-    '/posts-and-comments-full-200.json')
-};
-_.each(graphqlContractsByFilepath, extendGraphqlContract);
+require.include('../../test-files/graphql-contracts/posts-and-comments-empty-200.json');
+require.include('../../test-files/graphql-contracts/posts-and-comments-full-200.json');
 /* eslint-enable global-require */
 exports.graphql = function (filepaths) {
   // Load our matching filepaths
   assert(Array.isArray(filepaths), `Expected ${filepaths} to be an array but it wasn't`);
   const graphqlContracts = filepaths.map(function resolveGraphqlContract (filepath) {
-    const graphqlContract = graphqlContractsByFilepath[filepath];
-    assert(graphqlContract,
-      `Unable to find GraphQL contract for "${filepath}". Please verify it's loaded via \`require\``);
+    /* eslint-disable global-require */
+    const graphqlContract = require('../../test-files/graphql-contracts/' + filepath);
+    /* eslint-enable global-require */
+    extendGraphqlContract(graphqlContract, filepath);
     return graphqlContract;
   });
 
