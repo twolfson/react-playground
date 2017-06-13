@@ -96,14 +96,15 @@ exports.graphql = function (filepaths) {
       const matchingContracts = graphqlContracts.filter(function isMatchingContract (graphqlContract) {
         // DEV: We use `diff` with only missing lines as it's more/less same as GraphQL query subsetting
         // TODO: Collapse fragments and variables into query comparison
-        const queryToMatch = graphqlContract.request.cleanedQuery;
-        const results = diff.diffLines(cleanedReqQuery, queryToMatch, {ignoreWhitespace: false});
-        let removedLines = _.findWhere(results, {added: true});
-        return !!removedLines;
+        const cleanedContractQuery = graphqlContract.request.cleanedQuery;
+        const results = diff.diffLines(cleanedReqQuery, cleanedContractQuery, {ignoreWhitespace: false});
+        let removedResult = _.findWhere(results, {removed: true});
+        return !removedResult;
       });
       assert.notEqual(matchingContracts.length, 0,
         `Unable to find matching GraphQL contract for query "${reqQuery}" ` +
-        `and variables "${JSON.stringify(variables)}"`);
+        `and variables "${JSON.stringify(variables)}" ` +
+        `out of ${JSON.stringify(_.pluck(graphqlContracts, 'filepath'))}`);
       assert.strictEqual(matchingContracts.length, 1,
         `Found multiple matching GraphQL contracts for query "${reqQuery}" ` +
         `and variables "${JSON.stringify(variables)}". ` +
