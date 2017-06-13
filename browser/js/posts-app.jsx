@@ -8,13 +8,32 @@ module.exports = class PostsApp extends React.Component {
     this.state = {
       err: null,
       isLoading: true,
-      posts: []
+      // TODO: Perform all hydration via single store
+      //   Also data should be normalized, not pre-nested
+      // DEV: PRELOADED_STATE should be keyed by `el.key` not a singleton PostsApp
+      //   but this is a proof of concept
+      posts: window.__PRELOADED_STATE__.PostsApp.posts || []
     };
   }
 
   componentWillMount() {
-    this._fetchData();
+    if (!window.__PRELOADED_STATE) {
+      this._fetchData();
+    }
   }
+
+  graphqlQuery = `
+    query {
+      posts {
+        id
+        content
+        comments {
+          id
+          content
+        }
+      }
+    }
+  `;
 
   _fetchData() {
     // Reset our state
@@ -25,24 +44,12 @@ module.exports = class PostsApp extends React.Component {
 
     // Generate our XHR
     // TODO: Relocate state fetching to a singleton store (e.g. Redux)
-    // DEV: We will worry about hydration via props in the next step
     // http://youmightnotneedjquery.com/#post
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/graphql', true /* async */);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({
-      query: `
-        query {
-          posts {
-            id
-            content
-            comments {
-              id
-              content
-            }
-          }
-        }
-      `
+      query: this.graphqlQuery
     }));
 
     // Handle our XHR response
