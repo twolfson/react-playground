@@ -61,18 +61,22 @@ function extendGraphqlContract(graphqlContract, filepath) {
   // Return our contract
   return graphqlContract;
 }
+// Load all sibling test files and relevant assets
+// https://github.com/webpack-contrib/karma-webpack/tree/v2.0.3#alternative-usage
+// https://webpack.github.io/docs/context.html
 // DEV: To debug files being included, use `test-browser-debug` and view `webpack://` in Dev Tools' Sources
-require.include('../../test-files/graphql-contracts/posts-and-comments-empty-200.json');
-require.include('../../test-files/graphql-contracts/posts-and-comments-full-200.json');
-/* eslint-enable global-require */
+const graphqlContractContext = require.context(
+  '../../test-files/graphql-contracts', true /* Use subdirectories */, /\.(json)$/);
+graphqlContractContext.keys().forEach(function loadFilepath (filepath) {
+  // filepath = ./posts-...-200.json
+  const graphqlContract = graphqlContractContext(filepath);
+  extendGraphqlContract(graphqlContract);
+});
 exports.graphql = function (filepaths) {
   // Load our matching filepaths
   assert(Array.isArray(filepaths), `Expected ${filepaths} to be an array but it wasn't`);
   const graphqlContracts = filepaths.map(function resolveGraphqlContract (filepath) {
-    /* eslint-disable global-require */
     const graphqlContract = require('../../test-files/graphql-contracts/' + filepath);
-    /* eslint-enable global-require */
-    extendGraphqlContract(graphqlContract, filepath);
     return graphqlContract;
   });
 
