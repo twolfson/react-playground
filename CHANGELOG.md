@@ -1,4 +1,6 @@
 # react-playground changelog
+1.20.0 - Added subset support for GraphQL contracts via diffs
+
 1.19.0 - Added GraphQL contracts for synced browser/server testing
 
 1.18.0 - Consolidated database fixtures/mocks
