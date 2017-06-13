@@ -62,9 +62,9 @@ function extendGraphqlContract(graphqlContract, filepath) {
   return graphqlContract;
 }
 const graphqlContractsByFilepath = {
-  'posts-and-comments-empty-200.json': require(__dirname + '/../../test-files/graphql-contracts' +
+  'posts-and-comments-empty-200.json': require('../../test-files/graphql-contracts' +
     '/posts-and-comments-empty-200.json'),
-  'posts-and-comments-full-200.json': require(__dirname + '/../../test-files/graphql-contracts' +
+  'posts-and-comments-full-200.json': require('../../test-files/graphql-contracts' +
     '/posts-and-comments-full-200.json')
 };
 _.each(graphqlContractsByFilepath, extendGraphqlContract);
