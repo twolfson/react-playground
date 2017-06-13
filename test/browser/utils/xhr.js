@@ -61,6 +61,7 @@ function extendGraphqlContract(graphqlContract, filepath) {
   // Return our contract
   return graphqlContract;
 }
+// DEV: To debug files being included, use `test-browser-debug` and view `webpack://` in Dev Tools' Sources
 require.include('../../test-files/graphql-contracts/posts-and-comments-empty-200.json');
 require.include('../../test-files/graphql-contracts/posts-and-comments-full-200.json');
 /* eslint-enable global-require */
