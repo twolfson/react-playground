@@ -61,10 +61,12 @@ function extendGraphqlContract(graphqlContract, filepath) {
   // Return our contract
   return graphqlContract;
 }
-// Load all sibling test files and relevant assets
+
+// Load all GraphQL contracts in 1 fell swoop
 // https://github.com/webpack-contrib/karma-webpack/tree/v2.0.3#alternative-usage
 // https://webpack.github.io/docs/context.html
 // DEV: To debug files being included, use `test-browser-debug` and view `webpack://` in Dev Tools' Sources
+// DEV: In Browserify, we would include these files upfront via `--require`
 const graphqlContractContext = require.context(
   '../../test-files/graphql-contracts', true /* Use subdirectories */, /\.(json)$/);
 graphqlContractContext.keys().forEach(function loadFilepath (filepath) {
@@ -72,12 +74,20 @@ graphqlContractContext.keys().forEach(function loadFilepath (filepath) {
   const graphqlContract = graphqlContractContext(filepath);
   extendGraphqlContract(graphqlContract);
 });
+
+// Define our GraphQL fixture logic
 exports.graphql = function (filepaths) {
   // Load our matching filepaths
   assert(Array.isArray(filepaths), `Expected ${filepaths} to be an array but it wasn't`);
   const graphqlContracts = filepaths.map(function resolveGraphqlContract (filepath) {
-    const graphqlContract = require('../../test-files/graphql-contracts/' + filepath);
-    return graphqlContract;
+    // DEV: This string must stay 1:1 with `require.context` call above
+    try {
+      return require('../../test-files/graphql-contracts/' + filepath);
+    } catch (err) {
+      // DEV: We use try/catch to avoid generic error "Cannot find module ./posts-...-200.json"
+      throw new Error(`Unable to find GraphQL contract "${filepath}". ` +
+        `Please verify it exists in "test/test-files/graphql-contracts/${filepath}"`);
+    }
   });
 
   // Return a mock XHR response for our GraphQL endpoint
