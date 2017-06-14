@@ -14,13 +14,15 @@ module.exports = class PostsApp extends React.Component {
     super(props);
     this.state = {
       err: null,
-      isLoading: true,
+      isLoading: false,
       // TODO: Perform all hydration via single store
       //   Also data should be normalized, not pre-nested
       // DEV: PRELOADED_STATE should be keyed by `el.key` not a singleton PostsApp
       //   but this is a proof of concept
       // TODO: Add test for preloaded element
-      posts: global.__PRELOADED_STATE__ ? global.__PRELOADED_STATE__.PostsApp.posts : []
+      posts: props.posts
+      // isLoading: true,
+      // posts: global.__PRELOADED_STATE__ ? global.__PRELOADED_STATE__.PostsApp.posts : []
     };
   }
 

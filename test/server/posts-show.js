@@ -7,22 +7,22 @@ const serverUtils = require('./utils/server');
 const testUtils = require('./utils/test');
 
 // Start our tests
-describe('A request to GET /posts', function () {
-  describe.skip('with an empty set of posts', function () {
+describe.only('A request to GET /posts', function () {
+  describe('with an empty set of posts', function () {
     httpUtils.save({
       url: serverUtils.getUrl('/posts'),
       expectedStatusCode: 200
     });
 
     it('shows no posts loaded', function () {
-      // TODO: Add me
+      expect(this.$('body').text()).to.contain('No posts exist yet. Create one via "Create Post"');
     });
-    it('provides browsers state with no posts', function () {
+    it.skip('provides browsers state with no posts', function () {
       // TODO: Add me
     });
   });
 
-  describe.only('with multiple posts and comments', function () {
+  describe('with multiple posts and comments', function () {
     testUtils.setFixtures([dbFixtures.POST_WITH_COMMENTS, dbFixtures.POST_ANOTHER]);
     httpUtils.save({
       url: serverUtils.getUrl('/posts'),
@@ -30,10 +30,12 @@ describe('A request to GET /posts', function () {
     });
 
     it('shows posts and comments', function () {
-      // TODO: Add me
-      expect(true).to.equal(true);
+      expect(this.$('body').text()).to.contain('This is an example post');
+      expect(this.$('body').text()).to.contain('This is an example comment');
+      expect(this.$('body').text()).to.contain('This is another example comment');
+      expect(this.$('body').text()).to.contain('This is another example post');
     });
-    it('provides browsers state with posts and comments', function () {
+    it.skip('provides browsers state with posts and comments', function () {
       // TODO: Add me
     });
   });
