@@ -22,7 +22,7 @@ describe('A request to GET /posts', function () {
     });
   });
 
-  describe('with multiple posts and comments', function () {
+  describe.only('with multiple posts and comments', function () {
     testUtils.setFixtures([dbFixtures.POST_WITH_COMMENTS, dbFixtures.POST_ANOTHER]);
     httpUtils.save({
       url: serverUtils.getUrl('/posts'),

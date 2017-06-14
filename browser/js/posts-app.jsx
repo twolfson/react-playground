@@ -20,12 +20,14 @@ module.exports = class PostsApp extends React.Component {
       // DEV: PRELOADED_STATE should be keyed by `el.key` not a singleton PostsApp
       //   but this is a proof of concept
       // TODO: Add test for preloaded element
-      posts: window.__PRELOADED_STATE__ ? window.__PRELOADED_STATE__.PostsApp.posts : []
+      posts: global.__PRELOADED_STATE__ ? global.__PRELOADED_STATE__.PostsApp.posts : []
     };
   }
 
   componentWillMount() {
-    if (!window.__PRELOADED_STATE) {
+    // TODO: Re-enable browser fetching of data
+    // if (!global.__PRELOADED_STATE__) {
+    if (false) {
       this._fetchData();
     }
   }
