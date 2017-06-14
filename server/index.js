@@ -57,6 +57,12 @@ function Server(config) {
   // Set up our static content
   app.use('/browser-dist', express.static(__dirname + '/../browser-dist'));
 
+  // Define a common GraphQL context (our request) for all requests
+  app.use(function defineGraphqlContext (req, res, next) {
+    req.graphqlContext = req;
+    next();
+  });
+
   // Define our routes
   // Generic application routes
   // DEV: When our routes get unwieldy, break them out into another file
@@ -108,22 +114,25 @@ function Server(config) {
     //   We must use JSON for variable support
     //   Here's our `application/graphql` variant: https://github.com/twolfson/react-playground/blob/1.5.1/server/index.js#L101-L108
     bodyParser.json(),
-    expressGraphql({
-      schema: graphqlSchema,
-      graphiql: false,
-      formatError: function (err) {
-        // Based on https://github.com/graphql/graphql-js/blob/v0.10.1/src/error/formatError.js
-        let retVal = {
-          message: err.message,
-          locations: err.locations,
-          path: err.path
-        };
-        if (config.exposeStack) {
-          // DEV: We use `.split(\n)` to make JSON stringified errors legible
-          retVal.stack = err.stack.split(/\n/g);
+    expressGraphql(function generateGraphqlOptions (req, res) {
+      return {
+        schema: graphqlSchema,
+        context: req.graphqlContext,
+        graphiql: false,
+        formatError: function (err) {
+          // Based on https://github.com/graphql/graphql-js/blob/v0.10.1/src/error/formatError.js
+          let retVal = {
+            message: err.message,
+            locations: err.locations,
+            path: err.path
+          };
+          if (config.exposeStack) {
+            // DEV: We use `.split(\n)` to make JSON stringified errors legible
+            retVal.stack = err.stack.split(/\n/g);
+          }
+          return retVal;
         }
-        return retVal;
-      }
+      };
     })
   ]);
 }
