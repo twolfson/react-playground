@@ -5,6 +5,7 @@ const _ = require('underscore');
 const bodyParser = require('body-parser');
 const express = require('express');
 const expressSession = require('express-session');
+const {graphql} = require('graphql');
 const expressGraphql = require('express-graphql');
 const expressReactViews = require('express-react-views');
 const expressSessionLevel = require('express-session-level');
@@ -12,6 +13,7 @@ const levelup = require('levelup');
 
 const _config = require('./_config');
 const graphqlSchema = require('./graphql/index.js').schema;
+const PostsView = require('./views/posts');
 
 // Define our app locals
 /* eslint-disable global-require */
@@ -72,7 +74,16 @@ function Server(config) {
     });
   });
   app.get('/posts', function handlePostsShow (req, res, next) {
-    res.render('posts.jsx');
+    // Load our posts for our view
+    // TODO: Resolve query magically via view itself?
+    // https://github.com/graphql/express-graphql/blob/v0.6.6/src/index.js#L255-L268
+    graphql(graphqlSchema, PostsView.prototype.graphqlQuery)
+      // TODO: Verify there's a lint rule for using `catch`
+      .catch(next)
+      .then(function handleGraphql (graphqlRes) {
+        console.log(graphqlRes);
+        res.render('posts.jsx');
+      });
   });
   app.post('/login', function handleLoginSave (req, res, next) {
     // Resolve our parameters
