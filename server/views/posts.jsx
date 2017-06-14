@@ -8,7 +8,7 @@ const PostsApp = require('../../browser/js/posts-app');
 // Export our view
 module.exports = class PostsView extends React.Component {
   // TODO: Resolve query automatically instead of hardcoding it
-  graphqlQuery = PostsApp.prototype.graphqlQuery;
+  static graphqlQuery = PostsApp.graphqlQuery;
 
   render() {
     return (

@@ -1,6 +1,7 @@
 // Load in dependencies
 const {expect} = require('chai');
 
+const dbFixtures = require('./utils/db-fixtures');
 const httpUtils = require('./utils/http');
 const serverUtils = require('./utils/server');
 const testUtils = require('./utils/test');

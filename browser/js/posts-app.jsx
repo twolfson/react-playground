@@ -30,7 +30,7 @@ module.exports = class PostsApp extends React.Component {
     }
   }
 
-  graphqlQuery = `
+  static graphqlQuery = `
     query {
       posts {
         id
@@ -57,7 +57,7 @@ module.exports = class PostsApp extends React.Component {
     xhr.open('POST', '/graphql', true /* async */);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({
-      query: this.graphqlQuery
+      query: this.constructor.graphqlQuery
     }));
 
     // Handle our XHR response

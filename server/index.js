@@ -77,12 +77,11 @@ function Server(config) {
     // Load our posts for our view
     // TODO: Resolve query magically via view itself?
     // https://github.com/graphql/express-graphql/blob/v0.6.6/src/index.js#L255-L268
-    graphql(graphqlSchema, PostsView.prototype.graphqlQuery)
+    graphql(graphqlSchema, PostsView.graphqlQuery)
       // TODO: Verify there's a lint rule for using `catch`
       .catch(next)
       .then(function handleGraphql (graphqlRes) {
-        console.log(graphqlRes);
-        res.render('posts.jsx');
+        res.render('posts.jsx', graphqlRes.data);
       });
   });
   app.post('/login', function handleLoginSave (req, res, next) {
