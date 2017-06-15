@@ -17,8 +17,8 @@ describe.only('A request to GET /posts', function () {
     it('shows no posts loaded', function () {
       expect(this.$('body').text()).to.contain('No posts exist yet. Create one via "Create Post"');
     });
-    it.skip('provides browsers state with no posts', function () {
-      // TODO: Add me
+    it('provides browsers state with no posts', function () {
+      expect(this.$('script').html()).to.contain('window.__PRELOADED_STATE__ = {"posts":[]}');
     });
   });
 
@@ -35,8 +35,10 @@ describe.only('A request to GET /posts', function () {
       expect(this.$('body').text()).to.contain('This is another example comment');
       expect(this.$('body').text()).to.contain('This is another example post');
     });
-    it.skip('provides browsers state with posts and comments', function () {
-      // TODO: Add me
+    it('provides browsers state with posts and comments', function () {
+      expect(this.$('script').html()).to.contain('window.__PRELOADED_STATE__ = {"posts":[{');
+      expect(this.$('script').html()).to.contain('"content":"This is an example post"');
+      expect(this.$('script').html()).to.contain('"content":"This is an example comment"');
     });
   });
 });

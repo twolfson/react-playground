@@ -1,4 +1,6 @@
 // Load in our dependencies
+const _ = require('underscore');
+const jsStringify = require('js-stringify');
 const PropTypes = require('prop-types');
 const React = require('react');
 
@@ -29,6 +31,12 @@ module.exports = class PostsView extends React.Component {
         <h1>react-playground posts</h1>
         {/* TODO: Add back our browser script */}
         <PostsApp posts={this.props.posts}></PostsApp>
+        {/* DEV: jsStringify escapes HTML entities to their `\u` equivalent */}
+        {/* https://github.com/pugjs/js-stringify */}
+        <script dangerouslySetInnerHTML={{
+          __html: `window.__PRELOADED_STATE__ = ${
+            jsStringify(_.pick(this.props, 'posts'))}`
+        }} />
       </Layout>
     );
   }
