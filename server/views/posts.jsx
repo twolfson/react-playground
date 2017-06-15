@@ -30,13 +30,16 @@ module.exports = class PostsView extends React.Component {
       <Layout title="react-playground posts">
         <h1>react-playground posts</h1>
         {/* TODO: Add back our browser script */}
-        <PostsApp posts={this.props.posts}></PostsApp>
+        <div id="main">
+          <PostsApp posts={this.props.posts}></PostsApp>
+        </div>
         {/* DEV: jsStringify escapes HTML entities to their `\u` equivalent */}
         {/* https://github.com/pugjs/js-stringify */}
         <script dangerouslySetInnerHTML={{
           __html: `window.__PRELOADED_STATE__ = ${
             jsStringify(_.pick(this.props, 'posts'))}`
         }} />
+        <script src="/browser-dist/js/posts-app-init.js" />
       </Layout>
     );
   }

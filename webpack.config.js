@@ -3,11 +3,11 @@ const webpack = require('webpack');
 
 // Define our Webpack config
 module.exports = {
-  entry: ['./browser/js/posts-container.jsx'],
+  entry: ['./browser/js/posts-app-init.jsx'],
   output: {
     path: __dirname + '/browser-dist/js',
     // https://webpack.js.org/configuration/output/#output-filename
-    filename: 'posts-container.js'
+    filename: 'posts-app-init.js'
   },
   resolve: {
     extensions: ['.js', '.json', '.jsx']
