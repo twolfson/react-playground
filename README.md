@@ -29,9 +29,9 @@ We've already used React in [plaidchat][] but want to take things further. In th
             - Required separate `.babelrc` invocation
             - Limited usefulness -- no CSS or HTML reloading, better to supplement LiveReload than replace it
     - [ ] Bundle splitting
-- [ ] Server side rendering
+- [x] Server side rendering
     - [x] Static content
-    - [ ] Data fetching
+    - [x] Data fetching
 - [ ] Relay
 
 [plaidchat]: https://github.com/plaidchat/plaidchat/tree/v2.15.1
@@ -40,6 +40,13 @@ We've already used React in [plaidchat][] but want to take things further. In th
 
 - Using a bespoke in-memory ORM
 - Missing CSRF security
+
+**Concepts to experiment with:**
+
+- [ ] Passing ids/primitives only to components
+    - All components must request deeper data from singleton store
+- [ ] Render all static content on server and only link up interactive components on browser (e.g. tabs, modals)
+    - Curious about difference in page weight (should be significant) and flexibility engineering-wise
 
 ## Getting Started
 To get our repo running locally, run the following steps:

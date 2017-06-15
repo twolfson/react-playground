@@ -14,24 +14,9 @@ module.exports = class PostsApp extends React.Component {
     super(props);
     this.state = {
       err: null,
-      isLoading: false,
-      // TODO: Perform all hydration via single store
-      //   Also data should be normalized, not pre-nested
-      // DEV: PRELOADED_STATE should be keyed by `el.key` not a singleton PostsApp
-      //   but this is a proof of concept
+      isLoading: false
       // TODO: Add test for preloaded element
-      posts: props.posts
-      // isLoading: true,
-      // posts: global.__PRELOADED_STATE__ ? global.__PRELOADED_STATE__.PostsApp.posts : []
     };
-  }
-
-  componentWillMount() {
-    // TODO: Re-enable browser fetching of data
-    // if (!global.__PRELOADED_STATE__) {
-    if (false) {
-      this._fetchData();
-    }
   }
 
   static graphqlQuery = `
@@ -47,6 +32,7 @@ module.exports = class PostsApp extends React.Component {
     }
   `;
 
+  // TODO: Find practical example of data fetching
   _fetchData() {
     // Reset our state
     this.setState({
@@ -104,14 +90,13 @@ module.exports = class PostsApp extends React.Component {
           </div>
         </form>
         <h2>Existing posts</h2>
-        {/* TODO: Load posts dynamically via GraphQL and server-side render that shiz */}
         {this.state.isLoading ? (
           <p>Loading...</p>
         ) : (
-          this.state.posts.length === 0 ? (
+          this.props.posts.length === 0 ? (
             <p>No posts exist yet. Create one via "Create Post"</p>
           ) : (
-            this.state.posts.map((post) => {
+            this.props.posts.map((post) => {
               return (
                 // Ideally this would be a `<p>` but React complains about nesting div's in p's which is fair
                 <div key={post.id} style={{marginBottom: '20px'}}>

@@ -29,7 +29,6 @@ module.exports = class PostsView extends React.Component {
     return (
       <Layout title="react-playground posts">
         <h1>react-playground posts</h1>
-        {/* TODO: Add back our browser script */}
         <div id="main">
           <PostsApp posts={this.props.posts}></PostsApp>
         </div>

@@ -11,5 +11,8 @@ window.addEventListener('DOMContentLoaded', function handleReady () {
   if (!targetEl) { throw new Error('Unable to find our target element'); }
 
   // Output our content
-  ReactDOM.render(<PostsApp />, targetEl);
+  const preloadedState = window.__PRELOADED_STATE__;
+  if (!preloadedState) { throw new Error('Preloaded state wasn\'t defined'); }
+  delete window.__PRELOADED_STATE__;
+  ReactDOM.render(<PostsApp posts={preloadedState.posts} />, targetEl);
 });
