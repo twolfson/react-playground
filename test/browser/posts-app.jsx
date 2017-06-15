@@ -6,6 +6,17 @@ const PostsApp = require('../../browser/js/posts-app');
 const reactUtils = require('./utils/react');
 const xhrUtils = require('./utils/xhr');
 
+// Current strategy and notes
+//   - We want a global store so we can easily manage state for multiple components
+//   - Let's go with Redux as our single store
+//   - It will likely sandwich in or preface this PR unless we find a `props` middleground for now
+//   - On the fence maintenance wise, do we need preloaded state tests?
+//       - Or anything that is redundant between browser/server for the same <PostsApp posts={posts}>?
+//       - Do we need contracts for preloaded state?
+//           - Current thought is basic redundancy between server/browser (empty/full) and edge cases in browser only
+//   - For "fetch" functionality, let's definitely have Redux and add a `state` to posts
+//       - This allows for a `state: pending` which can give us eager saving but UI cues for failure
+
 // Define our tests
 describe('A PostApp component', function () {
   describe('loading content', function () {

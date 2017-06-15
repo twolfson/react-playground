@@ -1,13 +1,6 @@
 // Load in our dependencies
 const React = require('react');
 
-// Server side rendered strategy
-//   - Get server side render working only (remove browser render temporarily)
-//   - Update browser code to recognize existing element as already rendered
-//   - Add usage of same query somehow from browser
-//       Need to figure out how to get child render's query... unless we ignore that?
-//       Maybe skip to using Relay so we have a point of reference
-
 // Define our application component
 module.exports = class PostsApp extends React.Component {
   constructor(props) {
