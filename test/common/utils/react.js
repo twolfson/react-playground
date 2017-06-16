@@ -1,29 +1,38 @@
 // Load in our dependencies
+const assert = require('assert');
+
 const {mount} = require('enzyme');
 
 // Define our test helpers
+exports.init = function (renderFn) {
+  return exports.mount(renderFn);
+};
+
 let loggedDebugNotice = false;
 exports.mount = function (renderFn) {
+  // Verify we aren't in the server
+  assert.notEqual(typeof window, 'undefined',
+    '`reactUtils.mount` is being run in a non-browser context. ' +
+    'Please use `reactUtils.init` instead as we won\'t be running a global document on our server ' +
+    'as that can lead to requests using the same document');
+
+  // Define our mount helpers
   let mountEl;
   before(function runRenderFn () {
-    // Define common browser/server options
-    let mountOptions = {};
-
-    // If we're in the browser, create a fixture entry point
-    if (typeof window !== 'undefined') {
-      mountEl = document.createElement('div');
-      document.body.appendChild(mountEl);
-      mountOptions.attachTo = mountEl;
-    }
+    // Create a fixture entry point
+    mountEl = document.createElement('div');
+    document.body.appendChild(mountEl);
 
     // Render our React component and bind it to the page
-    this.$el = mount(renderFn(), mountOptions);
+    this.$el = mount(renderFn(), {
+      attachTo: mountEl
+    });
   });
 
   after(function cleanup () {
     // Taken from https://github.com/twolfson/multi-image-mergetool/blob/1.32.1/test/browser/utils/application.js#L128-L147
     // If we are on the debug page, expose everything
-    if (typeof window !== 'undefined' && window.location.pathname === '/debug.html')  {
+    if (window.location.pathname === '/debug.html')  {
       // If only 1 test is running, expose everything and stop
       if (window.mocha.options.hasOnly) {
         // eslint-disable-next-line no-console
@@ -45,8 +54,6 @@ exports.mount = function (renderFn) {
     // Perform our cleanup
     this.$el.detach();
     delete this.$el;
-    if (typeof window !== 'undefined') {
-      document.body.removeChild(mountEl);
-    }
+    document.body.removeChild(mountEl);
   });
 };

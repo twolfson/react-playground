@@ -10,7 +10,7 @@ const reactUtils = require('./utils/react');
 // Define our tests
 describe('A PostApp component', function () {
   describe('with no content', function () {
-    reactUtils.mount(function () {
+    reactUtils.init(function () {
       return (<PostsApp {...postsAppEmptyContract} />);
     });
 
@@ -20,7 +20,7 @@ describe('A PostApp component', function () {
   });
 
   describe('with multiple posts and comments', function () {
-    reactUtils.mount(function () {
+    reactUtils.init(function () {
       return (<PostsApp {...postsAppFullContract} />);
     });
 
