@@ -10,7 +10,7 @@ module.exports = {
   // Configure our environment
   // http://eslint.org/docs/user-guide/configuring#specifying-environments
   parser: 'babel-eslint',
-  plugins: ['react'],
+  plugins: ['promise', 'react'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true
@@ -22,11 +22,14 @@ module.exports = {
     mocha: true
   },
 
-  // Set up ES6 and JSX rules
+  // Set up ES6, Promise, and JSX rules
   rules: {
     'no-var': WARN,
     // Ignore `this` related strict mode warnings
     'no-invalid-this': OFF,
+
+    // Register Promise usage
+    'promise/catch-or-return': WARN,
 
     // Register JSX usage of React and variables
     'react/jsx-uses-react': WARN,
