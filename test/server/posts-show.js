@@ -4,11 +4,11 @@ const fs = require('fs');
 
 const {expect} = require('chai');
 
+const PostsApp = require('../../browser/js/posts-app');
 const dbFixtures = require('./utils/db-fixtures');
 const httpUtils = require('./utils/http');
 const serverUtils = require('./utils/server');
 const testUtils = require('./utils/test');
-const PostsApp = require('../../browser/js/posts-app');
 
 // Define our test helper
 const renderUtils = {
