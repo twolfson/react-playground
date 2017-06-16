@@ -30,10 +30,11 @@
     "start": "babel-node bin/react-playground-server",
     "start-develop": "ENV=development nodemon --ignore browser --ignore browser-dist --ignore common -x 'babel-node bin/react-playground-server'",
     "test": "npm run precheck && npm run build && npm run test-server && npm run test-common && npm run lint",
-    "test-common": "npm run test-common-browser-single",
+    "test-common": "npm run test-common-server && npm run test-common-browser-single",
     "test-common-browser-single": "ENV=test karma start --single-run",
     "test-common-browser-continuous": "ENV=test karma start",
     "test-common-browser-debug": "ENV=test karma start --browsers Chrome",
+    "test-common-server": "ENV=test mocha --compilers js:babel-register,jsx:babel-register --reporter dot --recursive test/common",
     "test-server": "ENV=test mocha --compilers js:babel-register --reporter dot --recursive test/server/"
   },
   "dependencies": {

@@ -67,8 +67,14 @@ function extendGraphqlContract(graphqlContract, filepath) {
 // https://webpack.github.io/docs/context.html
 // DEV: To debug files being included, use `test-browser-debug` and view `webpack://` in Dev Tools' Sources
 // DEV: In Browserify, we would include these files upfront via `--require`
-const graphqlContractContext = require.context(
-  '../../test-files/graphql-contracts', true /* Use subdirectories */, /\.(json)$/);
+let graphqlContractContext;
+try {
+  graphqlContractContext = require.context(
+    '../../test-files/graphql-contracts', true /* Use subdirectories */, /\.(json)$/);
+} catch (err) {
+  // Ignore TypeError (Node.js has no `require.context`)
+  graphqlContractContext = {keys: function () { return []; }};
+}
 graphqlContractContext.keys().forEach(function loadFilepath (filepath) {
   // filepath = ./posts-...-200.json
   const graphqlContract = graphqlContractContext(filepath);
