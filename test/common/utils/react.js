@@ -1,11 +1,12 @@
 // Load in our dependencies
 const assert = require('assert');
 
-const {mount} = require('enzyme');
+const {mount, render} = require('enzyme');
 
 // Define our test helpers
 exports.init = function (renderFn) {
-  return exports.mount(renderFn);
+  return typeof window !== 'undefined' ?
+    exports.mount(renderFn) : exports.render(renderFn);
 };
 
 let loggedDebugNotice = false;
@@ -18,8 +19,10 @@ exports.mount = function (renderFn) {
 
   // Define our mount helpers
   let mountEl;
-  before(function runRenderFn () {
+  before(function mountFn () {
     // Create a fixture entry point
+    assert(!this.$el, 'Expected `this.$el` to be undefined but it wasn\'t. ' +
+      'Please only use 1 `reactUtils` at a time');
     mountEl = document.createElement('div');
     document.body.appendChild(mountEl);
 
@@ -55,5 +58,18 @@ exports.mount = function (renderFn) {
     this.$el.detach();
     delete this.$el;
     document.body.removeChild(mountEl);
+  });
+};
+
+exports.render = function (renderFn) {
+  // Define our mount helpers
+  // DEV: Signature should be `1:1` with `mount` so we can use `init`
+  before(function _renderFn () {
+    assert(!this.$el, 'Expected `this.$el` to be undefined but it wasn\'t. ' +
+      'Please only use 1 `reactUtils` at a time');
+    this.$el = render(renderFn());
+  });
+  after(function cleanup () {
+    delete this.$el;
   });
 };
