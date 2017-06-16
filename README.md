@@ -99,14 +99,26 @@ To run our server tests specifically, run:
 yarn run test-server
 ```
 
-To run our browser tests specifically, run:
+To run our common tests specifically (React components shared by browser/server), run:
+
+```bash
+yarn run test-common
+```
+
+To run the server half of common tests, run:
+
+```bash
+yarn run test-common-server
+```
+
+To run the browser half of common tests, run:
 
 ```bash
 # Single run
-yarn run test-browser-single
+yarn run test-common-browser-single
 
 # Continuous mode
-yarn run test-browser-continuous
+yarn run test-common-browser-continuous
 ```
 
 To debug our browser tests:
@@ -114,7 +126,9 @@ To debug our browser tests:
 - Add a `.only` flag to the desired test
     - This will trigger unmounting of the element on our debug page
 - Run our tests in debuggable mode (continuous runs + visible window)
-    - `yarn run test-browser-debug`
+    ```bash
+    yarn run test-common-browser-debug
+    ```
 - Click "Debug" button in Karma
     - New window should have rendered content and Developer Tools can be used
 
