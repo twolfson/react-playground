@@ -2,6 +2,9 @@
 const React = require('react');
 
 // Define our application component
+// TODO: Relocate `isLoading` and similar to an external state (could be Redux or not)
+//   Then demonstrate eager loading via `state` on the post itself (e.g. `pending`)
+//   Then test via a browser only test (e.g. `describe.browser` + GraphQL fixture
 module.exports = class PostsApp extends React.Component {
   constructor(props) {
     super(props);
