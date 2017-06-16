@@ -3,8 +3,9 @@ const {expect} = require('chai');
 const React = require('react');
 
 const PostsApp = require('../../browser/js/posts-app');
+const postsAppEmptyContract = require('../test-files/render-contracts/posts-app-empty.json');
+const postsAppFullContract = require('../test-files/render-contracts/posts-app-full.json');
 const reactUtils = require('./utils/react');
-const xhrUtils = require('./utils/xhr');
 
 // Current strategy and notes
 //   - We want a global store so we can easily manage state for multiple components
@@ -25,41 +26,22 @@ const xhrUtils = require('./utils/xhr');
 
 // Define our tests
 describe('A PostApp component', function () {
-  describe('loading content', function () {
-    xhrUtils.mock([xhrUtils.GRAPHQL_LOADING_ONLY]);
-    reactUtils.mount(function () {
-      return (<PostsApp />);
-    });
-
-    it('renders loading prompt', function () {
-      expect(this.$el.text()).to.contain('Loading...');
-    });
-  });
-
   describe('with no content', function () {
-    xhrUtils.mock([
-      xhrUtils.graphql(['posts-and-comments-empty-200.json'])
-    ]);
     reactUtils.mount(function () {
-      return (<PostsApp />);
+      return (<PostsApp {...postsAppEmptyContract} />);
     });
 
     it('renders call to action for new post', function () {
-      this.sinonServer.respond();
       expect(this.$el.text()).to.contain('No posts exist yet. Create one via "Create Post"');
     });
   });
 
   describe('with multiple posts and comments', function () {
-    xhrUtils.mock([
-      xhrUtils.graphql(['posts-and-comments-full-200.json'])
-    ]);
     reactUtils.mount(function () {
-      return (<PostsApp />);
+      return (<PostsApp {...postsAppFullContract} />);
     });
 
     it('renders posts and comments', function () {
-      this.sinonServer.respond();
       expect(this.$el.text()).to.contain('This is an example post');
       expect(this.$el.text()).to.contain('This is an example comment');
       expect(this.$el.text()).to.contain('This is another example comment');

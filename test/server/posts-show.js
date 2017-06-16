@@ -60,7 +60,7 @@ describe.only('A request to GET /posts', function () {
       // Compare our props and preloaded state to verify they're 1:1 and define their contract
       expect(this.propsArgs[0]).to.deep.equal(preloadedState);
       // TODO: Move contract into a conditional utility (same assert in CI mechanism as other contract)
-      fs.writeFileSync(__dirname + '/../test-files/render-contracts/posts-show-empty.json',
+      fs.writeFileSync(__dirname + '/../test-files/render-contracts/posts-app-empty.json',
         JSON.stringify(preloadedState, null, 2));
     });
   });
@@ -86,7 +86,7 @@ describe.only('A request to GET /posts', function () {
       // Compare our props and preloaded state to verify they're 1:1 and define their contract
       expect(this.propsArgs[0]).to.deep.equal(preloadedState);
       // TODO: Move contract into a conditional utility (same assert in CI mechanism as other contract)
-      fs.writeFileSync(__dirname + '/../test-files/render-contracts/posts-show-full.json',
+      fs.writeFileSync(__dirname + '/../test-files/render-contracts/posts-app-full.json',
         JSON.stringify(preloadedState, null, 2));
     });
   });
