@@ -6,20 +6,24 @@ let loggedDebugNotice = false;
 exports.mount = function (renderFn) {
   let mountEl;
   before(function runRenderFn () {
-    // Create a fixture entry point
-    mountEl = document.createElement('div');
-    document.body.appendChild(mountEl);
+    // Define common browser/server options
+    let mountOptions = {};
+
+    // If we're in the browser, create a fixture entry point
+    if (typeof window !== 'undefined') {
+      mountEl = document.createElement('div');
+      document.body.appendChild(mountEl);
+      mountOptions.attachTo = mountEl;
+    }
 
     // Render our React component and bind it to the page
-    this.$el = mount(renderFn(), {
-      attachTo: mountEl
-    });
+    this.$el = mount(renderFn(), mountOptions);
   });
 
   after(function cleanup () {
     // Taken from https://github.com/twolfson/multi-image-mergetool/blob/1.32.1/test/browser/utils/application.js#L128-L147
     // If we are on the debug page, expose everything
-    if (window.location.pathname === '/debug.html')  {
+    if (typeof window !== 'undefined' && window.location.pathname === '/debug.html')  {
       // If only 1 test is running, expose everything and stop
       if (window.mocha.options.hasOnly) {
         // eslint-disable-next-line no-console
@@ -41,6 +45,8 @@ exports.mount = function (renderFn) {
     // Perform our cleanup
     this.$el.detach();
     delete this.$el;
-    document.body.removeChild(mountEl);
+    if (typeof window !== 'undefined') {
+      document.body.removeChild(mountEl);
+    }
   });
 };
