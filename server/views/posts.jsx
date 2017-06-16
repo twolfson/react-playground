@@ -10,7 +10,9 @@ const PostsApp = require('../../common/components/posts-app');
 module.exports = class PostsView extends React.Component {
   // TODO: Resolve query automatically instead of hardcoding resolution from children
   static graphqlQuery = PostsApp.graphqlQuery;
-  static propTypes = PostsApp.propTypes;
+  static propTypes = {
+    posts: PostsApp.propTypes.posts
+  };
 
   render() {
     return (
