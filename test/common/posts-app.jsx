@@ -2,14 +2,10 @@
 const {expect} = require('chai');
 const React = require('react');
 
-const PostsApp = require('../../browser/js/posts-app');
+const PostsApp = require('../../common/components/posts-app');
 const postsAppEmptyContract = require('../test-files/render-contracts/posts-app-empty.json');
 const postsAppFullContract = require('../test-files/render-contracts/posts-app-full.json');
 const reactUtils = require('./utils/react');
-
-// Updated strategy
-//   - Relocate PostsApp to a `common` folder (including its tests)
-//     and have common browser/server tests with explicit opt-in via `describe.server/describe.browser`
 
 // Define our tests
 describe('A PostApp component', function () {

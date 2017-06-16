@@ -26,7 +26,7 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      {pattern: 'test/browser/*.{js,jsx}', watched: false}
+      {pattern: 'test/common/*.{js,jsx}', watched: false}
     ],
 
     // list of files to exclude
@@ -36,7 +36,7 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/browser/*.{js,jsx}': ['webpack', 'sourcemap']
+      'test/common/*.{js,jsx}': ['webpack', 'sourcemap']
     },
     webpack: webpackConfig,
     webpackMiddleware: {
