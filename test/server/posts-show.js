@@ -5,6 +5,12 @@ const dbFixtures = require('./utils/db-fixtures');
 const httpUtils = require('./utils/http');
 const serverUtils = require('./utils/server');
 const testUtils = require('./utils/test');
+const PostsApp = require('../../browser/js/posts-app');
+const sinon = require('sinon');
+
+console.log(require('react').Component + '')
+const PostsAppRender = sinon.spy(PostsApp.prototype, 'props')
+  .set(function () { console.log('wat', arguments); });
 
 // Start our tests
 describe.only('A request to GET /posts', function () {
@@ -14,7 +20,9 @@ describe.only('A request to GET /posts', function () {
       expectedStatusCode: 200
     });
 
-    it('shows no posts loaded', function () {
+    it('renders PostsApp and outputs the same state', function () {
+      console.log(PostsAppRender.callCount);
+      console.log(PostsAppRender.args);
       expect(this.$('body').text()).to.contain('No posts exist yet. Create one via "Create Post"');
     });
     it('provides browsers state with no posts', function () {
