@@ -1,4 +1,6 @@
 # react-playground changelog
+1.22.1 - Fixed contract issue in Travis CI
+
 1.22.0 - Added common browser/server rendering
 
 1.21.0 - Simplified GraphQL contract loading for browser tests
