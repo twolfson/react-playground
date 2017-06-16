@@ -1,0 +1,23 @@
+{
+  "posts": [
+    {
+      "id": "example-post-uuid",
+      "content": "This is an example post",
+      "comments": [
+        {
+          "id": "example-comment-uuid",
+          "content": "This is an example comment"
+        },
+        {
+          "id": "example-comment-another-uuid",
+          "content": "This is another example comment"
+        }
+      ]
+    },
+    {
+      "id": "example-post-another-uuid",
+      "content": "This is another example post",
+      "comments": []
+    }
+  ]
+}
