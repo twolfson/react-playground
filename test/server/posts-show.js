@@ -39,7 +39,7 @@ const renderUtils = {
 };
 
 // Start our tests
-describe.only('A request to GET /posts', function () {
+describe('A request to GET /posts', function () {
   describe('with an empty set of posts', function () {
     renderUtils.spyProps(PostsApp);
     httpUtils.save({
