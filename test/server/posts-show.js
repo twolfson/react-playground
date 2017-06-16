@@ -41,6 +41,7 @@ const renderUtils = {
 // Start our tests
 describe('A request to GET /posts', function () {
   describe('with an empty set of posts', function () {
+    testUtils.setFixtures([]);
     renderUtils.spyProps(PostsApp);
     httpUtils.save({
       url: serverUtils.getUrl('/posts'),
