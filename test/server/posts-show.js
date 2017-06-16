@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const {expect} = require('chai');
 
-const PostsApp = require('../../browser/js/posts-app');
+const PostsApp = require('../../common/components/posts-app');
 const dbFixtures = require('./utils/db-fixtures');
 const httpUtils = require('./utils/http');
 const serverUtils = require('./utils/server');
