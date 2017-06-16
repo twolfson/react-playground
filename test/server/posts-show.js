@@ -1,4 +1,6 @@
 // Load in dependencies
+const assert = require('assert');
+
 const {expect} = require('chai');
 
 const dbFixtures = require('./utils/db-fixtures');
@@ -6,11 +8,35 @@ const httpUtils = require('./utils/http');
 const serverUtils = require('./utils/server');
 const testUtils = require('./utils/test');
 const PostsApp = require('../../browser/js/posts-app');
-const sinon = require('sinon');
 
-console.log(require('react').Component + '')
-const PostsAppRender = sinon.spy(PostsApp.prototype, 'props')
-  .set(function () { console.log('wat', arguments); });
+// Define our test helper
+const renderUtils = {
+  swapProps: function (Component) {
+    before(function swapPropsFn () {
+      // Define our location to save props
+      assert.strictEqual(this.propsSetCount, undefined,
+        'Expected `renderUtils.swapProps` to not be called multiple times but it was');
+      this.propsSetCount = 0;
+
+      // Define our props get/set hooks
+      const that = this;
+      Object.defineProperty(Component.prototype, 'props', {
+        get: function () {
+          return that.props;
+        },
+        set: function (_props) {
+          that.propsSetCount += 1;
+          that.props = _props;
+        }
+      });
+    });
+    after(function cleanup () {
+      delete PostsApp.prototype.props;
+      delete this.props;
+      delete this.propsSetCount;
+    });
+  }
+};
 
 // Start our tests
 describe.only('A request to GET /posts', function () {
@@ -21,8 +47,6 @@ describe.only('A request to GET /posts', function () {
     });
 
     it('renders PostsApp and outputs the same state', function () {
-      console.log(PostsAppRender.callCount);
-      console.log(PostsAppRender.args);
       expect(this.$('body').text()).to.contain('No posts exist yet. Create one via "Create Post"');
     });
     it('provides browsers state with no posts', function () {
