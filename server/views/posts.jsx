@@ -5,8 +5,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 
 const Layout = require('./components/layout');
-// TODO: Move shared components to `common`/`shared`/`browser/server` folder
-const PostsApp = require('../../browser/js/posts-app');
+const PostsApp = require('../../common/components/posts-app');
 
 // Export our view
 module.exports = class PostsView extends React.Component {

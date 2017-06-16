@@ -5,13 +5,13 @@ const React = require('react');
 // TODO: Relocate `isLoading` and similar to an external state (could be Redux or not)
 //   Then demonstrate eager loading via `state` on the post itself (e.g. `pending`)
 //   Then test via a browser only test (e.g. `describe.browser` + GraphQL fixture
+//   Also cleanup state getters/setters when this is all said and done
 module.exports = class PostsApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       err: null,
       isLoading: false
-      // TODO: Add test for preloaded element
     };
   }
 
@@ -28,7 +28,6 @@ module.exports = class PostsApp extends React.Component {
     }
   `;
 
-  // TODO: Find practical example of data fetching
   _fetchData() {
     // Reset our state
     this.setState({

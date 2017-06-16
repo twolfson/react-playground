@@ -2,7 +2,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-const PostsApp = require('./posts-app');
+const PostsApp = require('../../common/components/posts-app');
 
 // When our page loads
 window.addEventListener('DOMContentLoaded', function handleReady () {
