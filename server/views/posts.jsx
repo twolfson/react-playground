@@ -15,6 +15,7 @@ module.exports = class PostsView extends React.Component {
   static graphqlQuery = PostsApp.graphqlQuery;
   static propTypes = {
     // TODO: Automatically generate proptypes from graphqlQuery?
+    // TODO: Pull proptypes from `PostsApp` component
     posts: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,

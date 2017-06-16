@@ -17,6 +17,12 @@ const xhrUtils = require('./utils/xhr');
 //   - For "fetch" functionality, let's definitely have Redux and add a `state` to posts
 //       - This allows for a `state: pending` which can give us eager saving but UI cues for failure
 
+// Updated strategy
+//   - Relocate PostsApp to a `common` folder (including its tests)
+//     and have common browser/server tests with explicit opt-in via `describe.server/describe.browser`
+//   - Move to server test being that `window.__PRELOADED_STATE__` === `render` state
+//     Then, make that state a contract for our common tests
+
 // Define our tests
 describe('A PostApp component', function () {
   describe('loading content', function () {
