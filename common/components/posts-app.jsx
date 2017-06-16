@@ -1,5 +1,6 @@
 // Load in our dependencies
 const React = require('react');
+const PropTypes = require('prop-types');
 
 // Define our application component
 // TODO: Relocate `isLoading` and similar to an external state (could be Redux or not)
@@ -14,6 +15,18 @@ module.exports = class PostsApp extends React.Component {
       isLoading: false
     };
   }
+
+  // TODO: Automatically generate proptypes from graphqlQuery?
+  static propTypes = {
+    posts: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      comments: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired
+      }))
+    })).isRequired
+  };
 
   static graphqlQuery = `
     query {
